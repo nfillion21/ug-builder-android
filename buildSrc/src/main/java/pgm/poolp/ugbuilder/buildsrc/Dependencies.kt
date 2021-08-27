@@ -1,6 +1,6 @@
 package pgm.poolp.ugbuilder.buildsrc
 
-object Versions2 {
+object Versions {
     const val ktlint = "0.41.0"
 }
 

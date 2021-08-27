@@ -14,6 +14,6 @@
   -->
 <resources>
 
-    <style name="Theme.Material.DayNight.NoActionBar" parent="@android:style/Theme.Material.NoActionBar" />
+    <color name="nav_bar">@android:color/transparent</color>
 
 </resources>
