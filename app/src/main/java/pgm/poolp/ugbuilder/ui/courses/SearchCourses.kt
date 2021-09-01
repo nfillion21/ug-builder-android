@@ -30,19 +30,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
 import pgm.poolp.ugbuilder.R
-import pgm.poolp.ugbuilder.model.Topic
-import pgm.poolp.ugbuilder.model.topics
+import pgm.poolp.ugbuilder.model.Team
+import pgm.poolp.ugbuilder.model.teams
 import pgm.poolp.ugbuilder.ui.theme.BlueTheme
 
 @Composable
 fun SearchCourses(
-    topics: List<Topic>,
+    teams: List<Team>,
     modifier: Modifier = Modifier
 ) {
     val (searchTerm, updateSearchTerm) = remember { mutableStateOf(TextFieldValue("")) }
     LazyColumn(modifier = modifier.statusBarsPadding()) {
         item { AppBar(searchTerm, updateSearchTerm) }
-        val filteredTopics = getTopics(searchTerm.text, topics)
+        val filteredTopics = getTopics(searchTerm.text, teams)
         items(filteredTopics) { topic ->
             Text(
                 text = topic.name,
@@ -67,12 +67,12 @@ fun SearchCourses(
  */
 private fun getTopics(
     searchTerm: String,
-    topics: List<Topic>
-): List<Topic> {
+    teams: List<Team>
+): List<Team> {
     return if (searchTerm != "") {
-        topics.filter { it.name.contains(searchTerm, ignoreCase = true) }
+        teams.filter { it.name.contains(searchTerm, ignoreCase = true) }
     } else {
-        topics
+        teams
     }
 }
 
@@ -119,6 +119,6 @@ private fun AppBar(
 @Composable
 private fun FeaturedCoursesPreview() {
     BlueTheme {
-        SearchCourses(topics, Modifier)
+        SearchCourses(teams, Modifier)
     }
 }

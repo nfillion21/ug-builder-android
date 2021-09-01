@@ -47,14 +47,13 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import pgm.poolp.ugbuilder.R
-import pgm.poolp.ugbuilder.model.Topic
-import pgm.poolp.ugbuilder.model.topics
+import pgm.poolp.ugbuilder.model.Team
+import pgm.poolp.ugbuilder.model.teams
 import pgm.poolp.ugbuilder.ui.theme.UGBuilderTheme
 import pgm.poolp.ugbuilder.ui.theme.YellowTheme
 import pgm.poolp.ugbuilder.ui.theme.pink500
@@ -87,7 +86,7 @@ fun Onboarding(onboardingComplete: () -> Unit) {
                     .padding(innerPadding)
             ) {
                 Text(
-                    text = stringResource(R.string.choose_topics_that_interest_you),
+                    text = stringResource(R.string.choose_teams_that_interest_you),
                     style = MaterialTheme.typography.h4,
                     textAlign = TextAlign.End,
                     modifier = Modifier.padding(
@@ -139,8 +138,8 @@ private fun TopicsGrid(modifier: Modifier = Modifier) {
             .horizontalScroll(rememberScrollState())
             .padding(horizontal = 8.dp)
     ) {
-        topics.forEach { topic ->
-            TopicChip(topic = topic)
+        teams.forEach { topic ->
+            TeamChip(team = topic)
         }
     }
 }
@@ -150,7 +149,7 @@ private enum class SelectionState { Unselected, Selected }
 /**
  * Class holding animating values when transitioning topic chip states.
  */
-private class TopicChipTransition(
+private class TeamChipTransition(
     cornerRadius: State<Dp>,
     selectedAlpha: State<Float>,
     checkScale: State<Float>
@@ -161,7 +160,7 @@ private class TopicChipTransition(
 }
 
 @Composable
-private fun topicChipTransition(topicSelected: Boolean): TopicChipTransition {
+private fun teamChipTransition(topicSelected: Boolean): TeamChipTransition {
     val transition = updateTransition(
         targetState = if (topicSelected) SelectionState.Selected else SelectionState.Unselected
     )
@@ -184,54 +183,54 @@ private fun topicChipTransition(topicSelected: Boolean): TopicChipTransition {
         }
     }
     return remember(transition) {
-        TopicChipTransition(corerRadius, selectedAlpha, checkScale)
+        TeamChipTransition(corerRadius, selectedAlpha, checkScale)
     }
 }
 
 @Composable
-private fun TopicChip(topic: Topic) {
+private fun TeamChip(team: Team) {
     val (selected, onSelected) = remember { mutableStateOf(false) }
-    val topicChipTransitionState = topicChipTransition(selected)
+    val teamChipTransitionState = teamChipTransition(selected)
 
     Surface(
         modifier = Modifier.padding(4.dp),
         elevation = UGBuilderTheme.elevations.card,
         shape = MaterialTheme.shapes.medium.copy(
             topStart = CornerSize(
-                topicChipTransitionState.cornerRadius
+                teamChipTransitionState.cornerRadius
             )
         )
     ) {
         Row(modifier = Modifier.toggleable(value = selected, onValueChange = onSelected)) {
             Box {
                 NetworkImage(
-                    url = topic.imageUrl,
+                    url = team.imageUrl,
                     contentDescription = null,
                     modifier = Modifier
                         .size(width = 72.dp, height = 72.dp)
                         .aspectRatio(1f)
                 )
-                if (topicChipTransitionState.selectedAlpha > 0f) {
+                if (teamChipTransitionState.selectedAlpha > 0f) {
                     Surface(
-                        color = pink500.copy(alpha = topicChipTransitionState.selectedAlpha),
+                        color = pink500.copy(alpha = teamChipTransitionState.selectedAlpha),
                         modifier = Modifier.matchParentSize()
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Done,
                             contentDescription = null,
                             tint = MaterialTheme.colors.onPrimary.copy(
-                                alpha = topicChipTransitionState.selectedAlpha
+                                alpha = teamChipTransitionState.selectedAlpha
                             ),
                             modifier = Modifier
                                 .wrapContentSize()
-                                .scale(topicChipTransitionState.checkScale)
+                                .scale(teamChipTransitionState.checkScale)
                         )
                     }
                 }
             }
             Column {
                 Text(
-                    text = topic.name,
+                    text = team.name,
                     style = MaterialTheme.typography.body1,
                     modifier = Modifier.padding(
                         start = 16.dp,
@@ -250,7 +249,7 @@ private fun TopicChip(topic: Topic) {
                                 .size(12.dp)
                         )
                         Text(
-                            text = topic.courses.toString(),
+                            text = team.courses.toString(),
                             style = MaterialTheme.typography.caption,
                             modifier = Modifier.padding(start = 8.dp)
                         )
@@ -312,6 +311,7 @@ private fun StaggeredGrid(
     }
 }
 
+/*
 @Preview(name = "Onboarding")
 @Composable
 private fun OnboardingPreview() {
@@ -322,6 +322,7 @@ private fun OnboardingPreview() {
 @Composable
 private fun TopicChipPreview() {
     YellowTheme {
-        TopicChip(topics.first())
+        TeamChip(teams.first())
     }
 }
+*/

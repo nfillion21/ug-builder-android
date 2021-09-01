@@ -23,7 +23,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import pgm.poolp.ugbuilder.R
-import pgm.poolp.ugbuilder.model.topics
+import pgm.poolp.ugbuilder.model.teams
 import pgm.poolp.ugbuilder.model.courses
 import pgm.poolp.ugbuilder.ui.MainDestinations
 
@@ -56,7 +56,7 @@ fun NavGraphBuilder.courses(
         )
     }
     composable(CourseTabs.SEARCH.route) {
-        SearchCourses(topics, modifier)
+        SearchCourses(teams, modifier)
     }
 }
 
