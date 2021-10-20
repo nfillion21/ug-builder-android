@@ -24,7 +24,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.model.teams
-import pgm.poolp.ugbuilder.model.courses
 import pgm.poolp.ugbuilder.ui.MainDestinations
 
 fun NavGraphBuilder.buildSections(
@@ -33,6 +32,7 @@ fun NavGraphBuilder.buildSections(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
+    /*
     composable(CourseTabs.FEATURED.route) { from ->
         // Show onboarding instead if not shown yet.
         LaunchedEffect(onboardingComplete) {
@@ -55,7 +55,32 @@ fun NavGraphBuilder.buildSections(
             modifier
         )
     }
-    composable(CourseTabs.SEARCH.route) {
+    */
+    composable(BuilderSectionsTabs.SEARCH.route) {
+        SearchCourses(teams, modifier)
+    }
+
+    composable(BuilderSectionsTabs.OREO.route) {
+
+        LaunchedEffect(onboardingComplete) {
+            if (!onboardingComplete.value) {
+                navController.navigate(MainDestinations.ONBOARDING_ROUTE)
+            }
+        }
+        if (onboardingComplete.value)
+        { // Avoid glitch when showing onboarding
+            /*
+            FeaturedCourses(
+                courses = courses,
+                selectCourse = { id -> onCourseSelected(id, from) },
+                modifier = modifier
+            )
+            */
+            SearchCourses(teams, modifier)
+        }
+    }
+
+    composable(BuilderSectionsTabs.CART.route) {
         SearchCourses(teams, modifier)
     }
 }
@@ -85,13 +110,13 @@ fun CoursesAppBar() {
     }
 }
 
-enum class CourseTabs(
+enum class BuilderSectionsTabs(
     @StringRes val title: Int,
     @DrawableRes val icon: Int,
     val route: String
 ) {
-    MY_COURSES(R.string.my_courses, R.drawable.ic_grain, BuilderSections.MY_COURSES_ROUTE),
-    FEATURED(R.string.featured, R.drawable.ic_featured, BuilderSections.FEATURED_ROUTE),
+    //MY_COURSES(R.string.my_courses, R.drawable.ic_grain, BuilderSections.MY_COURSES_ROUTE),
+    //FEATURED(R.string.featured, R.drawable.ic_featured, BuilderSections.FEATURED_ROUTE),
     SEARCH(R.string.search, R.drawable.ic_search, BuilderSections.SEARCH_ROUTE),
     OREO(R.string.oreo, R.drawable.ic_featured, BuilderSections.OREO_ROUTE),
     CART(R.string.cart, R.drawable.ic_search, BuilderSections.CART_ROUTE)
@@ -101,8 +126,8 @@ enum class CourseTabs(
  * Destinations used in the ([OwlApp]).
  */
 private object BuilderSections {
-    const val FEATURED_ROUTE = "builder/featured"
-    const val MY_COURSES_ROUTE = "builder/my"
+    //const val FEATURED_ROUTE = "builder/featured"
+    //const val MY_COURSES_ROUTE = "builder/my"
     const val SEARCH_ROUTE = "builder/search"
     const val OREO_ROUTE = "builder/oreo"
     const val CART_ROUTE = "builder/cart"

@@ -22,7 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
-import pgm.poolp.ugbuilder.ui.courses.CourseTabs
+import pgm.poolp.ugbuilder.ui.courses.BuilderSectionsTabs
 import pgm.poolp.ugbuilder.ui.theme.BlueTheme
 import java.util.Locale
 
@@ -30,13 +30,13 @@ import java.util.Locale
 fun UGBuilderApp(finishActivity: () -> Unit) {
     ProvideWindowInsets {
         BlueTheme {
-            val tabs = remember { CourseTabs.values() }
+            val tabs = remember { BuilderSectionsTabs.values() }
             val navController = rememberNavController()
             Scaffold(
                 backgroundColor = MaterialTheme.colors.primarySurface,
                 bottomBar = { OwlBottomBar(navController = navController, tabs) }
             ) { innerPaddingModifier ->
-                NavGraph(
+                BuilderNavGraph(
                     finishActivity = finishActivity,
                     navController = navController,
                     modifier = Modifier.padding(innerPaddingModifier)
@@ -47,13 +47,13 @@ fun UGBuilderApp(finishActivity: () -> Unit) {
 }
 
 @Composable
-fun OwlBottomBar(navController: NavController, tabs: Array<CourseTabs>) {
+fun OwlBottomBar(navController: NavController, tabs: Array<BuilderSectionsTabs>) {
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-        ?: CourseTabs.FEATURED.route
+        ?: BuilderSectionsTabs.OREO.route
 
-    val routes = remember { CourseTabs.values().map { it.route } }
+    val routes = remember { BuilderSectionsTabs.values().map { it.route } }
     if (currentRoute in routes) {
         BottomNavigation(
             Modifier.navigationBarsHeight(additional = 56.dp)

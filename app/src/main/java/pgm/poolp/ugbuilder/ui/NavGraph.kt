@@ -14,10 +14,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import pgm.poolp.ugbuilder.ui.MainDestinations.COURSE_DETAIL_ID_KEY
+import pgm.poolp.ugbuilder.ui.MainDestinations.PLAYER_DETAIL_ID_KEY
 import pgm.poolp.ugbuilder.ui.course.CourseDetails
 import pgm.poolp.ugbuilder.ui.courses.buildSections
-import pgm.poolp.ugbuilder.ui.courses.CourseTabs
+import pgm.poolp.ugbuilder.ui.courses.BuilderSectionsTabs
 import pgm.poolp.ugbuilder.ui.onboarding.Onboarding
 
 /**
@@ -25,17 +25,17 @@ import pgm.poolp.ugbuilder.ui.onboarding.Onboarding
  */
 object MainDestinations {
     const val ONBOARDING_ROUTE = "onboarding"
-    const val COURSES_ROUTE = "courses"
-    const val COURSE_DETAIL_ROUTE = "course"
-    const val COURSE_DETAIL_ID_KEY = "courseId"
+    const val PLAYERS_ROUTE = "players"
+    const val PLAYER_DETAIL_ROUTE = "player"
+    const val PLAYER_DETAIL_ID_KEY = "playerId"
 }
 
 @Composable
-fun NavGraph(
+fun BuilderNavGraph(
     modifier: Modifier = Modifier,
     finishActivity: () -> Unit = {},
     navController: NavHostController = rememberNavController(),
-    startDestination: String = MainDestinations.COURSES_ROUTE,
+    startDestination: String = MainDestinations.PLAYERS_ROUTE,
     showOnboardingInitially: Boolean = true
 ) {
     // Onboarding could be read from shared preferences.
@@ -64,8 +64,8 @@ fun NavGraph(
             )
         }
         navigation(
-            route = MainDestinations.COURSES_ROUTE,
-            startDestination = CourseTabs.FEATURED.route
+            route = MainDestinations.PLAYERS_ROUTE,
+            startDestination = BuilderSectionsTabs.OREO.route
         ) {
             buildSections(
                 onCourseSelected = actions.openCourse,
@@ -75,13 +75,13 @@ fun NavGraph(
             )
         }
         composable(
-            "${MainDestinations.COURSE_DETAIL_ROUTE}/{$COURSE_DETAIL_ID_KEY}",
+            "${MainDestinations.PLAYER_DETAIL_ROUTE}/{$PLAYER_DETAIL_ID_KEY}",
             arguments = listOf(
-                navArgument(COURSE_DETAIL_ID_KEY) { type = NavType.LongType }
+                navArgument(PLAYER_DETAIL_ID_KEY) { type = NavType.LongType }
             )
         ) { backStackEntry: NavBackStackEntry ->
             val arguments = requireNotNull(backStackEntry.arguments)
-            val currentCourseId = arguments.getLong(COURSE_DETAIL_ID_KEY)
+            val currentCourseId = arguments.getLong(PLAYER_DETAIL_ID_KEY)
             CourseDetails(
                 courseId = currentCourseId,
                 selectCourse = { newCourseId ->
@@ -105,7 +105,7 @@ class MainActions(navController: NavHostController) {
     val openCourse = { newCourseId: Long, from: NavBackStackEntry ->
         // In order to discard duplicated navigation events, we check the Lifecycle
         if (from.lifecycleIsResumed()) {
-            navController.navigate("${MainDestinations.COURSE_DETAIL_ROUTE}/$newCourseId")
+            navController.navigate("${MainDestinations.PLAYER_DETAIL_ROUTE}/$newCourseId")
         }
     }
 
@@ -113,7 +113,7 @@ class MainActions(navController: NavHostController) {
     val relatedCourse = { newCourseId: Long, from: NavBackStackEntry ->
         // In order to discard duplicated navigation events, we check the Lifecycle
         if (from.lifecycleIsResumed()) {
-            navController.navigate("${MainDestinations.COURSE_DETAIL_ROUTE}/$newCourseId")
+            navController.navigate("${MainDestinations.PLAYER_DETAIL_ROUTE}/$newCourseId")
         }
     }
 
