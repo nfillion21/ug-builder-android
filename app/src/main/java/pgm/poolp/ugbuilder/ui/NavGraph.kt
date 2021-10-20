@@ -16,7 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import pgm.poolp.ugbuilder.ui.MainDestinations.COURSE_DETAIL_ID_KEY
 import pgm.poolp.ugbuilder.ui.course.CourseDetails
-import pgm.poolp.ugbuilder.ui.courses.courses
+import pgm.poolp.ugbuilder.ui.courses.buildSections
 import pgm.poolp.ugbuilder.ui.courses.CourseTabs
 import pgm.poolp.ugbuilder.ui.onboarding.Onboarding
 
@@ -67,7 +67,7 @@ fun NavGraph(
             route = MainDestinations.COURSES_ROUTE,
             startDestination = CourseTabs.FEATURED.route
         ) {
-            courses(
+            buildSections(
                 onCourseSelected = actions.openCourse,
                 onboardingComplete = onboardingComplete,
                 navController = navController,

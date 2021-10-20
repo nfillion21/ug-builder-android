@@ -94,7 +94,7 @@ fun Onboarding(onboardingComplete: () -> Unit) {
                         vertical = 32.dp
                     )
                 )
-                TopicsGrid(
+                TeamsGrid(
                     modifier = Modifier
                         .weight(1f)
                         .wrapContentHeight()
@@ -132,7 +132,7 @@ private fun AppBar() {
 }
 
 @Composable
-private fun TopicsGrid(modifier: Modifier = Modifier) {
+private fun TeamsGrid(modifier: Modifier = Modifier) {
     StaggeredGrid(
         modifier = modifier
             .horizontalScroll(rememberScrollState())

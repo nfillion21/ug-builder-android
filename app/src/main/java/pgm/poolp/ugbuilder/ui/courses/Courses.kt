@@ -27,7 +27,7 @@ import pgm.poolp.ugbuilder.model.teams
 import pgm.poolp.ugbuilder.model.courses
 import pgm.poolp.ugbuilder.ui.MainDestinations
 
-fun NavGraphBuilder.courses(
+fun NavGraphBuilder.buildSections(
     onCourseSelected: (Long, NavBackStackEntry) -> Unit,
     onboardingComplete: State<Boolean>, // https://issuetracker.google.com/174783110
     navController: NavHostController,
@@ -90,16 +90,20 @@ enum class CourseTabs(
     @DrawableRes val icon: Int,
     val route: String
 ) {
-    MY_COURSES(R.string.my_courses, R.drawable.ic_grain, CoursesDestinations.MY_COURSES_ROUTE),
-    FEATURED(R.string.featured, R.drawable.ic_featured, CoursesDestinations.FEATURED_ROUTE),
-    SEARCH(R.string.search, R.drawable.ic_search, CoursesDestinations.SEARCH_COURSES_ROUTE)
+    MY_COURSES(R.string.my_courses, R.drawable.ic_grain, BuilderSections.MY_COURSES_ROUTE),
+    FEATURED(R.string.featured, R.drawable.ic_featured, BuilderSections.FEATURED_ROUTE),
+    SEARCH(R.string.search, R.drawable.ic_search, BuilderSections.SEARCH_ROUTE),
+    OREO(R.string.oreo, R.drawable.ic_featured, BuilderSections.OREO_ROUTE),
+    CART(R.string.cart, R.drawable.ic_search, BuilderSections.CART_ROUTE)
 }
 
 /**
  * Destinations used in the ([OwlApp]).
  */
-private object CoursesDestinations {
-    const val FEATURED_ROUTE = "courses/featured"
-    const val MY_COURSES_ROUTE = "courses/my"
-    const val SEARCH_COURSES_ROUTE = "courses/search"
+private object BuilderSections {
+    const val FEATURED_ROUTE = "builder/featured"
+    const val MY_COURSES_ROUTE = "builder/my"
+    const val SEARCH_ROUTE = "builder/search"
+    const val OREO_ROUTE = "builder/oreo"
+    const val CART_ROUTE = "builder/cart"
 }
