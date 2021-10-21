@@ -24,7 +24,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.model.teams
-import pgm.poolp.ugbuilder.ui.MainDestinations
+import pgm.poolp.ugbuilder.ui.MainRoutes
 
 fun NavGraphBuilder.buildSections(
     onCourseSelected: (Long, NavBackStackEntry) -> Unit,
@@ -60,11 +60,16 @@ fun NavGraphBuilder.buildSections(
         SearchCourses(teams, modifier)
     }
 
+    composable(BuilderSectionsTabs.OREO.route) { from ->
+        //Feed(onSnackClick = { id -> onSnackSelected(id, from) }, modifier)
+        Feed(modifier)
+    }
+
     composable(BuilderSectionsTabs.OREO.route) {
 
         LaunchedEffect(onboardingComplete) {
             if (!onboardingComplete.value) {
-                navController.navigate(MainDestinations.ONBOARDING_ROUTE)
+                navController.navigate(MainRoutes.ONBOARDING_ROUTE)
             }
         }
         if (onboardingComplete.value)
@@ -76,7 +81,7 @@ fun NavGraphBuilder.buildSections(
                 modifier = modifier
             )
             */
-            SearchCourses(teams, modifier)
+            Feed(modifier)
         }
     }
 
