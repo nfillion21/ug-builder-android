@@ -62,7 +62,7 @@ fun NavGraphBuilder.buildSections(
 
     composable(BuilderSectionsTabs.OREO.route) { from ->
         //Feed(onSnackClick = { id -> onSnackSelected(id, from) }, modifier)
-        Feed(modifier)
+        Oreo(modifier)
     }
 
     composable(BuilderSectionsTabs.OREO.route) {
@@ -81,7 +81,7 @@ fun NavGraphBuilder.buildSections(
                 modifier = modifier
             )
             */
-            Feed(modifier)
+            Oreo(modifier)
         }
     }
 

@@ -33,14 +33,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.model.CollectionType
-import pgm.poolp.ugbuilder.model.Snack
-import pgm.poolp.ugbuilder.model.SnackCollection
+import pgm.poolp.ugbuilder.model.Player
+import pgm.poolp.ugbuilder.model.PlayerCollection
 import pgm.poolp.ugbuilder.ui.theme.*
 import pgm.poolp.ugbuilder.ui.utils.mirroringIcon
 
@@ -55,12 +54,12 @@ private val gradientWidth
     }
 
 @Composable
-fun SnackCollection(
-    snackCollection: SnackCollection,
+fun PlayerCollection(
+        playerCollection: PlayerCollection,
     //onSnackClick: (Long) -> Unit,
-    modifier: Modifier = Modifier,
-    index: Int = 0,
-    highlight: Boolean = true
+        modifier: Modifier = Modifier,
+        index: Int = 0,
+        highlight: Boolean = true
 ) {
     Column(modifier = modifier) {
         Row(
@@ -70,7 +69,7 @@ fun SnackCollection(
                 .padding(start = 24.dp)
         ) {
             Text(
-                text = snackCollection.name,
+                text = playerCollection.name,
                 style = MaterialTheme.typography.h6,
                 color = UGBuilderTheme.colors.primary,
                 maxLines = 1,
@@ -93,20 +92,20 @@ fun SnackCollection(
                 )
             }
         }
-        if (highlight && snackCollection.type == CollectionType.Highlight) {
-            HighlightedSnacks(index, snackCollection.snacks/*, onSnackClick*/)
+        if (highlight && playerCollection.type == CollectionType.Highlight) {
+            HighlightedSnacks(index, playerCollection.players/*, onSnackClick*/)
         } else {
-            Snacks(snackCollection.snacks/*, onSnackClick*/)
+            Players(playerCollection.players/*, onSnackClick*/)
         }
     }
 }
 
 @Composable
 private fun HighlightedSnacks(
-    index: Int,
-    snacks: List<Snack>,
+        index: Int,
+        players: List<Player>,
     //onSnackClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
+        modifier: Modifier = Modifier
 ) {
     val scroll = rememberScrollState(0)
     val gradient = when ((index / 2) % 2) {
@@ -122,8 +121,8 @@ private fun HighlightedSnacks(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(start = 24.dp, end = 24.dp)
     ) {
-        itemsIndexed(snacks) { index, snack ->
-            HighlightSnackItem(
+        itemsIndexed(players) { index, snack ->
+            HighlightPlayerItem(
                 snack,
                 //onSnackClick,
                 index,
@@ -136,10 +135,10 @@ private fun HighlightedSnacks(
 }
 
 @Composable
-private fun Snacks(
-    snacks: List<Snack>,
+private fun Players(
+        players: List<Player>,
     //onSnackClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
+        modifier: Modifier = Modifier
 ) {
     LazyRow(
         modifier = modifier,
@@ -155,9 +154,9 @@ private fun Snacks(
 
 @Composable
 fun SnackItem(
-    snack: Snack,
+        player: Player,
     //onSnackClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
+        modifier: Modifier = Modifier
 ) {
     JetsnackSurface(
         shape = MaterialTheme.shapes.medium,
@@ -173,14 +172,14 @@ fun SnackItem(
                 .clickable(onClick = { /*onSnackClick(snack.id)*/ })
                 .padding(8.dp)
         ) {
-            SnackImage(
-                imageUrl = snack.imageUrl,
+            PlayerImage(
+                imageUrl = player.imageUrl,
                 elevation = 4.dp,
                 contentDescription = null,
                 modifier = Modifier.size(120.dp)
             )
             Text(
-                text = snack.name,
+                text = player.name,
                 style = MaterialTheme.typography.subtitle1,
                 color = UGBuilderTheme.colors.primary,
                 modifier = Modifier.padding(top = 8.dp)
@@ -190,14 +189,14 @@ fun SnackItem(
 }
 
 @Composable
-private fun HighlightSnackItem(
-    snack: Snack,
+private fun HighlightPlayerItem(
+        player: Player,
     //onSnackClick: (Long) -> Unit,
-    index: Int,
-    gradient: List<Color>,
-    gradientWidth: Float,
-    scroll: Int,
-    modifier: Modifier = Modifier
+        index: Int,
+        gradient: List<Color>,
+        gradientWidth: Float,
+        scroll: Int,
+        modifier: Modifier = Modifier
 ) {
     val left = index * with(LocalDensity.current) {
         (HighlightCardWidth + HighlightCardPadding).toPx()
@@ -227,8 +226,8 @@ private fun HighlightSnackItem(
                         .fillMaxWidth()
                         .offsetGradientBackground(gradient, gradientWidth, gradientOffset)
                 )
-                SnackImage(
-                    imageUrl = snack.imageUrl,
+                PlayerImage(
+                    imageUrl = player.imageUrl,
                     contentDescription = null,
                     modifier = Modifier
                         .size(120.dp)
@@ -237,7 +236,7 @@ private fun HighlightSnackItem(
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = snack.name,
+                text = player.name,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.h6,
@@ -246,7 +245,7 @@ private fun HighlightSnackItem(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = snack.tagline,
+                text = player.tagline,
                 style = MaterialTheme.typography.body1,
                 color = UGBuilderTheme.colors.primary,
                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -256,7 +255,7 @@ private fun HighlightSnackItem(
 }
 
 @Composable
-fun SnackImage(
+fun PlayerImage(
     imageUrl: String,
     contentDescription: String?,
     modifier: Modifier = Modifier,

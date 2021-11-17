@@ -11,22 +11,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsHeight
 import pgm.poolp.ugbuilder.model.Filter
-import pgm.poolp.ugbuilder.model.SnackCollection
-import pgm.poolp.ugbuilder.model.SnackRepo
+import pgm.poolp.ugbuilder.model.PlayerCollection
+import pgm.poolp.ugbuilder.model.PlayerRepo
 import pgm.poolp.ugbuilder.ui.components.FilterBar
 import pgm.poolp.ugbuilder.ui.components.JetsnackSurface
-import pgm.poolp.ugbuilder.ui.components.SnackCollection
+import pgm.poolp.ugbuilder.ui.components.PlayerCollection
 import pgm.poolp.ugbuilder.ui.components.UGBuilderDivider
 
 @Composable
-fun Feed(
+fun Oreo(
     //onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val snackCollections = remember { SnackRepo.getSnacks() }
-    val filters = remember { SnackRepo.getFilters() }
-    Feed(
-        snackCollections,
+    val playerCollections = remember { PlayerRepo.getPlayers() }
+    val filters = remember { PlayerRepo.getFilters() }
+    Oreo(
+        playerCollections,
         filters,
         //onSnackClick,
         modifier
@@ -34,23 +34,23 @@ fun Feed(
 }
 
 @Composable
-private fun Feed(
-    snackCollections: List<SnackCollection>,
+private fun Oreo(
+    playerCollections: List<PlayerCollection>,
     filters: List<Filter>,
     //onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     JetsnackSurface(modifier = modifier.fillMaxSize()) {
         Box {
-            SnackCollectionList(snackCollections, filters)//, onSnackClick)
+            playerCollectionList(playerCollections, filters)//, onSnackClick)
             //DestinationBar()
         }
     }
 }
 
 @Composable
-private fun SnackCollectionList(
-    snackCollections: List<SnackCollection>,
+private fun playerCollectionList(
+    playerCollections: List<PlayerCollection>,
     filters: List<Filter>,
     //onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier
@@ -60,12 +60,12 @@ private fun SnackCollectionList(
             Spacer(Modifier.statusBarsHeight(additional = 56.dp))
             FilterBar(filters)
         }
-        itemsIndexed(snackCollections) { index, snackCollection ->
+        itemsIndexed(playerCollections) { index, snackCollection ->
             if (index > 0) {
                 UGBuilderDivider(thickness = 2.dp)
             }
-            SnackCollection(
-                snackCollection = snackCollection,
+            PlayerCollection(
+                playerCollection = snackCollection,
                 //onSnackClick = onSnackClick,
                 index = index
             )

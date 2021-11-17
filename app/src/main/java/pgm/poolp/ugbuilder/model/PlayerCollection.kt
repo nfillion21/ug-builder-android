@@ -19,11 +19,11 @@ package pgm.poolp.ugbuilder.model
 import androidx.compose.runtime.Immutable
 
 @Immutable
-data class SnackCollection(
-    val id: Long,
-    val name: String,
-    val snacks: List<Snack>,
-    val type: CollectionType = CollectionType.Normal
+data class PlayerCollection(
+        val id: Long,
+        val name: String,
+        val players: List<Player>,
+        val type: CollectionType = CollectionType.Normal
 )
 
 enum class CollectionType { Normal, Highlight }
@@ -31,8 +31,8 @@ enum class CollectionType { Normal, Highlight }
 /**
  * A fake repo
  */
-object SnackRepo {
-    fun getSnacks(): List<SnackCollection> = snackCollections
+object PlayerRepo {
+    fun getPlayers(): List<PlayerCollection> = playerCollections
     fun getSnack(snackId: Long) = snacks.find { it.id == snackId }!!
     fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = related
     fun getInspiredByCart() = inspiredByCart
@@ -44,17 +44,17 @@ object SnackRepo {
  * Static data
  */
 
-private val tastyTreats = SnackCollection(
+private val tastyTreats = PlayerCollection(
     id = 1L,
     name = "Android's picks",
     type = CollectionType.Highlight,
-    snacks = snacks.subList(0, 13)
+    players = snacks.subList(0, 13)
 )
 
-private val popular = SnackCollection(
+private val popular = PlayerCollection(
     id = 2L,
     name = "Popular on Jetsnack",
-    snacks = snacks.subList(14, 19)
+    players = snacks.subList(14, 19)
 )
 
 private val wfhFavs = tastyTreats.copy(
@@ -82,7 +82,7 @@ private val inspiredByCart = tastyTreats.copy(
     name = "Inspired by your cart"
 )
 
-private val snackCollections = listOf(
+private val playerCollections = listOf(
     tastyTreats,
     popular,
     wfhFavs,
@@ -103,6 +103,6 @@ private val cart = listOf(
 
 @Immutable
 data class OrderLine(
-    val snack: Snack,
-    val count: Int
+        val player: Player,
+        val count: Int
 )
