@@ -145,15 +145,15 @@ private fun Players(
         contentPadding = PaddingValues(start = 12.dp, end = 12.dp)
     ) {
         /*
-        items(snacks) { snack ->
-            SnackItem(snack/*, onSnackClick*/)
+        items(players) { player ->
+            PlayerItem(player/*, onSnackClick*/)
         }
-        */
+         */
     }
 }
 
 @Composable
-fun SnackItem(
+fun PlayerItem(
         player: Player,
     //onSnackClick: (Long) -> Unit,
         modifier: Modifier = Modifier

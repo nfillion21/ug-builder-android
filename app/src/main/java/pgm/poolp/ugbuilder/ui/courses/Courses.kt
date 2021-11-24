@@ -60,10 +60,12 @@ fun NavGraphBuilder.buildSections(
         SearchCourses(teams, modifier)
     }
 
+    /*
     composable(BuilderSectionsTabs.OREO.route) { from ->
         //Feed(onSnackClick = { id -> onSnackSelected(id, from) }, modifier)
         Oreo(modifier)
     }
+    */
 
     composable(BuilderSectionsTabs.OREO.route) {
 

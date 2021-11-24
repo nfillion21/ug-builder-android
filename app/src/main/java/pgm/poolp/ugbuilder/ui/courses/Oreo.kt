@@ -58,7 +58,7 @@ private fun playerCollectionList(
     LazyColumn(modifier) {
         item {
             Spacer(Modifier.statusBarsHeight(additional = 56.dp))
-            FilterBar(filters)
+            //FilterBar(filters)
         }
         itemsIndexed(playerCollections) { index, snackCollection ->
             if (index > 0) {
