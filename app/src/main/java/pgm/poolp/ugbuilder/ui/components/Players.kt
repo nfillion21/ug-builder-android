@@ -2,46 +2,39 @@ package pgm.poolp.ugbuilder.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ArrowForward
+import androidx.compose.material.icons.rounded.OndemandVideo
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.rememberImagePainter
 import pgm.poolp.ugbuilder.R
-import pgm.poolp.ugbuilder.model.CollectionType
 import pgm.poolp.ugbuilder.model.Player
 import pgm.poolp.ugbuilder.model.PlayerCollection
+import pgm.poolp.ugbuilder.ui.common.OutlinedAvatar
 import pgm.poolp.ugbuilder.ui.theme.*
+import pgm.poolp.ugbuilder.ui.utils.NetworkImage
 import pgm.poolp.ugbuilder.ui.utils.mirroringIcon
+import java.util.*
 
 private val HighlightCardWidth = 170.dp
 private val HighlightCardPadding = 16.dp
@@ -59,7 +52,6 @@ fun PlayerCollection(
     //onSnackClick: (Long) -> Unit,
         modifier: Modifier = Modifier,
         index: Int = 0,
-        highlight: Boolean = true
 ) {
     Column(modifier = modifier) {
         Row(
@@ -92,16 +84,17 @@ fun PlayerCollection(
                 )
             }
         }
+        /*
         if (highlight && playerCollection.type == CollectionType.Highlight) {
             HighlightedSnacks(index, playerCollection.players/*, onSnackClick*/)
-        } else {
-            Players(playerCollection.players/*, onSnackClick*/)
         }
+         */
+        HighlightedPlayers(index, playerCollection.players/*, onSnackClick*/)
     }
 }
 
 @Composable
-private fun HighlightedSnacks(
+private fun HighlightedPlayers(
         index: Int,
         players: List<Player>,
     //onSnackClick: (Long) -> Unit,
@@ -119,9 +112,10 @@ private fun HighlightedSnacks(
     LazyRow(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(start = 24.dp, end = 24.dp)
+        contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
     ) {
-        itemsIndexed(players) { index, snack ->
+        itemsIndexed(players) { index, player ->
+            /*
             HighlightPlayerItem(
                 snack,
                 //onSnackClick,
@@ -130,64 +124,13 @@ private fun HighlightedSnacks(
                 gradientWidth,
                 scroll.value
             )
+            */
+            PlayerItem(player = player)
         }
     }
 }
 
-@Composable
-private fun Players(
-        players: List<Player>,
-    //onSnackClick: (Long) -> Unit,
-        modifier: Modifier = Modifier
-) {
-    LazyRow(
-        modifier = modifier,
-        contentPadding = PaddingValues(start = 12.dp, end = 12.dp)
-    ) {
-        /*
-        items(players) { player ->
-            PlayerItem(player/*, onSnackClick*/)
-        }
-         */
-    }
-}
-
-@Composable
-fun PlayerItem(
-        player: Player,
-    //onSnackClick: (Long) -> Unit,
-        modifier: Modifier = Modifier
-) {
-    JetsnackSurface(
-        shape = MaterialTheme.shapes.medium,
-        modifier = modifier.padding(
-            start = 4.dp,
-            end = 4.dp,
-            bottom = 8.dp
-        )
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .clickable(onClick = { /*onSnackClick(snack.id)*/ })
-                .padding(8.dp)
-        ) {
-            PlayerImage(
-                imageUrl = player.imageUrl,
-                elevation = 4.dp,
-                contentDescription = null,
-                modifier = Modifier.size(120.dp)
-            )
-            Text(
-                text = player.name,
-                style = MaterialTheme.typography.subtitle1,
-                color = UGBuilderTheme.colors.primary,
-                modifier = Modifier.padding(top = 8.dp)
-            )
-        }
-    }
-}
-
+/*
 @Composable
 private fun HighlightPlayerItem(
         player: Player,
@@ -253,7 +196,120 @@ private fun HighlightPlayerItem(
         }
     }
 }
+*/
 
+
+@Composable
+fun PlayerItem(
+    player: Player,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier.padding(4.dp),
+        color = MaterialTheme.colors.surface,
+        elevation = UGBuilderTheme.elevations.card,
+        shape = MaterialTheme.shapes.medium,
+    ) {
+        val featuredString = stringResource(id = R.string.featured)
+        ConstraintLayout(
+            modifier = Modifier
+                .clickable(
+                    onClick = { /*selectCourse(course.id)*/ "id" }
+                )
+                .semantics {
+                    contentDescription = featuredString
+                }
+        ) {
+            val (image, avatar, subject, name, steps, icon) = createRefs()
+            /*
+            NetworkImage(
+                //url = course.thumbUrl,
+                //url = "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8",
+                //url = player.imageUrl,
+
+                //url = "https://images.unsplash.com/photo-1508261301902-79a2d8e78f71",
+                url = "https://i.pravatar.cc/11210",
+                contentDescription = null,
+                modifier = Modifier
+                    .aspectRatio(4f / 3f)
+                    .constrainAs(image) {
+                        centerHorizontallyTo(parent)
+                        top.linkTo(parent.top)
+                    }
+            )
+            */
+            val outlineColor = LocalElevationOverlay.current?.apply(
+                color = MaterialTheme.colors.surface,
+                elevation = UGBuilderTheme.elevations.card
+            ) ?: MaterialTheme.colors.surface
+            OutlinedAvatar(
+                //url = course.instructor,
+                url = "https://i.pravatar.cc/11210",
+                outlineColor = outlineColor,
+                modifier = Modifier
+                    .size(38.dp)
+                    .constrainAs(avatar) {
+                        centerHorizontallyTo(parent)
+                        centerAround(image.bottom)
+                    }
+            )
+            Text(
+                //text = course.subject.uppercase(Locale.getDefault()),
+                text = "Arts & Crafts",
+                color = MaterialTheme.colors.primary,
+                style = MaterialTheme.typography.overline,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .constrainAs(subject) {
+                        centerHorizontallyTo(parent)
+                        top.linkTo(avatar.bottom)
+                    }
+            )
+            Text(
+                //text = course.name,
+                text = "Basic Blocks and Woodturning",
+                style = MaterialTheme.typography.subtitle1,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .constrainAs(name) {
+                        centerHorizontallyTo(parent)
+                        top.linkTo(subject.bottom)
+                    }
+            )
+            val center = createGuidelineFromStart(0.5f)
+            Icon(
+                imageVector = Icons.Rounded.OndemandVideo,
+                tint = MaterialTheme.colors.primary,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(16.dp)
+                    .constrainAs(icon) {
+                        end.linkTo(center)
+                        centerVerticallyTo(steps)
+                    }
+            )
+            Text(
+                //text = course.steps.toString(),
+                text = "1",
+                color = MaterialTheme.colors.primary,
+                style = MaterialTheme.typography.subtitle2,
+                modifier = Modifier
+                    .padding(
+                        start = 4.dp,
+                        top = 16.dp,
+                        bottom = 16.dp
+                    )
+                    .constrainAs(steps) {
+                        start.linkTo(center)
+                        top.linkTo(name.bottom)
+                    }
+            )
+        }
+    }
+}
+
+/*
 @Composable
 fun PlayerImage(
     imageUrl: String,
@@ -278,25 +334,6 @@ fun PlayerImage(
             contentDescription = contentDescription,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
-        )
-    }
-}
-
-/*
-@Preview("default")
-@Preview("dark theme", uiMode = UI_MODE_NIGHT_YES)
-@Preview("large font", fontScale = 2f)
-@Composable
-fun SnackCardPreview() {
-    JetsnackTheme {
-        val snack = snacks.first()
-        HighlightSnackItem(
-            snack = snack,
-            //onSnackClick = { },
-            index = 0,
-            gradient = JetsnackTheme.colors.gradient6_1,
-            gradientWidth = gradientWidth,
-            scroll = 0
         )
     }
 }

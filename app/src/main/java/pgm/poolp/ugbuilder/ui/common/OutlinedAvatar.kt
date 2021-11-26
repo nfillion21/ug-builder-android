@@ -40,11 +40,13 @@ fun OutlinedAvatar(
     }
 }
 
+/*
 @Preview(
     name = "Outlined Avatar",
     widthDp = 40,
     heightDp = 40
 )
+*/
 @Composable
 private fun OutlinedAvatarPreview() {
     BlueTheme {

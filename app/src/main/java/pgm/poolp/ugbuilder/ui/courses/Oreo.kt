@@ -42,7 +42,7 @@ private fun Oreo(
 ) {
     JetsnackSurface(modifier = modifier.fillMaxSize()) {
         Box {
-            playerCollectionList(playerCollections, filters)//, onSnackClick)
+            playerCollectionList(playerCollections)//, onSnackClick)
             //DestinationBar()
         }
     }
@@ -51,21 +51,19 @@ private fun Oreo(
 @Composable
 private fun playerCollectionList(
     playerCollections: List<PlayerCollection>,
-    filters: List<Filter>,
     //onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier) {
         item {
             Spacer(Modifier.statusBarsHeight(additional = 56.dp))
-            //FilterBar(filters)
         }
-        itemsIndexed(playerCollections) { index, snackCollection ->
+        itemsIndexed(playerCollections) { index, playerCollection ->
             if (index > 0) {
                 UGBuilderDivider(thickness = 2.dp)
             }
             PlayerCollection(
-                playerCollection = snackCollection,
+                playerCollection = playerCollection,
                 //onSnackClick = onSnackClick,
                 index = index
             )
