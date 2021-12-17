@@ -9,12 +9,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.runtime.Composable
@@ -26,13 +21,10 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
 import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.model.Team
-import pgm.poolp.ugbuilder.model.teams
-import pgm.poolp.ugbuilder.ui.theme.BlueTheme
 
 @Composable
 fun SearchCourses(
@@ -115,6 +107,7 @@ private fun AppBar(
     }
 }
 
+/*
 @Preview(name = "Search Courses")
 @Composable
 private fun FeaturedCoursesPreview() {
@@ -122,3 +115,4 @@ private fun FeaturedCoursesPreview() {
         SearchCourses(teams, Modifier)
     }
 }
+*/

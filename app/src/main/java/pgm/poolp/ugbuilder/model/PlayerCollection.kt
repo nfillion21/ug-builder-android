@@ -68,10 +68,10 @@ private val inspiredByCart = tastyTreats.copy(
 
 private val playerCollections = listOf(
     tastyTreats,
-    popular,
-    wfhFavs,
-    newlyAdded,
-    exclusive
+    popular
+    //wfhFavs,
+    //newlyAdded,
+    //exclusive
 )
 
 private val related = listOf(

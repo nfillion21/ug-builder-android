@@ -3,8 +3,11 @@ package pgm.poolp.ugbuilder.ui.courses
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -17,6 +20,7 @@ import pgm.poolp.ugbuilder.ui.components.FilterBar
 import pgm.poolp.ugbuilder.ui.components.JetsnackSurface
 import pgm.poolp.ugbuilder.ui.components.PlayerCollection
 import pgm.poolp.ugbuilder.ui.components.UGBuilderDivider
+import pgm.poolp.ugbuilder.ui.theme.BlueTheme
 
 @Composable
 fun Oreo(
@@ -40,7 +44,8 @@ private fun Oreo(
     //onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    JetsnackSurface(modifier = modifier.fillMaxSize()) {
+    JetsnackSurface(
+        modifier = modifier.fillMaxSize()) {
         Box {
             playerCollectionList(playerCollections)//, onSnackClick)
             //DestinationBar()
@@ -70,15 +75,3 @@ private fun playerCollectionList(
         }
     }
 }
-
-/*
-@Preview("default")
-@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview("large font", fontScale = 2f)
-@Composable
-fun HomePreview() {
-    JetsnackTheme {
-        Feed(onSnackClick = { })
-    }
-}
-*/
