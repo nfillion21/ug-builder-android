@@ -44,7 +44,7 @@ fun JetsnackCard(
     JetsnackSurface(
         modifier = modifier,
         shape = shape,
-        //color = color,
+        color = color,
         contentColor = contentColor,
         elevation = elevation,
         border = border,

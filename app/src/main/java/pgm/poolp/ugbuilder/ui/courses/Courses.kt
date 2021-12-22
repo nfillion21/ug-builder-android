@@ -135,7 +135,7 @@ enum class BuilderSectionsTabs(
 ) {
     //MY_COURSES(R.string.my_courses, R.drawable.ic_grain, BuilderSections.MY_COURSES_ROUTE),
     FEATURED(R.string.featured, R.drawable.ic_featured, BuilderSections.FEATURED_ROUTE),
-    SEARCH(R.string.search, R.drawable.ic_search, BuilderSections.SEARCH_ROUTE),
+    //SEARCH(R.string.search, R.drawable.ic_search, BuilderSections.SEARCH_ROUTE),
     OREO(R.string.oreo, R.drawable.ic_featured, BuilderSections.OREO_ROUTE),
     CART(R.string.cart, R.drawable.ic_search, BuilderSections.CART_ROUTE)
 }

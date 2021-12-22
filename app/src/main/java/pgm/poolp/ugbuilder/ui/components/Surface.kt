@@ -28,7 +28,7 @@ import kotlin.math.ln
 fun JetsnackSurface(
     modifier: Modifier = Modifier,
     shape: Shape = RectangleShape,
-    color: Color = UGBuilderTheme.colors.background,
+    color: Color = UGBuilderTheme.colors.primary,
     contentColor: Color = UGBuilderTheme.colors.primary,
     border: BorderStroke? = null,
     elevation: Dp = 0.dp,
@@ -38,12 +38,10 @@ fun JetsnackSurface(
         modifier = modifier.shadow(elevation = elevation, shape = shape, clip = false)
             .zIndex(elevation.value)
             .then(if (border != null) Modifier.border(border, shape) else Modifier)
-                /*
             .background(
                 color = getBackgroundColorForElevation(color, elevation),
                 shape = shape
             )
-                */
             .clip(shape)
     ) {
         CompositionLocalProvider(LocalContentColor provides contentColor, content = content)

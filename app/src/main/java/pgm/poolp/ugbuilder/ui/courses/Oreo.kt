@@ -44,6 +44,17 @@ private fun Oreo(
     //onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    /*
+    Surface(
+        modifier = modifier.fillMaxSize()) {
+        Box {
+            playerCollectionList(playerCollections)//, onSnackClick)
+            //DestinationBar()
+        }
+    }
+     */
+
     JetsnackSurface(
         modifier = modifier.fillMaxSize()) {
         Box {
