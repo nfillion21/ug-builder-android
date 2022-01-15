@@ -64,7 +64,7 @@ fun NavGraphBuilder.buildSections(
      */
 
     composable(BuilderSectionsTabs.FEATURED.route) { from ->
-        FeaturedCourses(
+        OreoGrid(
             courses = courses,
             selectCourse = { id -> onCourseSelected(id, from) },
             modifier = modifier

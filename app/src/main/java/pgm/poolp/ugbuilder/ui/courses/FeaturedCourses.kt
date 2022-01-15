@@ -53,7 +53,7 @@ import java.util.Locale
 import kotlin.math.ceil
 
 @Composable
-fun FeaturedCourses(
+fun OreoGrid(
     courses: List<Course>,
     selectCourse: (Long) -> Unit,
     modifier: Modifier = Modifier
@@ -230,6 +230,7 @@ private fun shortestColumn(colHeights: IntArray): Int {
     return column
 }
 
+/*
 @Preview(name = "Featured Course")
 @Composable
 private fun FeaturedCoursePreview() {
@@ -245,7 +246,7 @@ private fun FeaturedCoursePreview() {
 @Composable
 private fun FeaturedCoursesPreview() {
     BlueTheme {
-        FeaturedCourses(
+        OreoGrid(
             courses = courses,
             selectCourse = { }
         )
@@ -256,7 +257,7 @@ private fun FeaturedCoursesPreview() {
 @Composable
 private fun FeaturedCoursesPreviewDark() {
     BlueTheme(darkTheme = true) {
-        FeaturedCourses(
+        OreoGrid(
             courses = courses,
             selectCourse = { }
         )
@@ -271,9 +272,10 @@ private fun FeaturedCoursesPreviewDark() {
 @Composable
 private fun FeaturedCoursesPreviewLandscape() {
     BlueTheme {
-        FeaturedCourses(
+        OreoGrid(
             courses = courses,
             selectCourse = { }
         )
     }
 }
+*/

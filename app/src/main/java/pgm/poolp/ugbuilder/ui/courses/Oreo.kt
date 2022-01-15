@@ -75,9 +75,11 @@ private fun playerCollectionList(
             Spacer(Modifier.statusBarsHeight(additional = 56.dp))
         }
         itemsIndexed(playerCollections) { index, playerCollection ->
+            /*
             if (index > 0) {
                 UGBuilderDivider(thickness = 2.dp)
             }
+            */
             PlayerCollection(
                 playerCollection = playerCollection,
                 //onSnackClick = onSnackClick,

@@ -54,12 +54,15 @@ fun PlayerCollection(
         index: Int = 0,
 ) {
     Column(modifier = modifier) {
+
         Row(
-            verticalAlignment = Alignment.CenterVertically,
+            //verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .heightIn(min = 56.dp)
-                .padding(start = 24.dp)
+                .padding(start = 44.dp)
         ) {
+
+            /*
             Text(
                 text = playerCollection.name,
                 style = MaterialTheme.typography.h6,
@@ -83,6 +86,7 @@ fun PlayerCollection(
                     contentDescription = null
                 )
             }
+            */
         }
         /*
         if (highlight && playerCollection.type == CollectionType.Highlight) {
@@ -111,8 +115,8 @@ private fun HighlightedPlayers(
     }
     LazyRow(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
+        //horizontalArrangement = Arrangement.spacedBy(16.dp),
+        //contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
     ) {
         itemsIndexed(players) { index, player ->
             /*
@@ -205,7 +209,10 @@ fun PlayerItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        modifier = modifier.padding(4.dp),
+        modifier = modifier.padding(4.dp)
+            .size(width = 170.dp,
+            height = 250.dp
+                ),
         color = MaterialTheme.colors.surface,
         elevation = UGBuilderTheme.elevations.card,
         shape = MaterialTheme.shapes.medium,
@@ -221,7 +228,7 @@ fun PlayerItem(
                 }
         ) {
             val (image, avatar, subject, name, steps, icon) = createRefs()
-            /*
+
             NetworkImage(
                 //url = course.thumbUrl,
                 //url = "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8",
@@ -237,7 +244,7 @@ fun PlayerItem(
                         top.linkTo(parent.top)
                     }
             )
-            */
+
             val outlineColor = LocalElevationOverlay.current?.apply(
                 color = MaterialTheme.colors.surface,
                 elevation = UGBuilderTheme.elevations.card
@@ -267,7 +274,7 @@ fun PlayerItem(
             )
             Text(
                 //text = course.name,
-                text = "Basic Blocks and Woodturning",
+                text = "Basic Blocks",
                 style = MaterialTheme.typography.subtitle1,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
