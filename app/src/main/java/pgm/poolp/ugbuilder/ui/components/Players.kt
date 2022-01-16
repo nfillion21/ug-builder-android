@@ -61,21 +61,6 @@ fun PlayerCollection(
                     .weight(1f)
                     .wrapContentWidth(Alignment.Start)
             )
-            /*
-            IconButton(
-                onClick = { /* todo */ },
-                modifier = Modifier.align(Alignment.CenterVertically)
-            ) {
-                Icon(
-                    imageVector = mirroringIcon(
-                        ltrIcon = Icons.Outlined.ArrowForward,
-                        rtlIcon = Icons.Outlined.ArrowBack
-                    ),
-                    tint = UGBuilderTheme.colors.secondary,
-                    contentDescription = null
-                )
-            }
-            */
         }
         HighlightedPlayers(playerCollection.players, onPlayerClick)
     }
@@ -161,7 +146,8 @@ fun PlayerItem(
             )
             Text(
                 //text = course.subject.uppercase(Locale.getDefault()),
-                text = "Arts & Crafts",
+                //text = "Arts & Crafts",
+                text = player.side,
                 color = MaterialTheme.colors.primary,
                 style = MaterialTheme.typography.overline,
                 modifier = Modifier

@@ -60,7 +60,7 @@ fun OwlBottomBar(navController: NavController, tabs: Array<BuilderSectionsTabs>)
         ) {
             tabs.forEach { tab ->
                 BottomNavigationItem(
-                    icon = { Icon(painterResource(tab.icon), contentDescription = null) },
+                    icon = { Icon(tab.icon, contentDescription = null) },
                     label = { Text(stringResource(tab.title).uppercase(Locale.getDefault())) },
                     selected = currentRoute == tab.route,
                     onClick = {

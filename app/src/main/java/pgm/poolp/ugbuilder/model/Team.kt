@@ -25,6 +25,7 @@ data class Team(
     val imageUrl: String
 )
 
+/*
 val teams = listOf(
     Team("Alliance du vieux monde", 58, "http://ug-data.xyz/ugbuilder/troll_slayer.jpeg"),
     Team("Amazones", 121, "https://images.unsplash.com/photo-1422246358533-95dcd3d48961"),
@@ -53,4 +54,10 @@ val teams = listOf(
     Team("Snotlings", 118, "https://images.unsplash.com/photo-1535223289827-42f1e9919769"),
     Team("Union elfique", 118, "https://images.unsplash.com/photo-1535223289827-42f1e9919769"),
     Team("Vampires", 118, "https://images.unsplash.com/photo-1535223289827-42f1e9919769"),
+)
+*/
+
+val teams = listOf(
+    Team("Teenage Mutant Ninja Turtles", 58, "https://images.unsplash.com/photo-1422246358533-95dcd3d48961"),
+    Team("Spiderman", 121, "https://images.unsplash.com/photo-1422246358533-95dcd3d48961")
 )

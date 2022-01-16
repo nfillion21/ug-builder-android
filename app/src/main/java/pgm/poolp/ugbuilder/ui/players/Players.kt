@@ -10,11 +10,13 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -33,12 +35,9 @@ fun NavGraphBuilder.buildSections(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    composable(BuilderSectionsTabs.FEATURED.route) { from ->
-        OreoGrid(
-            courses = courses,
-            selectCourse = { id -> onPlayerSelected(id, from) },
-            modifier = modifier
-        )
+
+    composable(BuilderSectionsTabs.CART.route) {
+        SearchCourses(teams, modifier)
     }
 
     composable(BuilderSectionsTabs.OREO.route) {
@@ -50,13 +49,6 @@ fun NavGraphBuilder.buildSections(
         }
         if (onboardingComplete.value)
         { // Avoid glitch when showing onboarding
-            /*
-            FeaturedCourses(
-                courses = courses,
-                selectCourse = { id -> onCourseSelected(id, from) },
-                modifier = modifier
-            )
-            */
             LaunchOreo(
                 selectPlayer = {id -> onPlayerSelected(id, it)},
                 modifier = modifier
@@ -64,9 +56,19 @@ fun NavGraphBuilder.buildSections(
         }
     }
 
-    composable(BuilderSectionsTabs.CART.route) {
+    composable(BuilderSectionsTabs.SEARCH.route) {
         SearchCourses(teams, modifier)
     }
+
+    /*
+    composable(BuilderSectionsTabs.FEATURED.route) { from ->
+        OreoGrid(
+            courses = courses,
+            selectCourse = { id -> onPlayerSelected(id, from) },
+            modifier = modifier
+        )
+    }
+     */
 }
 
 @Composable
@@ -96,14 +98,15 @@ fun CoursesAppBar() {
 
 enum class BuilderSectionsTabs(
     @StringRes val title: Int,
-    @DrawableRes val icon: Int,
+    //@DrawableRes val icon: Int,
+    val icon: ImageVector,
     val route: String
 ) {
     //MY_COURSES(R.string.my_courses, R.drawable.ic_grain, BuilderSections.MY_COURSES_ROUTE),
-    FEATURED(R.string.featured, R.drawable.ic_featured, BuilderSections.FEATURED_ROUTE),
-    //SEARCH(R.string.search, R.drawable.ic_search, BuilderSections.SEARCH_ROUTE),
-    OREO(R.string.oreo, R.drawable.ic_featured, BuilderSections.OREO_ROUTE),
-    CART(R.string.cart, R.drawable.ic_search, BuilderSections.CART_ROUTE)
+    //FEATURED(R.string.featured, Icons.Outlined.Search, BuilderSections.SEARCH_ROUTE),
+    SEARCH(R.string.search, Icons.Outlined.Search, BuilderSections.SEARCH_ROUTE),
+    OREO(R.string.oreo, Icons.Outlined.List, BuilderSections.OREO_ROUTE),
+    CART(R.string.cart, Icons.Outlined.ShoppingCart, BuilderSections.CART_ROUTE)
 }
 
 /**

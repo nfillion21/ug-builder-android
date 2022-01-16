@@ -30,7 +30,7 @@ object PlayerRepo {
 
 private val turtles = PlayerCollection(
     id = 1L,
-    name = "Turtles",
+    name = "Heroes",
     type = CollectionType.Highlight,
     players = players.subList(0, 4)
 )
