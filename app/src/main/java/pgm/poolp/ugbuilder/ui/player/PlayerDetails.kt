@@ -81,7 +81,7 @@ private val FabSize = 56.dp
 private const val ExpandedSheetAlpha = 0.96f
 
 @Composable
-fun CourseDetails(
+fun PlayerDetails(
     courseId: Long,
     selectCourse: (Long) -> Unit,
     upPress: () -> Unit
@@ -89,13 +89,13 @@ fun CourseDetails(
     // Simplified for the sample
     val course = remember(courseId) { CourseRepo.getCourse(courseId) }
     // TODO: Show error if course not found.
-    CourseDetails(course, selectCourse, upPress)
+    PlayerDetails(course, selectCourse, upPress)
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CourseDetails(
-    course: Course,
+fun PlayerDetails(
+    player: Player,
     selectCourse: (Long) -> Unit,
     upPress: () -> Unit
 ) {
@@ -133,9 +133,9 @@ fun CourseDetails(
                 } else {
                     -sheetState.offset.value / dragRange
                 }.coerceIn(0f, 1f)
-                CourseDescription(course, selectCourse, upPress)
+                CourseDescription(player, selectCourse, upPress)
                 LessonsSheet(
-                    course,
+                    player,
                     openFraction,
                     this@BoxWithConstraints.constraints.maxWidth.toFloat(),
                     this@BoxWithConstraints.constraints.maxHeight.toFloat()
@@ -151,27 +151,27 @@ fun CourseDetails(
 
 @Composable
 private fun CourseDescription(
-    course: Course,
+    player: Player,
     selectCourse: (Long) -> Unit,
     upPress: () -> Unit
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
         LazyColumn {
-            item { CourseDescriptionHeader(course, upPress) }
-            item { CourseDescriptionBody(course) }
-            item { RelatedCourses(course.id, selectCourse) }
+            item { CourseDescriptionHeader(player, upPress) }
+            item { CourseDescriptionBody(player) }
+            item { RelatedCourses(player.id, selectCourse) }
         }
     }
 }
 
 @Composable
 private fun CourseDescriptionHeader(
-    course: Course,
+    player: Player,
     upPress: () -> Unit
 ) {
     Box {
         NetworkImage(
-            url = course.thumbUrl,
+            url = player.thumbUrl,
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
@@ -201,7 +201,7 @@ private fun CourseDescriptionHeader(
             Spacer(modifier = Modifier.weight(1f))
         }
         OutlinedAvatar(
-            url = course.instructor,
+            url = player.instructor,
             modifier = Modifier
                 .size(40.dp)
                 .align(Alignment.BottomCenter)
@@ -211,9 +211,9 @@ private fun CourseDescriptionHeader(
 }
 
 @Composable
-private fun CourseDescriptionBody(course: Course) {
+private fun CourseDescriptionBody(player: Player) {
     Text(
-        text = course.subject.uppercase(Locale.getDefault()),
+        text = player.subject.uppercase(Locale.getDefault()),
         color = MaterialTheme.colors.primary,
         style = MaterialTheme.typography.body2,
         textAlign = TextAlign.Center,
@@ -227,7 +227,7 @@ private fun CourseDescriptionBody(course: Course) {
             )
     )
     Text(
-        text = course.name,
+        text = player.name,
         style = MaterialTheme.typography.h4,
         textAlign = TextAlign.Center,
         modifier = Modifier
@@ -303,7 +303,7 @@ private fun RelatedCourses(
                 ) {
                     items(relatedCourses) { related ->
                         CourseListItem(
-                            course = related,
+                            player = related,
                             onClick = { selectCourse(related.id) },
                             titleStyle = MaterialTheme.typography.body2,
                             modifier = Modifier
@@ -320,7 +320,7 @@ private fun RelatedCourses(
 
 @Composable
 private fun LessonsSheet(
-    course: Course,
+    player: Player,
     openFraction: Float,
     width: Float,
     height: Float,
@@ -348,18 +348,18 @@ private fun LessonsSheet(
             translationY = offsetY
         }
     ) {
-        Lessons(course, openFraction, surfaceColor, updateSheet)
+        Lessons(player, openFraction, surfaceColor, updateSheet)
     }
 }
 
 @Composable
 private fun Lessons(
-    course: Course,
+    player: Player,
     openFraction: Float,
     surfaceColor: Color = MaterialTheme.colors.surface,
     updateSheet: (SheetState) -> Unit
 ) {
-    val lessons: List<Lesson> = remember(course.id) { LessonsRepo.getLessons(course.id) }
+    val lessons: List<Lesson> = remember(player.id) { LessonsRepo.getLessons(player.id) }
 
     Box(modifier = Modifier.fillMaxWidth()) {
         // When sheet open, show a list of the lessons
@@ -378,7 +378,7 @@ private fun Lessons(
                 elevation = appBarElevation
             ) {
                 Text(
-                    text = course.name,
+                    text = player.name,
                     style = MaterialTheme.typography.subtitle1,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -486,12 +486,12 @@ private enum class SheetState { Open, Closed }
 
 private val LazyListState.isScrolled: Boolean
     get() = firstVisibleItemIndex > 0 || firstVisibleItemScrollOffset > 0
-
+/*
 @Preview(name = "Course Details")
 @Composable
 private fun CourseDetailsPreview() {
     val courseId = courses.first().id
-    CourseDetails(
+    PlayerDetails(
         courseId = courseId,
         selectCourse = { },
         upPress = { }
@@ -525,7 +525,7 @@ private fun LessonsSheetPreview(
         val color = MaterialTheme.colors.primarySurface
         Surface(color = color) {
             Lessons(
-                course = courses.first(),
+                player = courses.first(),
                 openFraction = openFraction,
                 surfaceColor = color,
                 updateSheet = { }
@@ -543,3 +543,5 @@ private fun RelatedCoursesPreview() {
         selectCourse = { }
     )
 }
+
+*/

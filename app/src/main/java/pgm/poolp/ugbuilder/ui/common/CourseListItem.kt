@@ -43,7 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import pgm.poolp.ugbuilder.R
-import pgm.poolp.ugbuilder.model.Course
+import pgm.poolp.ugbuilder.model.Player
 import pgm.poolp.ugbuilder.model.courses
 import pgm.poolp.ugbuilder.ui.theme.BlueTheme
 import pgm.poolp.ugbuilder.ui.theme.UGBuilderTheme
@@ -51,7 +51,7 @@ import pgm.poolp.ugbuilder.ui.utils.NetworkImage
 
 @Composable
 fun CourseListItem(
-    course: Course,
+    player: Player,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = RectangleShape,
@@ -66,7 +66,7 @@ fun CourseListItem(
     ) {
         Row(modifier = Modifier.clickable(onClick = onClick)) {
             NetworkImage(
-                url = course.thumbUrl,
+                url = player.thumbUrl,
                 contentDescription = null,
                 modifier = Modifier.aspectRatio(1f)
             )
@@ -79,7 +79,7 @@ fun CourseListItem(
                 )
             ) {
                 Text(
-                    text = course.name,
+                    text = player.name,
                     style = titleStyle,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
@@ -97,8 +97,8 @@ fun CourseListItem(
                     Text(
                         text = stringResource(
                             R.string.course_step_steps,
-                            course.step,
-                            course.steps
+                            player.step,
+                            player.steps
                         ),
                         color = MaterialTheme.colors.primary,
                         style = MaterialTheme.typography.caption,
@@ -108,7 +108,7 @@ fun CourseListItem(
                             .wrapContentWidth(Alignment.Start)
                     )
                     NetworkImage(
-                        url = course.instructor,
+                        url = player.instructor,
                         contentDescription = null,
                         modifier = Modifier
                             .size(28.dp)
@@ -136,7 +136,7 @@ private fun CourseListItemPreviewDark() {
 private fun CourseListItemPreview(darkTheme: Boolean) {
     BlueTheme(darkTheme) {
         CourseListItem(
-            course = courses.first(),
+            player = courses.first(),
             onClick = {}
         )
     }

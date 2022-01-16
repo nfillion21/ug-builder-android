@@ -9,14 +9,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsHeight
-import pgm.poolp.ugbuilder.model.Course
+import pgm.poolp.ugbuilder.model.Player
 import pgm.poolp.ugbuilder.model.courses
 import pgm.poolp.ugbuilder.ui.common.CourseListItem
 import pgm.poolp.ugbuilder.ui.theme.BlueTheme
 
 @Composable
 fun MyCourses(
-    courses: List<Course>,
+    cours: List<Player>,
     selectCourse: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -27,7 +27,7 @@ fun MyCourses(
         item {
             CoursesAppBar()
         }
-        itemsIndexed(courses) { index, course ->
+        itemsIndexed(cours) { index, course ->
             MyCourse(course, index, selectCourse)
         }
     }
@@ -35,7 +35,7 @@ fun MyCourses(
 
 @Composable
 fun MyCourse(
-    course: Course,
+    player: Player,
     index: Int,
     selectCourse: (Long) -> Unit
 ) {
@@ -43,8 +43,8 @@ fun MyCourse(
         val stagger = if (index % 2 == 0) 72.dp else 16.dp
         Spacer(modifier = Modifier.width(stagger))
         CourseListItem(
-            course = course,
-            onClick = { selectCourse(course.id) },
+            player = player,
+            onClick = { selectCourse(player.id) },
             shape = RoundedCornerShape(topStart = 24.dp),
             modifier = Modifier.height(96.dp)
         )
@@ -56,7 +56,7 @@ fun MyCourse(
 private fun MyCoursesPreview() {
     BlueTheme {
         MyCourses(
-            courses = courses,
+            cours = courses,
             selectCourse = { }
         )
     }

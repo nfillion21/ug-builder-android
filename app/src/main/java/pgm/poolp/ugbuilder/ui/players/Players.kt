@@ -1,6 +1,5 @@
 package pgm.poolp.ugbuilder.ui.players
 
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.height
@@ -25,7 +24,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import pgm.poolp.ugbuilder.R
-import pgm.poolp.ugbuilder.model.courses
 import pgm.poolp.ugbuilder.model.teams
 import pgm.poolp.ugbuilder.ui.MainRoutes
 

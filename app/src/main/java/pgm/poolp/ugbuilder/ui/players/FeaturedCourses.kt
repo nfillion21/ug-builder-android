@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.insets.statusBarsPadding
 import pgm.poolp.ugbuilder.R
-import pgm.poolp.ugbuilder.model.Course
+import pgm.poolp.ugbuilder.model.Player
 import pgm.poolp.ugbuilder.ui.common.OutlinedAvatar
 import pgm.poolp.ugbuilder.ui.theme.UGBuilderTheme
 import pgm.poolp.ugbuilder.ui.utils.NetworkImage
@@ -51,7 +51,7 @@ import kotlin.math.ceil
 
 @Composable
 fun OreoGrid(
-    courses: List<Course>,
+    cours: List<Player>,
     selectCourse: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -65,7 +65,7 @@ fun OreoGrid(
             maxColumnWidth = 220.dp,
             modifier = Modifier.padding(4.dp)
         ) {
-            courses.forEach { course ->
+            cours.forEach { course ->
                 FeaturedCourse(course, selectCourse)
             }
         }
@@ -74,7 +74,7 @@ fun OreoGrid(
 
 @Composable
 fun FeaturedCourse(
-    course: Course,
+    player: Player,
     selectCourse: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -88,7 +88,7 @@ fun FeaturedCourse(
         ConstraintLayout(
             modifier = Modifier
                 .clickable(
-                    onClick = { selectCourse(course.id) }
+                    onClick = { selectCourse(player.id) }
                 )
                 .semantics {
                     contentDescription = featuredString
@@ -96,7 +96,7 @@ fun FeaturedCourse(
         ) {
             val (image, avatar, subject, name, steps, icon) = createRefs()
             NetworkImage(
-                url = course.thumbUrl,
+                url = player.thumbUrl,
                 contentDescription = null,
                 modifier = Modifier
                     .aspectRatio(4f / 3f)
@@ -110,7 +110,7 @@ fun FeaturedCourse(
                 elevation = UGBuilderTheme.elevations.card
             ) ?: MaterialTheme.colors.surface
             OutlinedAvatar(
-                url = course.instructor,
+                url = player.instructor,
                 outlineColor = outlineColor,
                 modifier = Modifier
                     .size(38.dp)
@@ -120,7 +120,7 @@ fun FeaturedCourse(
                     }
             )
             Text(
-                text = course.subject.uppercase(Locale.getDefault()),
+                text = player.subject.uppercase(Locale.getDefault()),
                 color = MaterialTheme.colors.primary,
                 style = MaterialTheme.typography.overline,
                 modifier = Modifier
@@ -131,7 +131,7 @@ fun FeaturedCourse(
                     }
             )
             Text(
-                text = course.name,
+                text = player.name,
                 style = MaterialTheme.typography.subtitle1,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -154,7 +154,7 @@ fun FeaturedCourse(
                     }
             )
             Text(
-                text = course.steps.toString(),
+                text = player.steps.toString(),
                 color = MaterialTheme.colors.primary,
                 style = MaterialTheme.typography.subtitle2,
                 modifier = Modifier

@@ -15,10 +15,10 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import pgm.poolp.ugbuilder.ui.MainRoutes.PLAYER_DETAIL_ID_KEY
-import pgm.poolp.ugbuilder.ui.player.CourseDetails
-import pgm.poolp.ugbuilder.ui.players.buildSections
-import pgm.poolp.ugbuilder.ui.players.BuilderSectionsTabs
 import pgm.poolp.ugbuilder.ui.onboarding.Onboarding
+import pgm.poolp.ugbuilder.ui.player.PlayerDetails
+import pgm.poolp.ugbuilder.ui.players.BuilderSectionsTabs
+import pgm.poolp.ugbuilder.ui.players.buildSections
 
 /**
  * Destinations used in the ([OwlApp]).
@@ -82,7 +82,7 @@ fun BuilderNavGraph(
         ) { backStackEntry: NavBackStackEntry ->
             val arguments = requireNotNull(backStackEntry.arguments)
             val currentCourseId = arguments.getLong(PLAYER_DETAIL_ID_KEY)
-            CourseDetails(
+            PlayerDetails(
                 courseId = currentCourseId,
                 selectCourse = { newCourseId ->
                     actions.relatedCourse(newCourseId, backStackEntry)

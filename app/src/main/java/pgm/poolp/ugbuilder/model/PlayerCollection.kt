@@ -4,10 +4,10 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class PlayerCollection(
-        val id: Long,
-        val name: String,
-        val players: List<Player>,
-        val type: CollectionType = CollectionType.Normal
+    val id: Long,
+    val name: String,
+    val players: List<Player>,
+    val type: CollectionType = CollectionType.Normal
 )
 
 enum class CollectionType { Normal, Highlight }
@@ -73,6 +73,6 @@ private val cart = listOf(
 
 @Immutable
 data class OrderLine(
-        val player: Player,
-        val count: Int
+    val player: Player,
+    val count: Int
 )
