@@ -22,7 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
-import pgm.poolp.ugbuilder.ui.courses.BuilderSectionsTabs
+import pgm.poolp.ugbuilder.ui.players.BuilderSectionsTabs
 import pgm.poolp.ugbuilder.ui.theme.BlueTheme
 import java.util.Locale
 

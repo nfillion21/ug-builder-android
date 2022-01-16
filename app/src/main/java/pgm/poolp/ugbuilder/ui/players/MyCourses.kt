@@ -1,4 +1,4 @@
-package pgm.poolp.ugbuilder.ui.courses
+package pgm.poolp.ugbuilder.ui.players
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn

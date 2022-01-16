@@ -1,4 +1,4 @@
-package pgm.poolp.ugbuilder.ui.course
+package pgm.poolp.ugbuilder.ui.player
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateDpAsState

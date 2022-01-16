@@ -1,4 +1,4 @@
-package pgm.poolp.ugbuilder.ui.courses
+package pgm.poolp.ugbuilder.ui.players
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -39,7 +39,6 @@ private fun LaunchOreo(
         modifier = modifier.fillMaxSize()) {
         Box {
             playerCollectionList(playerCollections, onPlayerClick)
-            //DestinationBar()
         }
     }
 }

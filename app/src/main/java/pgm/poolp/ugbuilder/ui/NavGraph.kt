@@ -15,9 +15,9 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import pgm.poolp.ugbuilder.ui.MainRoutes.PLAYER_DETAIL_ID_KEY
-import pgm.poolp.ugbuilder.ui.course.CourseDetails
-import pgm.poolp.ugbuilder.ui.courses.buildSections
-import pgm.poolp.ugbuilder.ui.courses.BuilderSectionsTabs
+import pgm.poolp.ugbuilder.ui.player.CourseDetails
+import pgm.poolp.ugbuilder.ui.players.buildSections
+import pgm.poolp.ugbuilder.ui.players.BuilderSectionsTabs
 import pgm.poolp.ugbuilder.ui.onboarding.Onboarding
 
 /**
@@ -68,7 +68,7 @@ fun BuilderNavGraph(
             startDestination = BuilderSectionsTabs.OREO.route
         ) {
             buildSections(
-                onPlayerSelected = actions.openCourse,
+                onPlayerSelected = actions.openPlayerDetail,
                 onboardingComplete = onboardingComplete,
                 navController = navController,
                 modifier = modifier
@@ -102,7 +102,7 @@ class MainActions(navController: NavHostController) {
     }
 
     // Used from COURSES_ROUTE
-    val openCourse = { newPlayerId: Long, from: NavBackStackEntry ->
+    val openPlayerDetail = { newPlayerId: Long, from: NavBackStackEntry ->
         // In order to discard duplicated navigation events, we check the Lifecycle
         if (from.lifecycleIsResumed()) {
             navController.navigate("${MainRoutes.PLAYER_DETAIL_ROUTE}/$newPlayerId")

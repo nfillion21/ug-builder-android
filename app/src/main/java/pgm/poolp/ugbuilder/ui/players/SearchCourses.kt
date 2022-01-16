@@ -1,4 +1,4 @@
-package pgm.poolp.ugbuilder.ui.courses
+package pgm.poolp.ugbuilder.ui.players
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
