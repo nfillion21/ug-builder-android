@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.model.Player
-import pgm.poolp.ugbuilder.model.courses
+import pgm.poolp.ugbuilder.model.players
 import pgm.poolp.ugbuilder.ui.theme.BlueTheme
 import pgm.poolp.ugbuilder.ui.theme.UGBuilderTheme
 import pgm.poolp.ugbuilder.ui.utils.NetworkImage
@@ -66,7 +66,7 @@ fun CourseListItem(
     ) {
         Row(modifier = Modifier.clickable(onClick = onClick)) {
             NetworkImage(
-                url = player.thumbUrl,
+                url = player.imageUrl,
                 contentDescription = null,
                 modifier = Modifier.aspectRatio(1f)
             )
@@ -94,6 +94,7 @@ fun CourseListItem(
                         contentDescription = null,
                         modifier = Modifier.size(iconSize)
                     )
+                    /*
                     Text(
                         text = stringResource(
                             R.string.course_step_steps,
@@ -107,8 +108,9 @@ fun CourseListItem(
                             .weight(1f)
                             .wrapContentWidth(Alignment.Start)
                     )
+                    */
                     NetworkImage(
-                        url = player.instructor,
+                        url = player.side,
                         contentDescription = null,
                         modifier = Modifier
                             .size(28.dp)
@@ -136,7 +138,7 @@ private fun CourseListItemPreviewDark() {
 private fun CourseListItemPreview(darkTheme: Boolean) {
     BlueTheme(darkTheme) {
         CourseListItem(
-            player = courses.first(),
+            player = players.first(),
             onClick = {}
         )
     }

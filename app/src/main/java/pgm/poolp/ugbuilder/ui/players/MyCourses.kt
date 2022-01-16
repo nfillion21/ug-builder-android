@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsHeight
 import pgm.poolp.ugbuilder.model.Player
-import pgm.poolp.ugbuilder.model.courses
+import pgm.poolp.ugbuilder.model.players
 import pgm.poolp.ugbuilder.ui.common.CourseListItem
 import pgm.poolp.ugbuilder.ui.theme.BlueTheme
 
@@ -56,7 +56,7 @@ fun MyCourse(
 private fun MyCoursesPreview() {
     BlueTheme {
         MyCourses(
-            cours = courses,
+            cours = players,
             selectCourse = { }
         )
     }

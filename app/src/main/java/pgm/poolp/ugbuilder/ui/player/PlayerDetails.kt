@@ -8,7 +8,6 @@ import androidx.compose.foundation.gestures.Orientation.Vertical
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -20,7 +19,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -58,19 +56,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pgm.poolp.ugbuilder.R
 import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.google.accompanist.insets.statusBarsPadding
 import java.util.Locale
 import kotlinx.coroutines.launch
 import pgm.poolp.ugbuilder.model.*
-import pgm.poolp.ugbuilder.ui.common.CourseListItem
 import pgm.poolp.ugbuilder.ui.common.OutlinedAvatar
-import pgm.poolp.ugbuilder.ui.theme.BlueTheme
 import pgm.poolp.ugbuilder.ui.theme.PinkTheme
 import pgm.poolp.ugbuilder.ui.theme.pink500
 import pgm.poolp.ugbuilder.ui.utils.NetworkImage
@@ -82,14 +76,14 @@ private const val ExpandedSheetAlpha = 0.96f
 
 @Composable
 fun PlayerDetails(
-    courseId: Long,
+    playerId: Long,
     selectCourse: (Long) -> Unit,
     upPress: () -> Unit
 ) {
     // Simplified for the sample
-    val course = remember(courseId) { CourseRepo.getCourse(courseId) }
+    val player = remember(playerId) { PlayerRepo.getPlayer(playerId) }
     // TODO: Show error if course not found.
-    PlayerDetails(course, selectCourse, upPress)
+    PlayerDetails(player, selectCourse, upPress)
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -159,7 +153,7 @@ private fun CourseDescription(
         LazyColumn {
             item { CourseDescriptionHeader(player, upPress) }
             item { CourseDescriptionBody(player) }
-            item { RelatedCourses(player.id, selectCourse) }
+            //item { RelatedCourses(player.id, selectCourse) }
         }
     }
 }
@@ -171,7 +165,7 @@ private fun CourseDescriptionHeader(
 ) {
     Box {
         NetworkImage(
-            url = player.thumbUrl,
+            url = player.imageUrl,
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
@@ -201,7 +195,7 @@ private fun CourseDescriptionHeader(
             Spacer(modifier = Modifier.weight(1f))
         }
         OutlinedAvatar(
-            url = player.instructor,
+            url = player.imageUrl,
             modifier = Modifier
                 .size(40.dp)
                 .align(Alignment.BottomCenter)
@@ -213,7 +207,8 @@ private fun CourseDescriptionHeader(
 @Composable
 private fun CourseDescriptionBody(player: Player) {
     Text(
-        text = player.subject.uppercase(Locale.getDefault()),
+        //text = player.subject.uppercase(Locale.getDefault()),
+        text = player.side.uppercase(Locale.getDefault()),
         color = MaterialTheme.colors.primary,
         style = MaterialTheme.typography.body2,
         textAlign = TextAlign.Center,
@@ -271,6 +266,7 @@ private fun CourseDescriptionBody(player: Player) {
     }
 }
 
+/*
 @Composable
 private fun RelatedCourses(
     courseId: Long,
@@ -317,6 +313,7 @@ private fun RelatedCourses(
         }
     }
 }
+ */
 
 @Composable
 private fun LessonsSheet(

@@ -83,7 +83,7 @@ fun BuilderNavGraph(
             val arguments = requireNotNull(backStackEntry.arguments)
             val currentCourseId = arguments.getLong(PLAYER_DETAIL_ID_KEY)
             PlayerDetails(
-                courseId = currentCourseId,
+                playerId = currentCourseId,
                 selectCourse = { newCourseId ->
                     actions.relatedCourse(newCourseId, backStackEntry)
                 },

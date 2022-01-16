@@ -58,6 +58,6 @@ val teams = listOf(
 */
 
 val teams = listOf(
-    Team("Teenage Mutant Ninja Turtles", 58, "https://images.unsplash.com/photo-1422246358533-95dcd3d48961"),
+    Team("Ninja Turtles", 58, "https://images.unsplash.com/photo-1422246358533-95dcd3d48961"),
     Team("Spiderman", 121, "https://images.unsplash.com/photo-1422246358533-95dcd3d48961")
 )

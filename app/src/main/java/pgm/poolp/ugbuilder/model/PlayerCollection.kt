@@ -17,7 +17,7 @@ enum class CollectionType { Normal, Highlight }
  */
 object PlayerRepo {
     fun getPlayers(): List<PlayerCollection> = playerCollections
-    fun getSnack(snackId: Long) = players.find { it.id == snackId }!!
+    fun getPlayer(playerId: Long) = players.find { it.id == playerId }!!
     fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = related
     //fun getInspiredByCart() = inspiredByCart
     fun getFilters() = filters

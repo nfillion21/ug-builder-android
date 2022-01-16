@@ -96,7 +96,7 @@ fun FeaturedCourse(
         ) {
             val (image, avatar, subject, name, steps, icon) = createRefs()
             NetworkImage(
-                url = player.thumbUrl,
+                url = player.imageUrl,
                 contentDescription = null,
                 modifier = Modifier
                     .aspectRatio(4f / 3f)
@@ -110,7 +110,7 @@ fun FeaturedCourse(
                 elevation = UGBuilderTheme.elevations.card
             ) ?: MaterialTheme.colors.surface
             OutlinedAvatar(
-                url = player.instructor,
+                url = player.side,
                 outlineColor = outlineColor,
                 modifier = Modifier
                     .size(38.dp)
@@ -120,7 +120,8 @@ fun FeaturedCourse(
                     }
             )
             Text(
-                text = player.subject.uppercase(Locale.getDefault()),
+                //text = player.subject.uppercase(Locale.getDefault()),
+                text = player.side.uppercase(Locale.getDefault()),
                 color = MaterialTheme.colors.primary,
                 style = MaterialTheme.typography.overline,
                 modifier = Modifier
@@ -154,7 +155,7 @@ fun FeaturedCourse(
                     }
             )
             Text(
-                text = player.steps.toString(),
+                text = player.side,
                 color = MaterialTheme.colors.primary,
                 style = MaterialTheme.typography.subtitle2,
                 modifier = Modifier
