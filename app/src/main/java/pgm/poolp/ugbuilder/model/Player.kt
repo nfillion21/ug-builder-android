@@ -16,82 +16,84 @@ data class Player(
  * Static data
  */
 
-val snacks = listOf(
+val players = listOf(
     Player(
         id = 1L,
-        name = "Cupcake",
+        name = "Leonardo",
         tagline = "A tag line",
-        imageUrl = "https://source.unsplash.com/pGM4sjt_BdQ",
+        imageUrl = "https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/04/17/14/teenage-mutant-ninja-turtles-film.jpg?width=982&height=726&auto=webp&quality=75",
         price = 299
     ),
     Player(
         id = 2L,
-        name = "Donut",
+        name = "Michelangelo",
         tagline = "A tag line",
-        imageUrl = "https://source.unsplash.com/Yc5sL-ejk6U",
+        imageUrl = "https://d1nslcd7m2225b.cloudfront.net/Pictures/1024x536/6/7/1/1201671_Teenage-Mutant-Ninja-Turtles-1.jpg",
         price = 299
     ),
     Player(
         id = 3L,
-        name = "Eclair",
+        name = "Donatello",
         tagline = "A tag line",
-        imageUrl = "https://source.unsplash.com/-LojFX9NfPY",
+        imageUrl = "https://wallpaperaccess.com/full/124301.jpg",
         price = 299
     ),
     Player(
         id = 4L,
-        name = "Froyo",
+        name = "Raphael",
         tagline = "A tag line",
-        imageUrl = "https://source.unsplash.com/3U2V5WqK1PQ",
+        imageUrl = "https://i.ytimg.com/vi/G0NjKoVPd74/maxresdefault.jpg",
         price = 299
     ),
+
     Player(
         id = 5L,
-        name = "Gingerbread",
+        name = "Splinter",
         tagline = "A tag line",
-        imageUrl = "https://source.unsplash.com/Y4YR9OjdIMk",
+        imageUrl = "https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters/large/800/Splinter.Teenage-Mutant-Ninja-Turtles.webp",
         price = 499
     ),
     Player(
         id = 6L,
-        name = "Honeycomb",
+        name = "April O'Neil",
         tagline = "A tag line",
-        imageUrl = "https://source.unsplash.com/bELvIg_KZGU",
+        imageUrl = "https://static0.cbrimages.com/wordpress/wp-content/uploads/2018/04/April-ONeil.jpg",
         price = 299
     ),
     Player(
         id = 7L,
-        name = "Ice Cream Sandwich",
+        name = "Casey Jones",
         tagline = "A tag line",
-        imageUrl = "https://source.unsplash.com/YgYJsFDd4AU",
+        imageUrl = "https://i.pinimg.com/originals/c3/f2/8b/c3f28bce41bb0790ccf9ebb80d8370bd.jpg",
         price = 1299
     ),
+
     Player(
         id = 8L,
-        name = "Jellybean",
+        name = "Shredder",
         tagline = "A tag line",
-        imageUrl = "https://source.unsplash.com/0u_vbeOkMpk",
+        imageUrl = "https://www.blacksbricks.de/images/product_images/original_images/shredderpcs11.jpg",
         price = 299
     ),
     Player(
         id = 9L,
-        name = "KitKat",
+        name = "Krang",
         tagline = "A tag line",
-        imageUrl = "https://source.unsplash.com/yb16pT5F_jE",
+        imageUrl = "https://sm.ign.com/t/ign_za/news/w/will-krang/will-krang-be-in-ninja-turtles-2_qah3.1280.jpg",
         price = 549
     ),
     Player(
         id = 10L,
-        name = "Lollipop",
+        name = "Bebop",
         tagline = "A tag line",
-        imageUrl = "https://source.unsplash.com/AHF_ZktTL6Q",
+        imageUrl = "https://images.goodsmile.info/cgm/images/product/20161207/6119/42749/large/ada4ef72d300fddf0759c27cdcb2d18b.jpg",
         price = 299
     ),
     Player(
         id = 11L,
-        name = "Marshmallow",
+        name = "Rocksteady",
         tagline = "A tag line",
-        imageUrl = "https://source.unsplash.com/rqFm0IgMVYY",
+        imageUrl = "https://cdn.shopify.com/s/files/1/0059/2602/7298/products/TMNT_Rocksteady_Hero_2048x2048_2048x2048_d377fbec-325e-4d9c-9040-a5c55f571fac.png?v=1593142006",
         price = 299
     ),
     Player(

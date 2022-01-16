@@ -56,17 +56,16 @@ fun PlayerCollection(
     Column(modifier = modifier) {
 
         Row(
-            //verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .heightIn(min = 56.dp)
                 .padding(start = 44.dp)
         ) {
 
-            /*
             Text(
                 text = playerCollection.name,
                 style = MaterialTheme.typography.h6,
-                color = UGBuilderTheme.colors.primary,
+                color = UGBuilderTheme.colors.secondary,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
@@ -86,7 +85,6 @@ fun PlayerCollection(
                     contentDescription = null
                 )
             }
-            */
         }
         /*
         if (highlight && playerCollection.type == CollectionType.Highlight) {
@@ -209,10 +207,16 @@ fun PlayerItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        modifier = modifier.padding(4.dp)
-            .size(width = 170.dp,
-            height = 250.dp
-                ),
+        modifier = modifier
+            .padding(4.dp)
+            //.fillMaxHeight()
+            .width(170.dp),
+                /*
+            .size(
+                width = 170.dp,
+                height = 250.dp
+            ),
+        */
         color = MaterialTheme.colors.surface,
         elevation = UGBuilderTheme.elevations.card,
         shape = MaterialTheme.shapes.medium,
@@ -230,12 +234,7 @@ fun PlayerItem(
             val (image, avatar, subject, name, steps, icon) = createRefs()
 
             NetworkImage(
-                //url = course.thumbUrl,
-                //url = "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8",
-                //url = player.imageUrl,
-
-                //url = "https://images.unsplash.com/photo-1508261301902-79a2d8e78f71",
-                url = "https://i.pravatar.cc/11210",
+                url = player.imageUrl,
                 contentDescription = null,
                 modifier = Modifier
                     .aspectRatio(4f / 3f)
@@ -251,7 +250,7 @@ fun PlayerItem(
             ) ?: MaterialTheme.colors.surface
             OutlinedAvatar(
                 //url = course.instructor,
-                url = "https://i.pravatar.cc/11210",
+                url = player.imageUrl,
                 outlineColor = outlineColor,
                 modifier = Modifier
                     .size(38.dp)
@@ -274,7 +273,7 @@ fun PlayerItem(
             )
             Text(
                 //text = course.name,
-                text = "Basic Blocks",
+                text = player.name,
                 style = MaterialTheme.typography.subtitle1,
                 textAlign = TextAlign.Center,
                 modifier = Modifier

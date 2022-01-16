@@ -17,9 +17,9 @@ enum class CollectionType { Normal, Highlight }
  */
 object PlayerRepo {
     fun getPlayers(): List<PlayerCollection> = playerCollections
-    fun getSnack(snackId: Long) = snacks.find { it.id == snackId }!!
+    fun getSnack(snackId: Long) = players.find { it.id == snackId }!!
     fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = related
-    fun getInspiredByCart() = inspiredByCart
+    //fun getInspiredByCart() = inspiredByCart
     fun getFilters() = filters
     fun getCart() = cart
 }
@@ -28,61 +28,47 @@ object PlayerRepo {
  * Static data
  */
 
-private val tastyTreats = PlayerCollection(
+private val turtles = PlayerCollection(
     id = 1L,
-    name = "Android's picks",
+    name = "Turtles",
     type = CollectionType.Highlight,
-    players = snacks.subList(0, 13)
+    players = players.subList(0, 4)
 )
 
-private val popular = PlayerCollection(
+private val allies = PlayerCollection(
     id = 2L,
-    name = "Popular on Jetsnack",
-    players = snacks.subList(14, 19)
+    name = "Allies",
+    players = players.subList(4, 7)
 )
 
-private val wfhFavs = tastyTreats.copy(
+private val ennemies = PlayerCollection(
+    id = 2L,
+    name = "Ennemies",
+    players = players.subList(7, 11)
+)
+
+private val wfhFavs = turtles.copy(
     id = 3L,
     name = "WFH favourites"
 )
 
-private val newlyAdded = popular.copy(
-    id = 4L,
-    name = "Newly Added"
-)
-
-private val exclusive = tastyTreats.copy(
-    id = 5L,
-    name = "Only on Jetsnack"
-)
-
-private val also = tastyTreats.copy(
-    id = 6L,
-    name = "Customers also bought"
-)
-
-private val inspiredByCart = tastyTreats.copy(
-    id = 7L,
-    name = "Inspired by your cart"
-)
-
 private val playerCollections = listOf(
-    tastyTreats,
-    popular
-    //wfhFavs,
+    turtles,
+    allies,
+    ennemies
     //newlyAdded,
     //exclusive
 )
 
 private val related = listOf(
-    also,
-    popular
+    wfhFavs,
+    allies
 )
 
 private val cart = listOf(
-    OrderLine(snacks[4], 2),
-    OrderLine(snacks[6], 3),
-    OrderLine(snacks[8], 1)
+    OrderLine(players[4], 2),
+    OrderLine(players[6], 3),
+    OrderLine(players[8], 1)
 )
 
 @Immutable
