@@ -17,7 +17,7 @@ enum class CollectionType { Normal, Highlight }
  */
 object PlayerRepo {
     fun getPlayers(): List<PlayerCollection> = playerCollections
-    fun getPlayer(playerId: Long) = players.find { it.id == playerId }!!
+    fun getPlayer(playerId: Long) = tmnt_players.find { it.id == playerId }!!
     fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = related
     //fun getInspiredByCart() = inspiredByCart
     fun getFilters() = filters
@@ -32,19 +32,19 @@ private val turtles = PlayerCollection(
     id = 1L,
     name = "Heroes",
     type = CollectionType.Highlight,
-    players = players.subList(0, 4)
+    players = tmnt_players.subList(0, 4)
 )
 
 private val allies = PlayerCollection(
     id = 2L,
     name = "Allies",
-    players = players.subList(4, 7)
+    players = tmnt_players.subList(4, 7)
 )
 
 private val ennemies = PlayerCollection(
     id = 2L,
     name = "Ennemies",
-    players = players.subList(7, 11)
+    players = tmnt_players.subList(7, 11)
 )
 
 private val wfhFavs = turtles.copy(
@@ -66,9 +66,9 @@ private val related = listOf(
 )
 
 private val cart = listOf(
-    OrderLine(players[4], 2),
-    OrderLine(players[6], 3),
-    OrderLine(players[8], 1)
+    OrderLine(tmnt_players[4], 2),
+    OrderLine(tmnt_players[6], 3),
+    OrderLine(tmnt_players[8], 1)
 )
 
 @Immutable

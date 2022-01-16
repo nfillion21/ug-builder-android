@@ -16,7 +16,7 @@ data class Player(
  * Static data
  */
 
-val players = listOf(
+val tmnt_players = listOf(
     Player(
         id = 1L,
         name = "Leonardo",
