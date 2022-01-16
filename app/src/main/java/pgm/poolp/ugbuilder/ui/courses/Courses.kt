@@ -28,7 +28,7 @@ import pgm.poolp.ugbuilder.model.teams
 import pgm.poolp.ugbuilder.ui.MainRoutes
 
 fun NavGraphBuilder.buildSections(
-    onCourseSelected: (Long, NavBackStackEntry) -> Unit,
+    onPlayerSelected: (Long, NavBackStackEntry) -> Unit,
     onboardingComplete: State<Boolean>, // https://issuetracker.google.com/174783110
     navController: NavHostController,
     modifier: Modifier = Modifier
@@ -36,7 +36,7 @@ fun NavGraphBuilder.buildSections(
     composable(BuilderSectionsTabs.FEATURED.route) { from ->
         OreoGrid(
             courses = courses,
-            selectCourse = { id -> onCourseSelected(id, from) },
+            selectCourse = { id -> onPlayerSelected(id, from) },
             modifier = modifier
         )
     }
@@ -57,9 +57,9 @@ fun NavGraphBuilder.buildSections(
                 modifier = modifier
             )
             */
-            Oreo(
-                modifier = modifier,
-                onPlayerClick = onCourseSelected
+            LaunchOreo(
+                selectPlayer = {id -> onPlayerSelected(id, it)},
+                modifier = modifier
             )
         }
     }

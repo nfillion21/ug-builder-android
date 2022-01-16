@@ -1,40 +1,29 @@
 package pgm.poolp.ugbuilder.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.rounded.Money
-import androidx.compose.material.icons.rounded.OndemandVideo
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import coil.compose.rememberImagePainter
 import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.model.Player
 import pgm.poolp.ugbuilder.model.PlayerCollection
 import pgm.poolp.ugbuilder.ui.common.OutlinedAvatar
 import pgm.poolp.ugbuilder.ui.theme.*
 import pgm.poolp.ugbuilder.ui.utils.NetworkImage
-import pgm.poolp.ugbuilder.ui.utils.mirroringIcon
 import java.util.*
 
 private val HighlightCardWidth = 170.dp
@@ -51,8 +40,7 @@ private val gradientWidth
 fun PlayerCollection(
         playerCollection: PlayerCollection,
         onPlayerClick: (Long) -> Unit,
-        modifier: Modifier = Modifier,
-        index: Int = 0,
+        modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
 
@@ -89,13 +77,12 @@ fun PlayerCollection(
             }
             */
         }
-        HighlightedPlayers(index, playerCollection.players, onPlayerClick)
+        HighlightedPlayers(playerCollection.players, onPlayerClick)
     }
 }
 
 @Composable
 private fun HighlightedPlayers(
-        index: Int,
         players: List<Player>,
         onPlayerClick: (Long) -> Unit,
         modifier: Modifier = Modifier
@@ -105,7 +92,7 @@ private fun HighlightedPlayers(
         //horizontalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
     ) {
-        itemsIndexed(players) { index, player ->
+        itemsIndexed(players) { _, player ->
             PlayerItem(
                 player = player,
                 onPlayerClick = onPlayerClick
@@ -139,7 +126,7 @@ fun PlayerItem(
         ConstraintLayout(
             modifier = Modifier
                 .clickable(
-                    onClick = { /*selectCourse(course.id)*/ "id" }
+                    onClick = { onPlayerClick(player.id)}
                 )
                 .semantics {
                     contentDescription = featuredString
@@ -163,7 +150,6 @@ fun PlayerItem(
                 elevation = UGBuilderTheme.elevations.card
             ) ?: MaterialTheme.colors.surface
             OutlinedAvatar(
-                //url = course.instructor,
                 url = player.imageUrl,
                 outlineColor = outlineColor,
                 modifier = Modifier

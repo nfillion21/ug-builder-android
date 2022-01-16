@@ -68,7 +68,7 @@ fun BuilderNavGraph(
             startDestination = BuilderSectionsTabs.OREO.route
         ) {
             buildSections(
-                onCourseSelected = actions.openCourse,
+                onPlayerSelected = actions.openCourse,
                 onboardingComplete = onboardingComplete,
                 navController = navController,
                 modifier = modifier
@@ -102,10 +102,10 @@ class MainActions(navController: NavHostController) {
     }
 
     // Used from COURSES_ROUTE
-    val openCourse = { newCourseId: Long, from: NavBackStackEntry ->
+    val openCourse = { newPlayerId: Long, from: NavBackStackEntry ->
         // In order to discard duplicated navigation events, we check the Lifecycle
         if (from.lifecycleIsResumed()) {
-            navController.navigate("${MainRoutes.PLAYER_DETAIL_ROUTE}/$newCourseId")
+            navController.navigate("${MainRoutes.PLAYER_DETAIL_ROUTE}/$newPlayerId")
         }
     }
 
