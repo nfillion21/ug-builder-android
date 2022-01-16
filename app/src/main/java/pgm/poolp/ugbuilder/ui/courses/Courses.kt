@@ -33,36 +33,6 @@ fun NavGraphBuilder.buildSections(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    /*
-    composable(CourseTabs.FEATURED.route) { from ->
-        // Show onboarding instead if not shown yet.
-        LaunchedEffect(onboardingComplete) {
-            if (!onboardingComplete.value) {
-                navController.navigate(MainDestinations.ONBOARDING_ROUTE)
-            }
-        }
-        if (onboardingComplete.value) { // Avoid glitch when showing onboarding
-            FeaturedCourses(
-                courses = courses,
-                selectCourse = { id -> onCourseSelected(id, from) },
-                modifier = modifier
-            )
-        }
-    }
-    composable(CourseTabs.MY_COURSES.route) { from ->
-        MyCourses(
-            courses = courses,
-            { id -> onCourseSelected(id, from) },
-            modifier
-        )
-    }
-    */
-    /*
-    composable(BuilderSectionsTabs.SEARCH.route) {
-        SearchCourses(teams, modifier)
-    }
-     */
-
     composable(BuilderSectionsTabs.FEATURED.route) { from ->
         OreoGrid(
             courses = courses,
@@ -70,13 +40,6 @@ fun NavGraphBuilder.buildSections(
             modifier = modifier
         )
     }
-
-    /*
-    composable(BuilderSectionsTabs.OREO.route) { from ->
-        //Feed(onSnackClick = { id -> onSnackSelected(id, from) }, modifier)
-        Oreo(modifier)
-    }
-    */
 
     composable(BuilderSectionsTabs.OREO.route) {
 
@@ -94,7 +57,10 @@ fun NavGraphBuilder.buildSections(
                 modifier = modifier
             )
             */
-            Oreo(modifier)
+            Oreo(
+                modifier = modifier,
+                onPlayerClick = onCourseSelected
+            )
         }
     }
 

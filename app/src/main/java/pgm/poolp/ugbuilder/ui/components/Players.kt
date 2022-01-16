@@ -11,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ArrowForward
+import androidx.compose.material.icons.rounded.Money
 import androidx.compose.material.icons.rounded.OndemandVideo
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -49,7 +50,7 @@ private val gradientWidth
 @Composable
 fun PlayerCollection(
         playerCollection: PlayerCollection,
-    //onSnackClick: (Long) -> Unit,
+        onPlayerClick: (Long) -> Unit,
         modifier: Modifier = Modifier,
         index: Int = 0,
 ) {
@@ -65,13 +66,14 @@ fun PlayerCollection(
             Text(
                 text = playerCollection.name,
                 style = MaterialTheme.typography.h6,
-                color = UGBuilderTheme.colors.secondary,
+                color = UGBuilderTheme.colors.onPrimary,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .weight(1f)
                     .wrapContentWidth(Alignment.Start)
             )
+            /*
             IconButton(
                 onClick = { /* todo */ },
                 modifier = Modifier.align(Alignment.CenterVertically)
@@ -81,17 +83,13 @@ fun PlayerCollection(
                         ltrIcon = Icons.Outlined.ArrowForward,
                         rtlIcon = Icons.Outlined.ArrowBack
                     ),
-                    tint = UGBuilderTheme.colors.primary,
+                    tint = UGBuilderTheme.colors.secondary,
                     contentDescription = null
                 )
             }
+            */
         }
-        /*
-        if (highlight && playerCollection.type == CollectionType.Highlight) {
-            HighlightedSnacks(index, playerCollection.players/*, onSnackClick*/)
-        }
-         */
-        HighlightedPlayers(index, playerCollection.players/*, onSnackClick*/)
+        HighlightedPlayers(index, playerCollection.players, onPlayerClick)
     }
 }
 
@@ -99,111 +97,27 @@ fun PlayerCollection(
 private fun HighlightedPlayers(
         index: Int,
         players: List<Player>,
-    //onSnackClick: (Long) -> Unit,
+        onPlayerClick: (Long) -> Unit,
         modifier: Modifier = Modifier
 ) {
-    val scroll = rememberScrollState(0)
-    val gradient = when ((index / 2) % 2) {
-        0 -> listOf(Shadow5, Ocean7, Shadow9, Ocean7, Shadow5)
-        else -> listOf(Rose4, Lavender3, Rose2, Lavender3, Rose4)
-    }
-    // The Cards show a gradient which spans 3 cards and scrolls with parallax.
-    val gradientWidth = with(LocalDensity.current) {
-        (6 * (HighlightCardWidth + HighlightCardPadding).toPx())
-    }
     LazyRow(
         modifier = modifier,
         //horizontalArrangement = Arrangement.spacedBy(16.dp),
-        //contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
+        contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
     ) {
         itemsIndexed(players) { index, player ->
-            /*
-            HighlightPlayerItem(
-                snack,
-                //onSnackClick,
-                index,
-                gradient,
-                gradientWidth,
-                scroll.value
-            )
-            */
-            PlayerItem(player = player)
-        }
-    }
-}
-
-/*
-@Composable
-private fun HighlightPlayerItem(
-        player: Player,
-    //onSnackClick: (Long) -> Unit,
-        index: Int,
-        gradient: List<Color>,
-        gradientWidth: Float,
-        scroll: Int,
-        modifier: Modifier = Modifier
-) {
-    val left = index * with(LocalDensity.current) {
-        (HighlightCardWidth + HighlightCardPadding).toPx()
-    }
-    JetsnackCard(
-        modifier = modifier
-            .size(
-                width = 170.dp,
-                height = 250.dp
-            )
-            .padding(bottom = 16.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .clickable(onClick = { /*onSnackClick(snack.id)*/ })
-                .fillMaxSize()
-        ) {
-            Box(
-                modifier = Modifier
-                    .height(160.dp)
-                    .fillMaxWidth()
-            ) {
-                val gradientOffset = left - (scroll / 3f)
-                Box(
-                    modifier = Modifier
-                        .height(100.dp)
-                        .fillMaxWidth()
-                        .offsetGradientBackground(gradient, gradientWidth, gradientOffset)
-                )
-                PlayerImage(
-                    imageUrl = player.imageUrl,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(120.dp)
-                        .align(Alignment.BottomCenter)
-                )
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = player.name,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.h6,
-                color = UGBuilderTheme.colors.primary,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = player.tagline,
-                style = MaterialTheme.typography.body1,
-                color = UGBuilderTheme.colors.primary,
-                modifier = Modifier.padding(horizontal = 16.dp)
+            PlayerItem(
+                player = player,
+                onPlayerClick = onPlayerClick
             )
         }
     }
 }
-*/
-
 
 @Composable
 fun PlayerItem(
     player: Player,
+    onPlayerClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -285,7 +199,7 @@ fun PlayerItem(
             )
             val center = createGuidelineFromStart(0.5f)
             Icon(
-                imageVector = Icons.Rounded.OndemandVideo,
+                imageVector = Icons.Rounded.Money,
                 tint = MaterialTheme.colors.primary,
                 contentDescription = null,
                 modifier = Modifier
@@ -296,8 +210,8 @@ fun PlayerItem(
                     }
             )
             Text(
-                //text = course.steps.toString(),
-                text = "1",
+                //text = course.steps.toString(), price
+                text = "100",
                 color = MaterialTheme.colors.primary,
                 style = MaterialTheme.typography.subtitle2,
                 modifier = Modifier
@@ -314,33 +228,3 @@ fun PlayerItem(
         }
     }
 }
-
-/*
-@Composable
-fun PlayerImage(
-    imageUrl: String,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    elevation: Dp = 0.dp
-) {
-    JetsnackSurface(
-        color = Color.LightGray,
-        elevation = elevation,
-        shape = CircleShape,
-        modifier = modifier
-    ) {
-        Image(
-            painter = rememberImagePainter(
-                data = imageUrl,
-                builder = {
-                    crossfade(true)
-                    placeholder(drawableResId = R.drawable.placeholder)
-                }
-            ),
-            contentDescription = contentDescription,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
-        )
-    }
-}
-*/
