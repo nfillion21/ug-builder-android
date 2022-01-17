@@ -99,8 +99,8 @@ enum class BuilderSectionsTabs(
 ) {
     //MY_COURSES(R.string.my_courses, R.drawable.ic_grain, BuilderSections.MY_COURSES_ROUTE),
     //FEATURED(R.string.featured, Icons.Outlined.Search, BuilderSections.SEARCH_ROUTE),
-    SEARCH(R.string.search, Icons.Outlined.Search, BuilderSections.SEARCH_ROUTE),
-    OREO(R.string.oreo, Icons.Outlined.List, BuilderSections.OREO_ROUTE),
+    SEARCH(R.string.search, Icons.Outlined.List, BuilderSections.SEARCH_ROUTE),
+    OREO(R.string.heroes, Icons.Outlined.Person, BuilderSections.OREO_ROUTE),
     CART(R.string.cart, Icons.Outlined.ShoppingCart, BuilderSections.CART_ROUTE)
 }
 

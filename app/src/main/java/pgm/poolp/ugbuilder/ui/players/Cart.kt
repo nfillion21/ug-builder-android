@@ -70,7 +70,7 @@ private fun CartContent(
             //Spacer(Modifier.statusBarsHeight(additional = 56.dp))
             Text(
                 //text = stringResource(R.string.cart_order_header, snackCountFormattedString),
-                text = "Team heroes",
+                text = "Team heroes and villains",
                 style = MaterialTheme.typography.h6,
                 color = UGBuilderTheme.colors.onPrimary,
                 maxLines = 1,
@@ -135,6 +135,7 @@ fun CartItem(
         Text(
             text = "Leonardo",
             style = UGBuilderTheme.typography.subtitle1,
+            color = Color.Black,
             modifier = Modifier.constrainAs(name) {
                 start.linkTo(image.end, margin = 16.dp)
             }
@@ -166,7 +167,7 @@ fun CartItem(
         )
         Spacer(
             Modifier
-                .height(8.dp)
+                .height(16.dp)
                 .constrainAs(priceSpacer) {
                     top.linkTo(tag.bottom)
                     bottom.linkTo(price.top)
@@ -191,15 +192,11 @@ fun CartItem(
             color = UGBuilderTheme.colors.primary,
             modifier = Modifier
                 .padding(
-                    start = 4.dp,
-                    top = 16.dp,
-                    bottom = 16.dp
+                    start = 4.dp
                 )
                 .constrainAs(price) {
-                start.linkTo(icon.end)
-                //top.linkTo(priceSpacer.bottom)
+                    start.linkTo(icon.end)
                     centerVerticallyTo(icon)
-
                 }
         )
 
