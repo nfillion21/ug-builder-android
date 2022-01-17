@@ -145,8 +145,6 @@ fun PlayerItem(
                     }
             )
             Text(
-                //text = course.subject.uppercase(Locale.getDefault()),
-                //text = "Arts & Crafts",
                 text = player.side,
                 color = MaterialTheme.colors.primary,
                 style = MaterialTheme.typography.overline,
@@ -158,7 +156,6 @@ fun PlayerItem(
                     }
             )
             Text(
-                //text = course.name,
                 text = player.name,
                 style = MaterialTheme.typography.subtitle1,
                 textAlign = TextAlign.Center,

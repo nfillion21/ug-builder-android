@@ -1,42 +1,34 @@
 package pgm.poolp.ugbuilder.ui.players
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.rounded.Money
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.statusBarsHeight
 import com.google.accompanist.insets.statusBarsPadding
 import pgm.poolp.ugbuilder.R
-import pgm.poolp.ugbuilder.model.PlayerCollection
-import pgm.poolp.ugbuilder.model.Team
+import pgm.poolp.ugbuilder.model.tmnt_players
 import pgm.poolp.ugbuilder.ui.components.JetsnackSurface
 import pgm.poolp.ugbuilder.ui.theme.UGBuilderTheme
 
@@ -66,28 +58,21 @@ fun Cart(
     }
 }
 
-
 @Composable
 private fun CartContent(
     modifier: Modifier = Modifier
 ) {
-    val resources = LocalContext.current.resources
-    /*
-    val snackCountFormattedString = remember(orderLines.size, resources) {
-        resources.getQuantityString(
-            R.plurals.cart_order_count,
-            //orderLines.size, orderLines.size
-        )
-    }
-    */
-    LazyColumn(modifier) {
+    LazyColumn(modifier.statusBarsPadding()) {
         item {
-            Spacer(Modifier.statusBarsHeight(additional = 56.dp))
+            CoursesAppBar()
+        }
+        item {
+            //Spacer(Modifier.statusBarsHeight(additional = 56.dp))
             Text(
                 //text = stringResource(R.string.cart_order_header, snackCountFormattedString),
-                text = "Hello world",
+                text = "Team heroes",
                 style = MaterialTheme.typography.h6,
-                color = UGBuilderTheme.colors.secondaryVariant,
+                color = UGBuilderTheme.colors.onPrimary,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
@@ -129,11 +114,12 @@ fun CartItem(
     ConstraintLayout(
         modifier = modifier
             .fillMaxWidth()
+            .background(Color.White)
             //.clickable { onSnackClick(snack.id) }
             .padding(horizontal = 24.dp)
     ) {
-        val (divider, image, name, tag, priceSpacer, price, remove, quantity) = createRefs()
-        createVerticalChain(name, tag, priceSpacer, price, chainStyle = ChainStyle.Packed)
+        val (image, name, tag, priceSpacer, price, remove, icon) = createRefs()
+        createVerticalChain(name, tag, priceSpacer, icon, chainStyle = ChainStyle.Packed)
         SnackImage(
             //imageUrl = snack.imageUrl,
             imageUrl = "https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/04/17/14/teenage-mutant-ninja-turtles-film.jpg?width=982&height=726&auto=webp&quality=75",
@@ -147,9 +133,8 @@ fun CartItem(
                 }
         )
         Text(
-            text = "Hello world 2",
-            style = MaterialTheme.typography.subtitle1,
-            color = UGBuilderTheme.colors.secondaryVariant,
+            text = "Leonardo",
+            style = UGBuilderTheme.typography.subtitle1,
             modifier = Modifier.constrainAs(name) {
                 start.linkTo(image.end, margin = 16.dp)
             }
@@ -165,16 +150,16 @@ fun CartItem(
         ) {
             Icon(
                 imageVector = Icons.Filled.Close,
-                tint = UGBuilderTheme.colors.secondaryVariant,
+                tint = UGBuilderTheme.colors.primary,
                 contentDescription = ""
                 //contentDescription = stringResource(R.string.label_remove)
             )
         }
         Text(
             //text = snack.tagline,
-            text = "Hello world tagline",
-            style = MaterialTheme.typography.body1,
-            color = UGBuilderTheme.colors.secondaryVariant,
+            text = "Hero",
+            style = UGBuilderTheme.typography.overline,
+            color = UGBuilderTheme.colors.primary,
             modifier = Modifier.constrainAs(tag) {
                 start.linkTo(image.end, margin = 16.dp)
             }
@@ -187,33 +172,54 @@ fun CartItem(
                     bottom.linkTo(price.top)
                 }
         )
+
+        Icon(
+            imageVector = Icons.Rounded.Money,
+            tint = MaterialTheme.colors.primary,
+            contentDescription = null,
+            modifier = Modifier
+                .size(16.dp)
+                .constrainAs(icon) {
+                    start.linkTo(image.end, margin = 16.dp)
+                }
+        )
+
         Text(
             //text = formatPrice(snack.price),
-            text = "Hello world price",
-            style = MaterialTheme.typography.subtitle1,
+            text = "200",
+            style = MaterialTheme.typography.subtitle2,
             color = UGBuilderTheme.colors.primary,
-            modifier = Modifier.constrainAs(price) {
-                start.linkTo(image.end, margin = 16.dp)
-            }
+            modifier = Modifier
+                .padding(
+                    start = 4.dp,
+                    top = 16.dp,
+                    bottom = 16.dp
+                )
+                .constrainAs(price) {
+                start.linkTo(icon.end)
+                //top.linkTo(priceSpacer.bottom)
+                    centerVerticallyTo(icon)
+
+                }
         )
+
+
         /*
-        QuantitySelector(
-            count = orderLine.count,
-            decreaseItemCount = { decreaseItemCount(snack.id) },
-            increaseItemCount = { increaseItemCount(snack.id) },
-            modifier = Modifier.constrainAs(quantity) {
-                baseline.linkTo(price.baseline)
-                end.linkTo(parent.end)
-            }
-        )
-        */
-        /*
-        JetsnackDivider(
-            Modifier.constrainAs(divider) {
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                top.linkTo(parent.bottom)
-            }
+        Text(
+            //text = course.steps.toString(), price
+            text = "100",
+            color = MaterialTheme.colors.primary,
+            style = MaterialTheme.typography.subtitle2,
+            modifier = Modifier
+                .padding(
+                    start = 4.dp,
+                    top = 16.dp,
+                    bottom = 16.dp
+                )
+                .constrainAs(steps) {
+                    start.linkTo(center)
+                    top.linkTo(name.bottom)
+                }
         )
         */
     }
