@@ -33,11 +33,9 @@ fun NavGraphBuilder.buildSections(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-
-    composable(BuilderSectionsTabs.CART.route) {
-        Cart(teams, modifier)
+    composable(BuilderSectionsTabs.SEARCH.route) {
+        SearchPlayers(teams, modifier)
     }
-
     composable(BuilderSectionsTabs.OREO.route) {
 
         LaunchedEffect(onboardingComplete) {
@@ -53,9 +51,8 @@ fun NavGraphBuilder.buildSections(
             )
         }
     }
-
-    composable(BuilderSectionsTabs.SEARCH.route) {
-        SearchPlayers(teams, modifier)
+    composable(BuilderSectionsTabs.CART.route) {
+        Cart(teams, modifier)
     }
 
     /*

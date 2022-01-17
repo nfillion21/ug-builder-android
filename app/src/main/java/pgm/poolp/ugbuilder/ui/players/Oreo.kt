@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsHeight
+import com.google.accompanist.insets.statusBarsPadding
 import pgm.poolp.ugbuilder.model.PlayerCollection
 import pgm.poolp.ugbuilder.model.PlayerRepo
 import pgm.poolp.ugbuilder.ui.components.JetsnackSurface
@@ -49,15 +50,20 @@ private fun playerCollectionList(
     onPlayerClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier) {
+    LazyColumn(modifier
+        .statusBarsPadding()
+    ) {
         /*
         item {
             Spacer(Modifier.statusBarsHeight(additional = 56.dp))
         }
         */
+        /*
         item {
             Spacer(Modifier.statusBarsHeight())
         }
+
+         */
         item {
             CoursesAppBar()
         }
