@@ -27,7 +27,7 @@ import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.model.Team
 
 @Composable
-fun SearchCourses(
+fun SearchPlayers(
     teams: List<Team>,
     modifier: Modifier = Modifier
 ) {

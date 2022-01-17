@@ -50,8 +50,16 @@ private fun playerCollectionList(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier) {
+        /*
         item {
             Spacer(Modifier.statusBarsHeight(additional = 56.dp))
+        }
+        */
+        item {
+            Spacer(Modifier.statusBarsHeight())
+        }
+        item {
+            CoursesAppBar()
         }
         itemsIndexed(playerCollections) { _, playerCollection ->
             PlayerCollection(

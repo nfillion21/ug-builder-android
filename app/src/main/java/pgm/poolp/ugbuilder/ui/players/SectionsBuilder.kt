@@ -35,7 +35,7 @@ fun NavGraphBuilder.buildSections(
 ) {
 
     composable(BuilderSectionsTabs.CART.route) {
-        SearchCourses(teams, modifier)
+        Cart(teams, modifier)
     }
 
     composable(BuilderSectionsTabs.OREO.route) {
@@ -55,7 +55,7 @@ fun NavGraphBuilder.buildSections(
     }
 
     composable(BuilderSectionsTabs.SEARCH.route) {
-        SearchCourses(teams, modifier)
+        SearchPlayers(teams, modifier)
     }
 
     /*
