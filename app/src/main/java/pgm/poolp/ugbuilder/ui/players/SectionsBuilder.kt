@@ -52,7 +52,7 @@ fun NavGraphBuilder.buildSections(
         }
     }
     composable(BuilderSectionsTabs.CART.route) {
-        Cart(teams, modifier)
+        Cart(modifier)
     }
 
     /*
