@@ -18,7 +18,7 @@ enum class CollectionType { Normal, Highlight }
 object PlayerRepo {
     fun getPlayers(): List<PlayerCollection> = playerCollections
     fun getPlayer(playerId: Long) = tmnt_players.find { it.id == playerId }!!
-    fun getCart() = tmnt_players
+    fun getCart() = tmnt_players.subList(0,2)
 }
 
 /**

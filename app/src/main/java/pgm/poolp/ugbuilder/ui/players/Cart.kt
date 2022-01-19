@@ -44,7 +44,8 @@ fun Cart(
     Cart(
         modifier = modifier,
         players = players,
-        removePlayer = viewModel::removePlayer
+        removePlayer = viewModel::removePlayer,
+        addPlayer = viewModel::addPlayer
     )
 }
 
@@ -52,7 +53,8 @@ fun Cart(
 fun Cart(
     modifier: Modifier = Modifier,
     players: List<Player>,
-    removePlayer: (Long) -> Unit
+    removePlayer: (Long) -> Unit,
+    addPlayer: (Player) -> Unit
 ) {
     LazyColumn(modifier = modifier
         .statusBarsPadding(),
@@ -65,7 +67,8 @@ fun Cart(
         items(players) { player ->
             CartItem(
                 player = player,
-                removePlayer = removePlayer
+                removePlayer = removePlayer,
+                addPlayer = addPlayer
             )
         }
     }
@@ -75,7 +78,8 @@ fun Cart(
 fun CartItem(
     modifier: Modifier = Modifier,
     player: Player,
-    removePlayer: (Long) -> Unit
+    removePlayer: (Long) -> Unit,
+    addPlayer: (Player) -> Unit
 ) {
     //val snack = orderLine.snack
     ConstraintLayout(
@@ -166,26 +170,6 @@ fun CartItem(
                     centerVerticallyTo(icon)
                 }
         )
-
-
-        /*
-        Text(
-            //text = course.steps.toString(), price
-            text = "100",
-            color = MaterialTheme.colors.primary,
-            style = MaterialTheme.typography.subtitle2,
-            modifier = Modifier
-                .padding(
-                    start = 4.dp,
-                    top = 16.dp,
-                    bottom = 16.dp
-                )
-                .constrainAs(steps) {
-                    start.linkTo(center)
-                    top.linkTo(name.bottom)
-                }
-        )
-        */
     }
 }
 

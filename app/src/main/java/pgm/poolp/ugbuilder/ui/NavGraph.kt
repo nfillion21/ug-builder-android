@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import pgm.poolp.ugbuilder.model.Player
 import pgm.poolp.ugbuilder.ui.MainRoutes.PLAYER_DETAIL_ID_KEY
 import pgm.poolp.ugbuilder.ui.onboarding.Onboarding
 import pgm.poolp.ugbuilder.ui.player.PlayerDetails

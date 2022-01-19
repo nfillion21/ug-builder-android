@@ -40,6 +40,7 @@ private val gradientWidth
 fun PlayerCollection(
         playerCollection: PlayerCollection,
         onPlayerClick: (Long) -> Unit,
+        addPlayer: (Player) -> Unit,
         modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
@@ -62,7 +63,7 @@ fun PlayerCollection(
                     .wrapContentWidth(Alignment.Start)
             )
         }
-        HighlightedPlayers(playerCollection.players, onPlayerClick)
+        HighlightedPlayers(playerCollection.players, onPlayerClick, addPlayer)
     }
 }
 
@@ -70,6 +71,7 @@ fun PlayerCollection(
 private fun HighlightedPlayers(
         players: List<Player>,
         onPlayerClick: (Long) -> Unit,
+        addPlayer: (Player) -> Unit,
         modifier: Modifier = Modifier
 ) {
     LazyRow(
@@ -80,7 +82,8 @@ private fun HighlightedPlayers(
         itemsIndexed(players) { _, player ->
             PlayerItem(
                 player = player,
-                onPlayerClick = onPlayerClick
+                onPlayerClick = onPlayerClick,
+                addPlayer = addPlayer
             )
         }
     }
@@ -90,6 +93,7 @@ private fun HighlightedPlayers(
 fun PlayerItem(
     player: Player,
     onPlayerClick: (Long) -> Unit,
+    addPlayer: (Player) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -111,7 +115,8 @@ fun PlayerItem(
         ConstraintLayout(
             modifier = Modifier
                 .clickable(
-                    onClick = { onPlayerClick(player.id)}
+                    //onClick = { onPlayerClick(player.id)}
+                    onClick = { addPlayer(player)}
                 )
                 .semantics {
                     contentDescription = featuredString

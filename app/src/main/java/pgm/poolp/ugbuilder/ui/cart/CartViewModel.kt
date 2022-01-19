@@ -40,6 +40,10 @@ class CartViewModel(
         _players.value = _players.value.filter { it.id != playerId }
     }
 
+    fun addPlayer(player: Player) {
+        _players.value += player
+    }
+
     /**
      * Factory for CartViewModel that takes SnackbarManager as a dependency
      */

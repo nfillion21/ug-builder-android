@@ -24,7 +24,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import pgm.poolp.ugbuilder.R
-import pgm.poolp.ugbuilder.model.teams
 import pgm.poolp.ugbuilder.model.tmnt_players
 import pgm.poolp.ugbuilder.ui.MainRoutes
 
@@ -46,7 +45,7 @@ fun NavGraphBuilder.buildSections(
         }
         if (onboardingComplete.value)
         { // Avoid glitch when showing onboarding
-            LaunchOreo(
+            Oreo(
                 selectPlayer = {id -> onPlayerSelected(id, it)},
                 modifier = modifier
             )
