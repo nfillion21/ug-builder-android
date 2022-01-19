@@ -86,7 +86,7 @@ fun Onboarding(onboardingComplete: () -> Unit) {
                     .padding(innerPadding)
             ) {
                 Text(
-                    text = stringResource(R.string.choose_your_comics_universe),
+                    text = stringResource(R.string.choose_your_universe),
                     style = MaterialTheme.typography.h4,
                     textAlign = TextAlign.End,
                     modifier = Modifier.padding(

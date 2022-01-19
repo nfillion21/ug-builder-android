@@ -24,20 +24,21 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
 import pgm.poolp.ugbuilder.R
+import pgm.poolp.ugbuilder.model.Player
 import pgm.poolp.ugbuilder.model.Team
 
 @Composable
 fun SearchPlayers(
-    teams: List<Team>,
+    players: List<Player>,
     modifier: Modifier = Modifier
 ) {
-    val (searchTerm, updateSearchTerm) = remember { mutableStateOf(TextFieldValue("")) }
     LazyColumn(modifier = modifier.statusBarsPadding()) {
-        item { AppBar(searchTerm, updateSearchTerm) }
-        val filteredTopics = getTopics(searchTerm.text, teams)
-        items(filteredTopics) { topic ->
+        item {
+            CoursesAppBar()
+        }
+        items(players) { player ->
             Text(
-                text = topic.name,
+                text = player.name,
                 style = MaterialTheme.typography.h5,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -53,66 +54,3 @@ fun SearchPlayers(
         }
     }
 }
-
-/**
- * This logic should live outside UI, but full arch omitted for simplicity in this sample.
- */
-private fun getTopics(
-    searchTerm: String,
-    teams: List<Team>
-): List<Team> {
-    return if (searchTerm != "") {
-        teams.filter { it.name.contains(searchTerm, ignoreCase = true) }
-    } else {
-        teams
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-private fun AppBar(
-    searchTerm: TextFieldValue,
-    updateSearchTerm: (TextFieldValue) -> Unit
-) {
-    TopAppBar(elevation = 0.dp) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_search),
-            contentDescription = null,
-            modifier = Modifier
-                .padding(16.dp)
-                .align(Alignment.CenterVertically)
-        )
-        // TODO hint
-        BasicTextField(
-            value = searchTerm,
-            onValueChange = updateSearchTerm,
-            textStyle = MaterialTheme.typography.subtitle1.copy(
-                color = LocalContentColor.current
-            ),
-            maxLines = 1,
-            cursorBrush = SolidColor(LocalContentColor.current),
-            modifier = Modifier
-                .weight(1f)
-                .align(Alignment.CenterVertically)
-        )
-        IconButton(
-            modifier = Modifier.align(Alignment.CenterVertically),
-            onClick = { /* todo */ }
-        ) {
-            Icon(
-                imageVector = Icons.Filled.AccountCircle,
-                contentDescription = stringResource(R.string.label_profile)
-            )
-        }
-    }
-}
-
-/*
-@Preview(name = "Search Courses")
-@Composable
-private fun FeaturedCoursesPreview() {
-    BlueTheme {
-        SearchCourses(teams, Modifier)
-    }
-}
-*/

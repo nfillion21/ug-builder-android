@@ -25,6 +25,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.model.teams
+import pgm.poolp.ugbuilder.model.tmnt_players
 import pgm.poolp.ugbuilder.ui.MainRoutes
 
 fun NavGraphBuilder.buildSections(
@@ -34,7 +35,7 @@ fun NavGraphBuilder.buildSections(
     modifier: Modifier = Modifier
 ) {
     composable(BuilderSectionsTabs.SEARCH.route) {
-        SearchPlayers(teams, modifier)
+        SearchPlayers(tmnt_players, modifier)
     }
     composable(BuilderSectionsTabs.OREO.route) {
 
