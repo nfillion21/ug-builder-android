@@ -20,8 +20,4 @@
     <string name="search">Search</string>
     <string name="cart">Cart</string>
     <string name="label_filters">Filters</string>
-    <plurals name="cart_order_count">
-        <item quantity="one">%1d item</item>
-        <item quantity="other">%1d items</item>
-    </plurals>
 </resources>

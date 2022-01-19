@@ -2,8 +2,10 @@ package pgm.poolp.ugbuilder.ui.players
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -13,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.rounded.Money
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,43 +27,54 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.statusBarsHeight
 import com.google.accompanist.insets.statusBarsPadding
 import pgm.poolp.ugbuilder.R
+import pgm.poolp.ugbuilder.model.Player
 import pgm.poolp.ugbuilder.model.tmnt_players
+import pgm.poolp.ugbuilder.ui.cart.CartViewModel
 import pgm.poolp.ugbuilder.ui.components.JetsnackSurface
 import pgm.poolp.ugbuilder.ui.theme.UGBuilderTheme
+import androidx.compose.runtime.getValue
 
 @Composable
 fun Cart(
-    onSnackClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: CartViewModel = viewModel(factory = CartViewModel.provideFactory())
 ) {
-    //val viewModel: CartViewModel = viewModel()
-    //val orderLines by viewModel.orderLines.collectAsState()
-    //val inspiredByCart = remember { SnackRepo.getInspiredByCart() }
+    val players by viewModel.players.collectAsState()
     Cart(
-        modifier = modifier
+        modifier = modifier,
+        players = players
     )
 }
 
 @Composable
 fun Cart(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    players: List<Player>,
 ) {
-    JetsnackSurface(modifier = modifier.fillMaxSize()) {
-        Box {
-            CartContent(
-                modifier = Modifier.align(Alignment.TopCenter)
-            )
+    LazyColumn(modifier = modifier
+        .statusBarsPadding(),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp)
+        ) {
+        item {
+            CoursesAppBar()
+        }
+        items(players) { player ->
+            CartItem(player = player)
         }
     }
 }
 
+/*
 @Composable
 private fun CartContent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    player:Player
 ) {
     LazyColumn(modifier.statusBarsPadding()) {
         item {
@@ -81,34 +95,18 @@ private fun CartContent(
                     .wrapContentHeight()
             )
         }
-        item {
-            CartItem()
+        items(players) { player ->
+            CartItem(player)
         }
-        /*
-        item {
-            SummaryItem(
-                subtotal = orderLines.map { it.snack.price * it.count }.sum(),
-                shippingCosts = 369
-            )
-        }
-        */
-        /*
-        item {
-            PlayerCollection(
-                snackCollection = inspiredByCart,
-                onSnackClick = onSnackClick,
-                highlight = false
-            )
-            Spacer(Modifier.height(56.dp))
-        }
-        */
     }
 }
+*/
 
 
 @Composable
 fun CartItem(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    player: Player
 ) {
     //val snack = orderLine.snack
     ConstraintLayout(
@@ -133,7 +131,7 @@ fun CartItem(
                 }
         )
         Text(
-            text = "Leonardo",
+            text = player.name,
             style = UGBuilderTheme.typography.subtitle1,
             color = Color.Black,
             modifier = Modifier.constrainAs(name) {
@@ -158,7 +156,7 @@ fun CartItem(
         }
         Text(
             //text = snack.tagline,
-            text = "Hero",
+            text = player.side,
             style = UGBuilderTheme.typography.overline,
             color = UGBuilderTheme.colors.primary,
             modifier = Modifier.constrainAs(tag) {
@@ -187,7 +185,7 @@ fun CartItem(
 
         Text(
             //text = formatPrice(snack.price),
-            text = "200",
+            text = player.side,
             style = MaterialTheme.typography.subtitle2,
             color = UGBuilderTheme.colors.primary,
             modifier = Modifier

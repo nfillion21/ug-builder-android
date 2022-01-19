@@ -18,10 +18,7 @@ enum class CollectionType { Normal, Highlight }
 object PlayerRepo {
     fun getPlayers(): List<PlayerCollection> = playerCollections
     fun getPlayer(playerId: Long) = tmnt_players.find { it.id == playerId }!!
-    fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = related
-    //fun getInspiredByCart() = inspiredByCart
-    fun getFilters() = filters
-    fun getCart() = cart
+    fun getCart() = tmnt_players
 }
 
 /**

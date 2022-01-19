@@ -71,28 +71,28 @@ val tmnt_players = listOf(
     Player(
         id = 8L,
         name = "Shredder",
-        side = "Ennemy",
+        side = "Villain",
         imageUrl = "https://www.blacksbricks.de/images/product_images/original_images/shredderpcs11.jpg",
         price = 299
     ),
     Player(
         id = 9L,
         name = "Krang",
-        side = "Ennemy",
+        side = "Villain",
         imageUrl = "https://sm.ign.com/t/ign_za/news/w/will-krang/will-krang-be-in-ninja-turtles-2_qah3.1280.jpg",
         price = 549
     ),
     Player(
         id = 10L,
         name = "Bebop",
-        side = "Ennemy",
+        side = "Villain",
         imageUrl = "https://images.goodsmile.info/cgm/images/product/20161207/6119/42749/large/ada4ef72d300fddf0759c27cdcb2d18b.jpg",
         price = 299
     ),
     Player(
         id = 11L,
         name = "Rocksteady",
-        side = "Ennemy",
+        side = "Villain",
         imageUrl = "https://cdn.shopify.com/s/files/1/0059/2602/7298/products/TMNT_Rocksteady_Hero_2048x2048_2048x2048_d377fbec-325e-4d9c-9040-a5c55f571fac.png?v=1593142006",
         price = 299
     )

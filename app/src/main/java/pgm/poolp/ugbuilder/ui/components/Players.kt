@@ -75,7 +75,7 @@ private fun HighlightedPlayers(
     LazyRow(
         modifier = modifier,
         //horizontalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
     ) {
         itemsIndexed(players) { _, player ->
             PlayerItem(
