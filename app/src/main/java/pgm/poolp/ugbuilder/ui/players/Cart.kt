@@ -2,7 +2,6 @@ package pgm.poolp.ugbuilder.ui.players
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,12 +15,12 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.rounded.Money
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.LastBaseline
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -29,15 +28,12 @@ import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
-import com.google.accompanist.insets.statusBarsHeight
 import com.google.accompanist.insets.statusBarsPadding
 import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.model.Player
-import pgm.poolp.ugbuilder.model.tmnt_players
 import pgm.poolp.ugbuilder.ui.cart.CartViewModel
 import pgm.poolp.ugbuilder.ui.components.JetsnackSurface
 import pgm.poolp.ugbuilder.ui.theme.UGBuilderTheme
-import androidx.compose.runtime.getValue
 
 @Composable
 fun Cart(
@@ -47,7 +43,8 @@ fun Cart(
     val players by viewModel.players.collectAsState()
     Cart(
         modifier = modifier,
-        players = players
+        players = players,
+        removePlayer = viewModel::removePlayer
     )
 }
 
@@ -55,6 +52,7 @@ fun Cart(
 fun Cart(
     modifier: Modifier = Modifier,
     players: List<Player>,
+    removePlayer: (Long) -> Unit
 ) {
     LazyColumn(modifier = modifier
         .statusBarsPadding(),
@@ -65,48 +63,19 @@ fun Cart(
             CoursesAppBar()
         }
         items(players) { player ->
-            CartItem(player = player)
-        }
-    }
-}
-
-/*
-@Composable
-private fun CartContent(
-    modifier: Modifier = Modifier,
-    player:Player
-) {
-    LazyColumn(modifier.statusBarsPadding()) {
-        item {
-            CoursesAppBar()
-        }
-        item {
-            //Spacer(Modifier.statusBarsHeight(additional = 56.dp))
-            Text(
-                //text = stringResource(R.string.cart_order_header, snackCountFormattedString),
-                text = "Team heroes and villains",
-                style = MaterialTheme.typography.h6,
-                color = UGBuilderTheme.colors.onPrimary,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
-                    .heightIn(min = 56.dp)
-                    .padding(horizontal = 24.dp, vertical = 4.dp)
-                    .wrapContentHeight()
+            CartItem(
+                player = player,
+                removePlayer = removePlayer
             )
         }
-        items(players) { player ->
-            CartItem(player)
-        }
     }
 }
-*/
-
 
 @Composable
 fun CartItem(
     modifier: Modifier = Modifier,
-    player: Player
+    player: Player,
+    removePlayer: (Long) -> Unit
 ) {
     //val snack = orderLine.snack
     ConstraintLayout(
@@ -139,7 +108,7 @@ fun CartItem(
             }
         )
         IconButton(
-            onClick = { /*removeSnack(snack.id)*/ },
+            onClick = { removePlayer(player.id) },
             modifier = Modifier
                 .constrainAs(remove) {
                     top.linkTo(parent.top)
