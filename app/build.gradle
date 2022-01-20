@@ -75,11 +75,13 @@ android {
 
 dependencies {
 
-    implementation Libs.Hilt.hilt_android
-    kapt Libs.Hilt.hilt_android_compiler
+    implementation Libs.Hilt.hiltAndroid
+    kapt Libs.Hilt.hiltAndroidCompiler
 
     implementation Libs.Kotlin.stdlib
     implementation Libs.Coroutines.android
+
+    implementation Libs.JSON.GSon
 
     implementation Libs.AndroidX.coreKtx
     implementation Libs.AndroidX.navigation
@@ -96,9 +98,11 @@ dependencies {
     implementation Libs.AndroidX.Compose.iconsExtended
     implementation Libs.AndroidX.Compose.tooling
 
+    implementation Libs.AndroidX.Coroutine.workRuntime
+
     implementation Libs.AndroidX.Room.room
-    kapt Libs.AndroidX.Room.room_compiler
-    androidTestImplementation Libs.AndroidX.Room.room_testing
+    kapt Libs.AndroidX.Room.roomCompiler
+    androidTestImplementation Libs.AndroidX.Room.roomTesting
 
     implementation Libs.Accompanist.insets
 

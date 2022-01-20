@@ -5,6 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
+import pgm.poolp.ugbuilder.database.HeroDatabaseWorker.Companion.HERO_KEY_FILENAME
 
 /**
  * This is the backend. The database. This used to be done by the OpenHelper.
@@ -48,24 +52,12 @@ abstract class UGBuilderRoomDatabase : RoomDatabase() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
 
-                /*
                 val workManager = WorkManager.getInstance(context)
 
-                val requestChampions = OneTimeWorkRequestBuilder<ChampionDatabaseWorker>()
-                    .setInputData(workDataOf(CHAMPION_KEY_FILENAME to CHAMPION_DATA_FILENAME))
+                val requestChampions = OneTimeWorkRequestBuilder<HeroDatabaseWorker>()
+                    .setInputData(workDataOf(HERO_KEY_FILENAME to HEROES_DATA_FILENAME))
                     .build()
                 workManager.enqueue(requestChampions)
-
-                val requestSkills = OneTimeWorkRequestBuilder<SkillDatabaseWorker>()
-                    .setInputData(workDataOf(SKILL_KEY_FILENAME to SKILL_DATA_FILENAME))
-                    .build()
-                workManager.enqueue(requestSkills)
-
-                val championsSkills = OneTimeWorkRequestBuilder<ChampionSkillDatabaseWorker>()
-                    .setInputData(workDataOf(CHAMPION_SKILL_KEY_FILENAME to CHAMPION_SKILL_DATA_FILENAME))
-                    .build()
-                workManager.enqueue(championsSkills)
-                */
             }
         }
     }

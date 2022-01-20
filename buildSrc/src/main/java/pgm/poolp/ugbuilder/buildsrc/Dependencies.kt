@@ -29,13 +29,18 @@ object Libs {
 
     object Hilt {
         private const val version = "2.38.1"
-        const val hilt_android = "com.google.dagger:hilt-android:$version"
-        const val hilt_android_compiler = "com.google.dagger:hilt-android-compiler:$version"
+        const val hiltAndroid = "com.google.dagger:hilt-android:$version"
+        const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:$version"
     }
 
     object JUnit {
         private const val version = "4.13"
         const val junit = "junit:junit:$version"
+    }
+
+    object JSON {
+        private const val version = "2.8.2"
+        const val GSon = "com.google.code.gson:gson:$version"
     }
 
     object AndroidX {
@@ -66,13 +71,18 @@ object Libs {
         object Room {
             private const val version = "2.3.0"
             const val room = "androidx.room:room-ktx:$version"
-            const val room_compiler = "androidx.room:room-compiler:$version"
-            const val room_testing = "androidx.room:room-testing:$version"
+            const val roomCompiler = "androidx.room:room-compiler:$version"
+            const val roomTesting = "androidx.room:room-testing:$version"
         }
 
         object ConstraintLayout {
             const val constraintLayoutCompose =
                 "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
+        }
+
+        object Coroutine {
+            private const val version = "2.4.0"
+            const val workRuntime = "androidx.work:work-runtime-ktx:$version"
         }
 
 
