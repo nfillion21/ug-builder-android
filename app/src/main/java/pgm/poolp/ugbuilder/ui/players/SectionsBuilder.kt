@@ -26,6 +26,8 @@ import androidx.navigation.compose.composable
 import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.model.tmnt_players
 import pgm.poolp.ugbuilder.ui.MainRoutes
+import androidx.hilt.navigation.compose.hiltViewModel
+import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
 
 fun NavGraphBuilder.buildSections(
     onPlayerSelected: (Long, NavBackStackEntry) -> Unit,
@@ -34,7 +36,8 @@ fun NavGraphBuilder.buildSections(
     modifier: Modifier = Modifier
 ) {
     composable(BuilderSectionsTabs.SEARCH.route) {
-        SearchPlayers(tmnt_players, modifier)
+        val heroViewModel = hiltViewModel<HeroViewModel>()
+        SearchPlayers(tmnt_players, heroViewModel = heroViewModel, modifier)
     }
     composable(BuilderSectionsTabs.OREO.route) {
 

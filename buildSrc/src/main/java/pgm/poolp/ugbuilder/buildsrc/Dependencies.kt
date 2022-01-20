@@ -66,6 +66,7 @@ object Libs {
             const val uiUtil = "androidx.compose.ui:ui-util:$version"
             const val uiTest = "androidx.compose.ui:ui-test-junit4:$version"
             const val uiTestManifest = "androidx.compose.ui:ui-test-manifest:$version"
+            const val runtimeLiveData = "androidx.compose.runtime:runtime-livedata:$version"
         }
 
         object Room {
@@ -83,6 +84,22 @@ object Libs {
         object Coroutine {
             private const val version = "2.4.0"
             const val workRuntime = "androidx.work:work-runtime-ktx:$version"
+        }
+
+        object Lifecycle {
+            private const val version = "2.3.1"
+            const val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
+            const val lifecycleLivedata = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
+            const val lifecycleCommon = "androidx.lifecycle:lifecycle-common-java8:$version"
+        }
+
+        object HiltLifecycle {
+            // Hilt Jetpack Integrations
+
+            private const val version = "1.0.0-beta01"
+            //const val hiltLifecycleViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:$version"
+            //const val hiltLifecycleCompiler = "androidx.hilt:hilt-compiler:$version"
+            const val hiltLifecycleNavigationCompose = "androidx.hilt:hilt-navigation-compose:$version"
         }
 
 

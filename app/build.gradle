@@ -24,11 +24,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     defaultConfig {
         applicationId 'pgm.poolp.ugbuilder'
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName '1.0'
         vectorDrawables.useSupportLibrary true
@@ -97,6 +97,15 @@ dependencies {
     implementation Libs.AndroidX.Compose.animation
     implementation Libs.AndroidX.Compose.iconsExtended
     implementation Libs.AndroidX.Compose.tooling
+    implementation Libs.AndroidX.Compose.runtimeLiveData
+
+    implementation Libs.AndroidX.Lifecycle.lifecycleViewModel
+    implementation Libs.AndroidX.Lifecycle.lifecycleCommon
+    implementation Libs.AndroidX.Lifecycle.lifecycleLivedata
+
+    //implementation Libs.AndroidX.HiltLifecycle.hiltLifecycleViewModel
+    //implementation Libs.AndroidX.HiltLifecycle.hiltLifecycleCompiler
+    implementation Libs.AndroidX.HiltLifecycle.hiltLifecycleNavigationCompose
 
     implementation Libs.AndroidX.Coroutine.workRuntime
 
