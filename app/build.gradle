@@ -18,7 +18,9 @@ import pgm.poolp.ugbuilder.buildsrc.Libs
 
 plugins {
     id 'com.android.application'
+    id 'kotlin-kapt'
     id 'kotlin-android'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -72,6 +74,10 @@ android {
 }
 
 dependencies {
+
+    implementation Libs.Hilt.hilt_android
+    kapt Libs.Hilt.hilt_android_compiler
+
     implementation Libs.Kotlin.stdlib
     implementation Libs.Coroutines.android
 

@@ -6,6 +6,7 @@ object Versions {
 
 object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.0"
+    const val hiltAndroidGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
 
     object Accompanist {
         private const val version = "0.16.0"
@@ -24,6 +25,12 @@ object Libs {
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
+    }
+
+    object Hilt {
+        private const val version = "2.38.1"
+        const val hilt_android = "com.google.dagger:hilt-android:$version"
+        const val hilt_android_compiler = "com.google.dagger:hilt-android-compiler:$version"
     }
 
     object JUnit {
@@ -56,10 +63,18 @@ object Libs {
             const val uiTestManifest = "androidx.compose.ui:ui-test-manifest:$version"
         }
 
+        object Room {
+            private const val version = "2.3.1"
+            const val room = "androidx.room:room-ktx:$version"
+            const val room_compiler = "androidx.room:room-compiler:$version"
+            const val room_testing = "androidx.room:room-testing:$version"
+        }
+
         object ConstraintLayout {
             const val constraintLayoutCompose =
                 "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
         }
+
 
         object Test {
             private const val version = "1.3.0"
