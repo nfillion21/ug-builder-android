@@ -39,11 +39,11 @@ abstract class UGBuilderRoomDatabase : RoomDatabase() {
                 // Wipes and rebuilds instead of migrating if no Migration object.
                 // Migration is not part of this codelab.
                 //.fallbackToDestructiveMigration()
-                .addCallback(ChampionDatabaseCallback(context))
+                .addCallback(HeroesDatabaseCallback(context))
                 .build()
         }
 
-        private class ChampionDatabaseCallback(
+        private class HeroesDatabaseCallback(
             private val context: Context
         ) : RoomDatabase.Callback() {
             /**

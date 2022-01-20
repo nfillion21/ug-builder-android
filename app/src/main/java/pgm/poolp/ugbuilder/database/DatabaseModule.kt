@@ -19,7 +19,7 @@ class DatabaseModule {
     }
 
     @Provides
-    fun provideChampionDao(appDatabase: UGBuilderRoomDatabase): HeroDao {
+    fun provideHeroDao(appDatabase: UGBuilderRoomDatabase): HeroDao {
         return appDatabase.heroDao()
     }
 }
