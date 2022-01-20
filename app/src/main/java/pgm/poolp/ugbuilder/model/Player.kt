@@ -9,7 +9,6 @@ data class Player(
     val imageUrl: String,
     val price: Long,
     val side: String,
-    val tags: Set<String> = emptySet()
 )
 
 /**

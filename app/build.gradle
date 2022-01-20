@@ -96,6 +96,10 @@ dependencies {
     implementation Libs.AndroidX.Compose.iconsExtended
     implementation Libs.AndroidX.Compose.tooling
 
+    implementation Libs.AndroidX.Room.room
+    kapt Libs.AndroidX.Room.room_compiler
+    androidTestImplementation Libs.AndroidX.Room.room_testing
+
     implementation Libs.Accompanist.insets
 
     implementation Libs.Coil.coilCompose
