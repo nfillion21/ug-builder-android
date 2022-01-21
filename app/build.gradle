@@ -103,6 +103,8 @@ dependencies {
     implementation Libs.AndroidX.Lifecycle.lifecycleCommon
     implementation Libs.AndroidX.Lifecycle.lifecycleLivedata
 
+    implementation Libs.AndroidX.Datastore.DatastorePreferences
+
     //implementation Libs.AndroidX.HiltLifecycle.hiltLifecycleViewModel
     //implementation Libs.AndroidX.HiltLifecycle.hiltLifecycleCompiler
     implementation Libs.AndroidX.HiltLifecycle.hiltLifecycleNavigationCompose

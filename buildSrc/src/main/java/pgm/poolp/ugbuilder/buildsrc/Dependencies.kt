@@ -102,6 +102,11 @@ object Libs {
             const val hiltLifecycleNavigationCompose = "androidx.hilt:hilt-navigation-compose:$version"
         }
 
+        object Datastore {
+            private const val version = "1.0.0"
+            const val datastorePreferences = "androidx.datastore:datastore-preferences:$version"
+        }
+
 
         object Test {
             private const val version = "1.3.0"
