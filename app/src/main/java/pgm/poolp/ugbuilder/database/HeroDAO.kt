@@ -20,6 +20,21 @@ interface HeroDao {
     @Query("select * from hero where side='Ally'")
     fun getAllies(): Flow<List<Hero>>
 
+    @Query("select * from hero where side!='Villain'")
+    fun getAllPlayersExceptVillains(): Flow<List<Hero>>
+
+    @Query("select * from hero where side!='Villain' order by side")
+    fun getAllPlayersExceptVillainsOrderBySide(): Flow<List<Hero>>
+
+    @Query("select * from hero where side!='Villain' order by name")
+    fun getAllPlayersExceptVillainsOrderByName(): Flow<List<Hero>>
+
+    @Query("select * from hero order by side")
+    fun getAllPlayersOrderBySide(): Flow<List<Hero>>
+
+    @Query("select * from hero order by name")
+    fun getAllPlayersOrderByName(): Flow<List<Hero>>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(hero: Hero)
 

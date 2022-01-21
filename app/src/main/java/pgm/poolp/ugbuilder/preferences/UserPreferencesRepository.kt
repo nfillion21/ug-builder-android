@@ -56,7 +56,7 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
     /**
      * Enable / disable sort by deadline.
      */
-    suspend fun enableSortByDeadline(enable: Boolean) {
+    suspend fun enableSortByName(enable: Boolean) {
         // updateData handles data transactionally, ensuring that if the sort is updated at the same
         // time from another thread, we won't have conflicts
         dataStore.edit { preferences ->
@@ -86,7 +86,7 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
     /**
      * Enable / disable sort by priority.
      */
-    suspend fun enableSortByPriority(enable: Boolean) {
+    suspend fun enableSortBySide(enable: Boolean) {
         // updateData handles data transactionally, ensuring that if the sort is updated at the same
         // time from another thread, we won't have conflicts
         dataStore.edit { preferences ->
@@ -113,15 +113,14 @@ class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
         }
     }
 
-    suspend fun updateShowCompleted(showCompleted: Boolean) {
+    suspend fun updateShowVillains(showVillains: Boolean) {
         dataStore.edit { preferences ->
-            preferences[PreferencesKeys.SHOW_VILLAINS] = showCompleted
+            preferences[PreferencesKeys.SHOW_VILLAINS] = showVillains
         }
     }
 
     suspend fun fetchInitialPreferences() =
         mapUserPreferences(dataStore.data.first().toPreferences())
-
 
     private fun mapUserPreferences(preferences: Preferences): UserPreferences {
         // Get the sort order from preferences and convert it to a [SortOrder] object

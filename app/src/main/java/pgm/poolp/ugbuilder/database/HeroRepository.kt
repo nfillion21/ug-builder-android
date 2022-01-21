@@ -14,9 +14,12 @@ class HeroRepository @Inject constructor(private val heroDao: HeroDao) {
     val allVillains: Flow<List<Hero>> = heroDao.getVillains()
     val allAllies: Flow<List<Hero>> = heroDao.getAllies()
 
-    fun getHero(heroId: String) {
-        heroDao.getHero(heroId)
-    }
+    val allPlayersExceptVillains: Flow<List<Hero>> = heroDao.getAllPlayersExceptVillains()
+    val allPlayersExceptVillainsOrderBySide: Flow<List<Hero>> = heroDao.getAllPlayersExceptVillainsOrderBySide()
+    val allPlayersExceptVillainsOrderByName: Flow<List<Hero>> = heroDao.getAllPlayersExceptVillainsOrderByName()
+    val allPlayersOrderByName: Flow<List<Hero>> = heroDao.getAllPlayersOrderByName()
+    val allPlayersOrderBySide: Flow<List<Hero>> = heroDao.getAllPlayersOrderBySide()
+
     // By default Room runs suspend queries off the main thread, therefore, we don't need to
     // implement anything else to ensure we're not doing long running database work
     // off the main thread.
