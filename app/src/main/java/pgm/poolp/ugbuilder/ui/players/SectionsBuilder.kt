@@ -48,7 +48,7 @@ fun NavGraphBuilder.buildSections(
         if (onboardingComplete.value)
         { // Avoid glitch when showing onboarding
             Oreo(
-                selectPlayer = {id -> onPlayerSelected(id, it)},
+                heroViewModel = hiltViewModel(),
                 modifier = modifier
             )
         }

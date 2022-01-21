@@ -1,22 +1,20 @@
 package pgm.poolp.ugbuilder.model
 
 import androidx.compose.runtime.Immutable
+import pgm.poolp.ugbuilder.database.Hero
 
 @Immutable
-data class PlayerCollection(
+data class PlayerCollectionData(
     val id: Long,
     val name: String,
-    val players: List<Player>,
-    val type: CollectionType = CollectionType.Normal
+    val players: List<Hero>,
 )
-
-enum class CollectionType { Normal, Highlight }
 
 /**
  * A fake repo
  */
 object PlayerRepo {
-    fun getPlayers(): List<PlayerCollection> = playerCollections
+    //fun getPlayers(): List<PlayerCollection> = playerCollections
     fun getPlayer(playerId: Long) = tmnt_players.find { it.id == playerId }!!
     fun getCart() = tmnt_players.subList(0,2)
 }
@@ -25,6 +23,7 @@ object PlayerRepo {
  * Static data
  */
 
+/*
 private val turtles = PlayerCollection(
     id = 1L,
     name = "Heroes",
@@ -43,7 +42,9 @@ private val ennemies = PlayerCollection(
     name = "Ennemies",
     players = tmnt_players.subList(7, 11)
 )
+*/
 
+/*
 private val wfhFavs = turtles.copy(
     id = 3L,
     name = "WFH favourites"
@@ -56,11 +57,14 @@ private val playerCollections = listOf(
     //newlyAdded,
     //exclusive
 )
+*/
 
+/*
 private val related = listOf(
     wfhFavs,
     allies
 )
+*/
 
 private val cart = listOf(
     OrderLine(tmnt_players[4], 2),

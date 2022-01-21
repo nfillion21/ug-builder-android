@@ -1,6 +1,5 @@
 package pgm.poolp.ugbuilder.ui.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -12,19 +11,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import pgm.poolp.ugbuilder.R
+import pgm.poolp.ugbuilder.database.Hero
 import pgm.poolp.ugbuilder.model.Player
-import pgm.poolp.ugbuilder.model.PlayerCollection
+import pgm.poolp.ugbuilder.model.PlayerCollectionData
 import pgm.poolp.ugbuilder.ui.common.OutlinedAvatar
 import pgm.poolp.ugbuilder.ui.theme.*
 import pgm.poolp.ugbuilder.ui.utils.NetworkImage
-import java.util.*
 
 private val HighlightCardWidth = 170.dp
 private val HighlightCardPadding = 16.dp
@@ -38,10 +35,8 @@ private val gradientWidth
 
 @Composable
 fun PlayerCollection(
-        playerCollection: PlayerCollection,
-        onPlayerClick: (Long) -> Unit,
-        addPlayer: (Player) -> Unit,
-        modifier: Modifier = Modifier
+    playerCollection: PlayerCollectionData,
+    modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
 
@@ -63,15 +58,13 @@ fun PlayerCollection(
                     .wrapContentWidth(Alignment.Start)
             )
         }
-        HighlightedPlayers(playerCollection.players, onPlayerClick, addPlayer)
+        HighlightedPlayers(playerCollection.players)
     }
 }
 
 @Composable
 private fun HighlightedPlayers(
-        players: List<Player>,
-        onPlayerClick: (Long) -> Unit,
-        addPlayer: (Player) -> Unit,
+        players: List<Hero>,
         modifier: Modifier = Modifier
 ) {
     LazyRow(
@@ -82,8 +75,6 @@ private fun HighlightedPlayers(
         itemsIndexed(players) { _, player ->
             PlayerItem(
                 player = player,
-                onPlayerClick = onPlayerClick,
-                addPlayer = addPlayer
             )
         }
     }
@@ -91,9 +82,7 @@ private fun HighlightedPlayers(
 
 @Composable
 fun PlayerItem(
-    player: Player,
-    onPlayerClick: (Long) -> Unit,
-    addPlayer: (Player) -> Unit,
+    player: Hero,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -114,6 +103,7 @@ fun PlayerItem(
         val featuredString = stringResource(id = R.string.featured)
         ConstraintLayout(
             modifier = Modifier
+                    /*
                 .clickable(
                     //onClick = { onPlayerClick(player.id)}
                     onClick = { addPlayer(player)}
@@ -121,6 +111,7 @@ fun PlayerItem(
                 .semantics {
                     contentDescription = featuredString
                 }
+        */
         ) {
             val (image, avatar, subject, name, steps, icon) = createRefs()
 
