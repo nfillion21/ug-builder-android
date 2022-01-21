@@ -14,20 +14,17 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.insets.statusBarsPadding
-import pgm.poolp.ugbuilder.model.Player
 import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
 
 @Composable
 fun SearchPlayers(
-    players: List<Player>,
     heroViewModel: HeroViewModel,
     modifier: Modifier = Modifier
 ) {
-    val newHeroViewModel:HeroViewModel = viewModel()
+    //val newHeroViewModel:HeroViewModel = viewModel()
     //val heroes = newHeroViewModel.allHeroes.observeAsState()
-    val heroes by newHeroViewModel.allHeroes.observeAsState(listOf())
+    val heroes by heroViewModel.allPlayers.observeAsState(listOf())
     LazyColumn(modifier = modifier.statusBarsPadding()) {
         item {
             CoursesAppBar()

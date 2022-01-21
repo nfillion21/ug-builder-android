@@ -11,5 +11,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HeroViewModel @Inject internal constructor(
     heroRepository: HeroRepository) : ViewModel() {
+    val allPlayers: LiveData<List<Hero>> = heroRepository.allPlayers.asLiveData()
     val allHeroes: LiveData<List<Hero>> = heroRepository.allHeroes.asLiveData()
+    val allAllies: LiveData<List<Hero>> = heroRepository.allAllies.asLiveData()
+    val allVillains: LiveData<List<Hero>> = heroRepository.allVillains.asLiveData()
 }

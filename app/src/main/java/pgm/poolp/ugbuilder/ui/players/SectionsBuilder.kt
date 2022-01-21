@@ -36,8 +36,7 @@ fun NavGraphBuilder.buildSections(
     modifier: Modifier = Modifier
 ) {
     composable(BuilderSectionsTabs.SEARCH.route) {
-        val heroViewModel = hiltViewModel<HeroViewModel>()
-        SearchPlayers(tmnt_players, heroViewModel = heroViewModel, modifier)
+        SearchPlayers(heroViewModel = hiltViewModel(), modifier)
     }
     composable(BuilderSectionsTabs.OREO.route) {
 

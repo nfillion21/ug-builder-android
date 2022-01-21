@@ -1,14 +1,14 @@
 [
   {
     "heroId": "leonardo",
-    "name": "Leonardo",
+    "name": "Leonardoo",
     "side": "Hero",
     "imageUrl": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/04/17/14/teenage-mutant-ninja-turtles-film.jpg?width=982&height=726&auto=webp&quality=75",
     "price" : 299
   },
   {
     "heroId": "michelangelo",
-    "name": "Michelangeloo",
+    "name": "Michelangelo",
     "side": "Hero",
     "imageUrl": "https://d1nslcd7m2225b.cloudfront.net/Pictures/1024x536/6/7/1/1201671_Teenage-Mutant-Ninja-Turtles-1.jpg",
     "price" : 299
