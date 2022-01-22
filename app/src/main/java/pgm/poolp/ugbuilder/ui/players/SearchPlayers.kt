@@ -37,9 +37,7 @@ fun SearchPlayers(
         .fillMaxWidth()
         .statusBarsPadding())
     {
-
-
-        LazyColumn() {
+        LazyColumn(modifier = Modifier) {
             item {
                 CoursesAppBar()
             }
