@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 enum class SortOrder {
     NONE,
@@ -28,7 +29,7 @@ data class UserPreferences(
 /**
  * Class that handles saving and retrieving user preferences
  */
-class UserPreferencesRepository(private val dataStore: DataStore<Preferences>) {
+class UserPreferencesRepositoryImpl @Inject constructor(private val dataStore: DataStore<Preferences>) {
 
     private val TAG: String = "UserPreferencesRepo"
 

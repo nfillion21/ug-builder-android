@@ -1,6 +1,11 @@
 package pgm.poolp.ugbuilder.database
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStoreFile
+import androidx.work.impl.model.Preference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,4 +27,19 @@ class DatabaseModule {
     fun provideHeroDao(appDatabase: UGBuilderRoomDatabase): HeroDao {
         return appDatabase.heroDao()
     }
+
+    @Provides
+    @Singleton
+    fun providePreferencesDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> =
+        PreferenceDataStoreFactory.create(
+            produceFile = {
+                appContext.preferencesDataStoreFile("hello")
+            }
+        )
+    /*
+    @Provides
+    fun provideHeroRepository(appDatabase: DataStore<Preference>): HeroDao {
+        return .()
+    }
+    */
 }

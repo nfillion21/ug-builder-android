@@ -5,7 +5,6 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -14,6 +13,8 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Reorder
 import androidx.compose.material.icons.filled.Sort
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -21,16 +22,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
+import pgm.poolp.ugbuilder.database.Hero
 import pgm.poolp.ugbuilder.preferences.SortOrder
 import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
+import pgm.poolp.ugbuilder.viewmodels.PlayersUiModel
 
 @Composable
 fun SearchPlayers(
     heroViewModel: HeroViewModel,
     modifier: Modifier = Modifier
 ) {
-    val heroes by heroViewModel.filteredPlayers(showVillains = true, sortOrder = SortOrder.BY_NAME)
-        .observeAsState(listOf())
+    //val heroes by heroViewModel.filteredPlayers(showVillains = true, sortOrder = SortOrder.BY_NAME).collectAsState(listOf())
+    //val heroes by heroViewModel.allVillains.observeAsState(initial = emptyList())
+
+    //val nHeroes by heroViewModel.playersUiModel
+    //val nHeroes2 = heroViewModel.playersUiModel
+
+    val players:PlayersUiModel by heroViewModel.playersUiModel.
+
+    val nHeroes by heroViewModel.playersUiModel.observeAsState()
 
     Column(modifier = Modifier
         .fillMaxHeight()
@@ -97,7 +107,7 @@ fun SearchPlayers(
                 }
             }
 
-            items(heroes) { hero ->
+            items(nHeroes!!.players) { hero ->
                 Text(
                     text = hero.name,
                     style = MaterialTheme.typography.h5,
