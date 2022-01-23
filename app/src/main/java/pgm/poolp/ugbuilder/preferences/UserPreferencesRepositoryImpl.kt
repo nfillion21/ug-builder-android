@@ -12,13 +12,23 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import pgm.poolp.ugbuilder.database.Hero
 import javax.inject.Inject
 
 enum class SortOrder {
     NONE,
     BY_NAME,
-    BY_SIDE,
-    BY_NAME_AND_SIDE
+    BY_PRICE,
+    BY_NAME_AND_PRICE;
+
+    val comparator: Comparator<Hero> by lazy {
+        when (this) {
+            NONE -> Comparator { _, _ -> 0 }
+            BY_NAME -> compareBy { it.name }
+            BY_PRICE -> compareByDescending { it.price }
+            BY_NAME_AND_PRICE -> compareByDescending<Hero> { it.price }.thenBy { it.name }
+        }
+    }
 }
 
 data class UserPreferences(
@@ -67,14 +77,14 @@ class UserPreferencesRepositoryImpl @Inject constructor(private val dataStore: D
 
             val newSortOrder =
                 if (enable) {
-                    if (currentOrder == SortOrder.BY_SIDE) {
-                        SortOrder.BY_NAME_AND_SIDE
+                    if (currentOrder == SortOrder.BY_PRICE) {
+                        SortOrder.BY_NAME_AND_PRICE
                     } else {
                         SortOrder.BY_NAME
                     }
                 } else {
-                    if (currentOrder == SortOrder.BY_NAME_AND_SIDE) {
-                        SortOrder.BY_SIDE
+                    if (currentOrder == SortOrder.BY_NAME_AND_PRICE) {
+                        SortOrder.BY_PRICE
                     } else {
                         SortOrder.NONE
                     }
@@ -87,7 +97,7 @@ class UserPreferencesRepositoryImpl @Inject constructor(private val dataStore: D
     /**
      * Enable / disable sort by priority.
      */
-    suspend fun enableSortBySide(enable: Boolean) {
+    suspend fun enableSortByPrice(enable: Boolean) {
         // updateData handles data transactionally, ensuring that if the sort is updated at the same
         // time from another thread, we won't have conflicts
         dataStore.edit { preferences ->
@@ -98,12 +108,12 @@ class UserPreferencesRepositoryImpl @Inject constructor(private val dataStore: D
             val newSortOrder =
                 if (enable) {
                     if (currentOrder == SortOrder.BY_NAME) {
-                        SortOrder.BY_NAME_AND_SIDE
+                        SortOrder.BY_NAME_AND_PRICE
                     } else {
-                        SortOrder.BY_SIDE
+                        SortOrder.BY_PRICE
                     }
                 } else {
-                    if (currentOrder == SortOrder.BY_NAME_AND_SIDE) {
+                    if (currentOrder == SortOrder.BY_NAME_AND_PRICE) {
                         SortOrder.BY_NAME
                     } else {
                         SortOrder.NONE

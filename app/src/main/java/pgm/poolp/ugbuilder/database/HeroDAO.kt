@@ -8,7 +8,7 @@ interface HeroDao {
 
     // The flow always holds/caches latest version of data. Notifies its observers when the
     // data has changed.
-    @Query("select * from hero order by side")
+    @Query("select * from hero")
     fun getPlayers(): Flow<List<Hero>>
 
     @Query("select * from hero where side='Hero'")

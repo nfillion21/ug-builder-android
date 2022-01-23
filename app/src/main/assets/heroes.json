@@ -4,70 +4,63 @@
     "name": "Leonardo",
     "side": "Hero",
     "imageUrl": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/04/17/14/teenage-mutant-ninja-turtles-film.jpg?width=982&height=726&auto=webp&quality=75",
-    "price" : 299
+    "price" : 499
   },
   {
     "heroId": "michelangelo",
     "name": "Michelangelo",
     "side": "Hero",
     "imageUrl": "https://d1nslcd7m2225b.cloudfront.net/Pictures/1024x536/6/7/1/1201671_Teenage-Mutant-Ninja-Turtles-1.jpg",
-    "price" : 299
+    "price" : 499
   },
   {
     "heroId": "donatello",
     "name": "Donatello",
     "side": "Hero",
     "imageUrl": "https://wallpaperaccess.com/full/124301.jpg",
-    "price" : 299
+    "price" : 499
   },
   {
     "heroId": "raphael",
     "name": "Raphael",
     "side": "Hero",
     "imageUrl": "https://i.ytimg.com/vi/G0NjKoVPd74/maxresdefault.jpg",
-    "price" : 299
+    "price" : 499
   },
   {
     "heroId": "splinter",
     "name": "Splinter",
     "side": "Ally",
     "imageUrl": "https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters/large/800/Splinter.Teenage-Mutant-Ninja-Turtles.webp",
-    "price" : 299
+    "price" : 899
   },
   {
     "heroId": "april",
     "name": "April O'Neil",
     "side": "Ally",
     "imageUrl": "https://static0.cbrimages.com/wordpress/wp-content/uploads/2018/04/April-ONeil.jpg",
-    "price" : 299
-  },
-  {
-    "heroId": "april",
-    "name": "April O'Neil",
-    "side": "Ally",
-    "imageUrl": "https://static0.cbrimages.com/wordpress/wp-content/uploads/2018/04/April-ONeil.jpg",
-    "price" : 299
+    "price" : 599
   },
   {
     "heroId": "casey",
     "name": "Casey Jones",
     "side": "Ally",
     "imageUrl": "https://i.pinimg.com/originals/c3/f2/8b/c3f28bce41bb0790ccf9ebb80d8370bd.jpg",
-    "price" : 299
+    "price" : 399
   },
   {
     "heroId": "shredder",
     "name": "Shredder",
     "side": "Villain",
     "imageUrl": "https://www.blacksbricks.de/images/product_images/original_images/shredderpcs11.jpg",
-    "price" : 299
+    "price" : 999
   },
   {
     "heroId": "krang",
     "name": "Krang",
     "side": "Villain",
     "imageUrl": "https://sm.ign.com/t/ign_za/news/w/will-krang/will-krang-be-in-ninja-turtles-2_qah3.1280.jpg",
-    "price" : 299
+    "price" : 599
   },
   {
     "heroId": "bebop",

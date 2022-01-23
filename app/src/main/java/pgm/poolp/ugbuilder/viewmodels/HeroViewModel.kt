@@ -52,21 +52,26 @@ class HeroViewModel @Inject internal constructor(
         SharingStarted.Eagerly,
         null)
 
-    private val allPlayers: Flow<List<Hero>> = heroRepository.allPlayers
-    private val allPlayersOrderBySide: Flow<List<Hero>> = heroRepository.allPlayersOrderBySide
-    private val allPlayersOrderByName: Flow<List<Hero>> = heroRepository.allPlayersOrderByName
-
-    private val allExceptVillains: Flow<List<Hero>> = heroRepository.allPlayersExceptVillains
-    private val allExceptVillainsOrderBySide: Flow<List<Hero>> = heroRepository.allPlayersExceptVillainsOrderBySide
-    private val allExceptVillainsOrderByName: Flow<List<Hero>> = heroRepository.allPlayersExceptVillainsOrderByName
-
     private fun filteredPlayers(players:List<Hero>, showVillains: Boolean, sortOrder: SortOrder): List<Hero> {
-        return if (showVillains) players.filter { it.side == "Villain" } else players
+        val filtered = if (showVillains) players.filter { it.side == "Villain" } else players
+        return filtered.sortedWith(sortOrder.comparator)
     }
 
     fun showCompletedTasks(show: Boolean) {
         viewModelScope.launch {
             userPreferencesRepositoryImpl.updateShowVillains(show)
+        }
+    }
+
+    fun enableSortByName(enable: Boolean) {
+        viewModelScope.launch {
+            userPreferencesRepositoryImpl.enableSortByName(enable)
+        }
+    }
+
+    fun enableSortByPrice(enable: Boolean) {
+        viewModelScope.launch {
+            userPreferencesRepositoryImpl.enableSortByPrice(enable)
         }
     }
 }

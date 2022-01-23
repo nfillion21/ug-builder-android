@@ -22,7 +22,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import pgm.poolp.ugbuilder.R
-import pgm.poolp.ugbuilder.model.tmnt_players
 import pgm.poolp.ugbuilder.ui.MainRoutes
 import androidx.hilt.navigation.compose.hiltViewModel
 import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
@@ -40,7 +39,10 @@ fun NavGraphBuilder.buildSections(
         val statePlayers: PlayersUiModel? by heroViewModel.playersUiModel.collectAsState()
         SearchPlayers(
             statePlayers = statePlayers,
-            switchShowVillains = heroViewModel::showCompletedTasks)
+            switchShowVillains = heroViewModel::showCompletedTasks,
+            enableSortByName = heroViewModel::enableSortByName,
+            enableSortBySide = heroViewModel::enableSortByPrice,
+        )
     }
     composable(BuilderSectionsTabs.OREO.route) {
 
