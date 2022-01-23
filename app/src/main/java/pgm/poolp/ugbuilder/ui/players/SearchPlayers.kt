@@ -29,11 +29,11 @@ import pgm.poolp.ugbuilder.viewmodels.PlayersUiModel
 
 @Composable
 fun SearchPlayers(
-    heroViewModel: HeroViewModel,
-    modifier: Modifier = Modifier
+    statePlayers: PlayersUiModel?,
+    switchShowVillains: (Boolean) -> Unit,
 ) {
-    val statePlayers:PlayersUiModel? by heroViewModel.playersUiModel.collectAsState()
-    val players = statePlayers?.players ?: emptyList()
+    //val statePlayers:PlayersUiModel? by heroViewModel.playersUiModel.collectAsState()
+    //val players = statePlayers?.players ?: emptyList()
 
     Column(modifier = Modifier
         .fillMaxHeight()
@@ -87,20 +87,20 @@ fun SearchPlayers(
 
                     Text(
                         modifier = Modifier.wrapContentWidth(),
-                        text = "Show completed tasks",
+                        text = "Show villains only",
                         style = MaterialTheme.typography.subtitle1
                     )
 
                     Spacer(modifier = Modifier.width(16.dp))
 
                     Checkbox(
-                        checked = true,
-                        onCheckedChange = null
+                        checked = statePlayers?.showVillains ?: true,
+                        onCheckedChange = switchShowVillains
                     )
                 }
             }
 
-            items(players) { hero ->
+            items(statePlayers?.players ?: emptyList()) { hero ->
                 Text(
                     text = hero.name,
                     style = MaterialTheme.typography.h5,

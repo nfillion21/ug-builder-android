@@ -6,6 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import pgm.poolp.ugbuilder.database.Hero
 import pgm.poolp.ugbuilder.database.HeroRepository
 import pgm.poolp.ugbuilder.preferences.SortOrder
@@ -32,7 +33,7 @@ class HeroViewModel @Inject internal constructor(
     // Every time the sort order, the show completed filter or the list of tasks emit,
     // we should recreate the list of tasks
     private val playersUiModelFlow = combine(
-        heroRepository.allHeroes,
+        heroRepository.allPlayers,
         userPreferencesRepositoryImpl.userPreferencesFlow
     ) { players: List<Hero>, userPreferences: UserPreferences ->
         return@combine PlayersUiModel(
@@ -60,6 +61,12 @@ class HeroViewModel @Inject internal constructor(
     private val allExceptVillainsOrderByName: Flow<List<Hero>> = heroRepository.allPlayersExceptVillainsOrderByName
 
     private fun filteredPlayers(players:List<Hero>, showVillains: Boolean, sortOrder: SortOrder): List<Hero> {
-        return players
+        return if (showVillains) players.filter { it.side == "Villain" } else players
+    }
+
+    fun showCompletedTasks(show: Boolean) {
+        viewModelScope.launch {
+            userPreferencesRepositoryImpl.updateShowVillains(show)
+        }
     }
 }

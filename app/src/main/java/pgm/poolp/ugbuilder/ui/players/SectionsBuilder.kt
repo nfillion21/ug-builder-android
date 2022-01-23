@@ -10,9 +10,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -28,6 +26,7 @@ import pgm.poolp.ugbuilder.model.tmnt_players
 import pgm.poolp.ugbuilder.ui.MainRoutes
 import androidx.hilt.navigation.compose.hiltViewModel
 import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
+import pgm.poolp.ugbuilder.viewmodels.PlayersUiModel
 
 fun NavGraphBuilder.buildSections(
     onPlayerSelected: (Long, NavBackStackEntry) -> Unit,
@@ -36,7 +35,12 @@ fun NavGraphBuilder.buildSections(
     modifier: Modifier = Modifier
 ) {
     composable(BuilderSectionsTabs.SEARCH.route) {
-        SearchPlayers(heroViewModel = hiltViewModel(), modifier)
+
+        val heroViewModel:HeroViewModel = hiltViewModel()
+        val statePlayers: PlayersUiModel? by heroViewModel.playersUiModel.collectAsState()
+        SearchPlayers(
+            statePlayers = statePlayers,
+            switchShowVillains = heroViewModel::showCompletedTasks)
     }
     composable(BuilderSectionsTabs.OREO.route) {
 
