@@ -33,13 +33,7 @@ class DatabaseModule {
     fun providePreferencesDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> =
         PreferenceDataStoreFactory.create(
             produceFile = {
-                appContext.preferencesDataStoreFile("hello")
+                appContext.preferencesDataStoreFile("preferences")
             }
         )
-    /*
-    @Provides
-    fun provideHeroRepository(appDatabase: DataStore<Preference>): HeroDao {
-        return .()
-    }
-    */
 }

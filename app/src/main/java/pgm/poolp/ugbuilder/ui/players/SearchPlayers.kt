@@ -32,15 +32,8 @@ fun SearchPlayers(
     heroViewModel: HeroViewModel,
     modifier: Modifier = Modifier
 ) {
-    //val heroes by heroViewModel.filteredPlayers(showVillains = true, sortOrder = SortOrder.BY_NAME).collectAsState(listOf())
-    //val heroes by heroViewModel.allVillains.observeAsState(initial = emptyList())
-
-    //val nHeroes by heroViewModel.playersUiModel
-    //val nHeroes2 = heroViewModel.playersUiModel
-
-    val players:PlayersUiModel by heroViewModel.playersUiModel.
-
-    val nHeroes by heroViewModel.playersUiModel.observeAsState()
+    val statePlayers:PlayersUiModel? by heroViewModel.playersUiModel.collectAsState()
+    val players = statePlayers?.players ?: emptyList()
 
     Column(modifier = Modifier
         .fillMaxHeight()
@@ -107,7 +100,7 @@ fun SearchPlayers(
                 }
             }
 
-            items(nHeroes!!.players) { hero ->
+            items(players) { hero ->
                 Text(
                     text = hero.name,
                     style = MaterialTheme.typography.h5,

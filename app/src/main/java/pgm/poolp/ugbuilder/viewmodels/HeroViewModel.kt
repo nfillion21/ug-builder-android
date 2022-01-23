@@ -3,9 +3,9 @@ package pgm.poolp.ugbuilder.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import pgm.poolp.ugbuilder.database.Hero
 import pgm.poolp.ugbuilder.database.HeroRepository
 import pgm.poolp.ugbuilder.preferences.SortOrder
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 data class PlayersUiModel(
     val players: List<Hero>,
-    val showCompleted: Boolean,
+    val showVillains: Boolean,
     val sortOrder: SortOrder
 )
 
@@ -29,24 +29,27 @@ class HeroViewModel @Inject internal constructor(
     val allAllies: LiveData<List<Hero>> = heroRepository.allAllies.asLiveData()
     val allVillains: LiveData<List<Hero>> = heroRepository.allVillains.asLiveData()
 
-    private val userPreferencesFlow = userPreferencesRepositoryImpl.userPreferencesFlow
-
     // Every time the sort order, the show completed filter or the list of tasks emit,
     // we should recreate the list of tasks
     private val playersUiModelFlow = combine(
-        heroRepository.allPlayers,
-        userPreferencesFlow
+        heroRepository.allHeroes,
+        userPreferencesRepositoryImpl.userPreferencesFlow
     ) { players: List<Hero>, userPreferences: UserPreferences ->
         return@combine PlayersUiModel(
-            players = filteredPlayers(players,
-                userPreferences.showVillains,
-                userPreferences.sortOrder
+            players = filteredPlayers(
+                players = players,
+                showVillains = userPreferences.showVillains,
+                sortOrder = userPreferences.sortOrder
             ),
-            showCompleted = userPreferences.showVillains,
+            showVillains = userPreferences.showVillains,
             sortOrder = userPreferences.sortOrder
         )
     }
-    val playersUiModel = playersUiModelFlow.asLiveData()
+
+    val playersUiModel:StateFlow<PlayersUiModel?> = playersUiModelFlow.stateIn(
+        viewModelScope,
+        SharingStarted.Eagerly,
+        null)
 
     private val allPlayers: Flow<List<Hero>> = heroRepository.allPlayers
     private val allPlayersOrderBySide: Flow<List<Hero>> = heroRepository.allPlayersOrderBySide
@@ -56,7 +59,7 @@ class HeroViewModel @Inject internal constructor(
     private val allExceptVillainsOrderBySide: Flow<List<Hero>> = heroRepository.allPlayersExceptVillainsOrderBySide
     private val allExceptVillainsOrderByName: Flow<List<Hero>> = heroRepository.allPlayersExceptVillainsOrderByName
 
-    fun filteredPlayers(players:List<Hero>, showVillains: Boolean, sortOrder: SortOrder): List<Hero> {
+    private fun filteredPlayers(players:List<Hero>, showVillains: Boolean, sortOrder: SortOrder): List<Hero> {
         return players
     }
 }
