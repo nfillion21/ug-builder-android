@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import pgm.poolp.ugbuilder.database.Hero
 import pgm.poolp.ugbuilder.database.HeroRepository
+import pgm.poolp.ugbuilder.model.Player
 import pgm.poolp.ugbuilder.preferences.SortOrder
 import pgm.poolp.ugbuilder.preferences.UserPreferences
 import pgm.poolp.ugbuilder.preferences.UserPreferencesRepositoryImpl
@@ -22,7 +23,7 @@ data class PlayersUiModel(
 
 @HiltViewModel
 class HeroViewModel @Inject internal constructor(
-    heroRepository: HeroRepository,
+    private val heroRepository: HeroRepository,
     private val userPreferencesRepositoryImpl: UserPreferencesRepositoryImpl
 ) : ViewModel()
 {
@@ -45,6 +46,10 @@ class HeroViewModel @Inject internal constructor(
             showVillains = userPreferences.showVillains,
             sortOrder = userPreferences.sortOrder
         )
+    }
+
+    fun player(heroId:String): LiveData<Hero> {
+        return heroRepository.getHero(heroId).asLiveData()
     }
 
     val playersUiModel:StateFlow<PlayersUiModel?> = playersUiModelFlow.stateIn(

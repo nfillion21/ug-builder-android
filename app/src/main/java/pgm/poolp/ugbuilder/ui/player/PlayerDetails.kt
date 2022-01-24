@@ -42,11 +42,8 @@ import androidx.compose.material.icons.rounded.PlaylistPlay
 import androidx.compose.material.primarySurface
 import androidx.compose.material.rememberSwipeableState
 import androidx.compose.material.swipeable
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -63,6 +60,7 @@ import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.google.accompanist.insets.statusBarsPadding
 import java.util.Locale
 import kotlinx.coroutines.launch
+import pgm.poolp.ugbuilder.database.Hero
 import pgm.poolp.ugbuilder.model.*
 import pgm.poolp.ugbuilder.ui.common.OutlinedAvatar
 import pgm.poolp.ugbuilder.ui.theme.PinkTheme
@@ -70,26 +68,27 @@ import pgm.poolp.ugbuilder.ui.theme.pink500
 import pgm.poolp.ugbuilder.ui.utils.NetworkImage
 import pgm.poolp.ugbuilder.ui.utils.lerp
 import pgm.poolp.ugbuilder.ui.utils.scrim
+import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
+import pgm.poolp.ugbuilder.viewmodels.PlayersUiModel
 
 private val FabSize = 56.dp
 private const val ExpandedSheetAlpha = 0.96f
 
 @Composable
 fun PlayerDetails(
-    playerId: Long,
+    playerId: String,
+    playerViewModel: HeroViewModel,
     selectCourse: (Long) -> Unit,
     upPress: () -> Unit
 ) {
-    // Simplified for the sample
-    val player = remember(playerId) { PlayerRepo.getPlayer(playerId) }
-    // TODO: Show error if course not found.
-    PlayerDetails(player, selectCourse, upPress)
+    val playerBis by playerViewModel.player(playerId).observeAsState()
+    PlayerDetails(playerBis, selectCourse, upPress)
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun PlayerDetails(
-    player: Player,
+    player: Hero?,
     selectCourse: (Long) -> Unit,
     upPress: () -> Unit
 ) {
@@ -127,16 +126,9 @@ fun PlayerDetails(
                 } else {
                     -sheetState.offset.value / dragRange
                 }.coerceIn(0f, 1f)
-                CourseDescription(player, selectCourse, upPress)
-                LessonsSheet(
-                    player,
-                    openFraction,
-                    this@BoxWithConstraints.constraints.maxWidth.toFloat(),
-                    this@BoxWithConstraints.constraints.maxHeight.toFloat()
-                ) { state ->
-                    scope.launch {
-                        sheetState.animateTo(state)
-                    }
+                if (player != null)
+                {
+                    CourseDescription(player, selectCourse, upPress)
                 }
             }
         }
@@ -145,7 +137,7 @@ fun PlayerDetails(
 
 @Composable
 private fun CourseDescription(
-    player: Player,
+    player: Hero,
     selectCourse: (Long) -> Unit,
     upPress: () -> Unit
 ) {
@@ -160,7 +152,7 @@ private fun CourseDescription(
 
 @Composable
 private fun CourseDescriptionHeader(
-    player: Player,
+    player: Hero,
     upPress: () -> Unit
 ) {
     Box {
@@ -205,7 +197,7 @@ private fun CourseDescriptionHeader(
 }
 
 @Composable
-private fun CourseDescriptionBody(player: Player) {
+private fun CourseDescriptionBody(player: Hero) {
     Text(
         //text = player.subject.uppercase(Locale.getDefault()),
         text = player.side.uppercase(Locale.getDefault()),
@@ -241,304 +233,8 @@ private fun CourseDescriptionBody(player: Player) {
         )
     }
     Divider(modifier = Modifier.padding(16.dp))
-    Text(
-        text = stringResource(id = R.string.what_you_ll_need),
-        style = MaterialTheme.typography.h6,
-        textAlign = TextAlign.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    )
-    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-        Text(
-            text = stringResource(id = R.string.needs),
-            style = MaterialTheme.typography.body1,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    start = 16.dp,
-                    top = 16.dp,
-                    end = 16.dp,
-                    bottom = 32.dp
-                )
-        )
-    }
 }
-
-/*
-@Composable
-private fun RelatedCourses(
-    courseId: Long,
-    selectCourse: (Long) -> Unit
-) {
-    val relatedCourses = remember(courseId) { CourseRepo.getRelated(courseId) }
-    BlueTheme {
-        Surface(
-            color = MaterialTheme.colors.primarySurface,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(modifier = Modifier.navigationBarsPadding()) {
-                Text(
-                    text = stringResource(id = R.string.you_ll_also_like),
-                    style = MaterialTheme.typography.h6,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            horizontal = 16.dp,
-                            vertical = 24.dp
-                        )
-                )
-                LazyRow(
-                    contentPadding = PaddingValues(
-                        start = 16.dp,
-                        bottom = 32.dp,
-                        end = FabSize + 8.dp
-                    )
-                ) {
-                    items(relatedCourses) { related ->
-                        CourseListItem(
-                            player = related,
-                            onClick = { selectCourse(related.id) },
-                            titleStyle = MaterialTheme.typography.body2,
-                            modifier = Modifier
-                                .padding(end = 8.dp)
-                                .size(288.dp, 80.dp),
-                            iconSize = 14.dp
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
- */
-
-@Composable
-private fun LessonsSheet(
-    player: Player,
-    openFraction: Float,
-    width: Float,
-    height: Float,
-    updateSheet: (SheetState) -> Unit
-) {
-    // Use the fraction that the sheet is open to drive the transformation from FAB -> Sheet
-    val fabSize = with(LocalDensity.current) { FabSize.toPx() }
-    val fabSheetHeight = fabSize + LocalWindowInsets.current.systemBars.bottom
-    val offsetX = lerp(width - fabSize, 0f, 0f, 0.15f, openFraction)
-    val offsetY = lerp(height - fabSheetHeight, 0f, openFraction)
-    val tlCorner = lerp(fabSize, 0f, 0f, 0.15f, openFraction)
-    val surfaceColor = lerp(
-        startColor = pink500,
-        endColor = MaterialTheme.colors.primarySurface.copy(alpha = ExpandedSheetAlpha),
-        startFraction = 0f,
-        endFraction = 0.3f,
-        fraction = openFraction
-    )
-    Surface(
-        color = surfaceColor,
-        contentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primarySurface),
-        shape = RoundedCornerShape(topStart = tlCorner),
-        modifier = Modifier.graphicsLayer {
-            translationX = offsetX
-            translationY = offsetY
-        }
-    ) {
-        Lessons(player, openFraction, surfaceColor, updateSheet)
-    }
-}
-
-@Composable
-private fun Lessons(
-    player: Player,
-    openFraction: Float,
-    surfaceColor: Color = MaterialTheme.colors.surface,
-    updateSheet: (SheetState) -> Unit
-) {
-    val lessons: List<Lesson> = remember(player.id) { LessonsRepo.getLessons(player.id) }
-
-    Box(modifier = Modifier.fillMaxWidth()) {
-        // When sheet open, show a list of the lessons
-        val lessonsAlpha = lerp(0f, 1f, 0.2f, 0.8f, openFraction)
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .graphicsLayer { alpha = lessonsAlpha }
-                .statusBarsPadding()
-        ) {
-            val scroll = rememberLazyListState()
-            val appBarElevation by animateDpAsState(if (scroll.isScrolled) 4.dp else 0.dp)
-            val appBarColor = if (appBarElevation > 0.dp) surfaceColor else Color.Transparent
-            TopAppBar(
-                backgroundColor = appBarColor,
-                elevation = appBarElevation
-            ) {
-                Text(
-                    text = player.name,
-                    style = MaterialTheme.typography.subtitle1,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .weight(1f)
-                        .align(Alignment.CenterVertically)
-                )
-                IconButton(
-                    onClick = { updateSheet(SheetState.Closed) },
-                    modifier = Modifier.align(Alignment.CenterVertically)
-                ) {
-                    Icon(
-                        imageVector = Icons.Rounded.ExpandMore,
-                        contentDescription = stringResource(R.string.label_collapse_lessons)
-                    )
-                }
-            }
-            LazyColumn(
-                state = scroll,
-                contentPadding = rememberInsetsPaddingValues(
-                    insets = LocalWindowInsets.current.systemBars,
-                    applyTop = false
-                )
-            ) {
-                items(lessons) { lesson ->
-                    Lesson(lesson)
-                    Divider(startIndent = 128.dp)
-                }
-            }
-        }
-
-        // When sheet closed, show the FAB
-        val fabAlpha = lerp(1f, 0f, 0f, 0.15f, openFraction)
-        Box(
-            modifier = Modifier
-                .size(FabSize)
-                .padding(start = 16.dp, top = 8.dp) // visually center contents
-                .graphicsLayer { alpha = fabAlpha }
-        ) {
-            IconButton(
-                modifier = Modifier.align(Alignment.Center),
-                onClick = { updateSheet(SheetState.Open) }
-            ) {
-                Icon(
-                    imageVector = Icons.Rounded.PlaylistPlay,
-                    tint = MaterialTheme.colors.onPrimary,
-                    contentDescription = stringResource(R.string.label_expand_lessons)
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun Lesson(lesson: Lesson) {
-    Row(
-        modifier = Modifier
-            .clickable(onClick = { /* todo */ })
-            .padding(vertical = 16.dp)
-    ) {
-        NetworkImage(
-            url = lesson.imageUrl,
-            contentDescription = null,
-            modifier = Modifier.size(112.dp, 64.dp)
-        )
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 16.dp)
-        ) {
-            Text(
-                text = lesson.title,
-                style = MaterialTheme.typography.subtitle2,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                Row(
-                    modifier = Modifier.padding(top = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = Icons.Rounded.PlayCircleOutline,
-                        contentDescription = null,
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Text(
-                        modifier = Modifier.padding(start = 4.dp),
-                        text = lesson.length,
-                        style = MaterialTheme.typography.caption
-                    )
-                }
-            }
-        }
-        Text(
-            text = lesson.formattedStepNumber,
-            style = MaterialTheme.typography.subtitle2,
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
-    }
-}
-
 private enum class SheetState { Open, Closed }
 
 private val LazyListState.isScrolled: Boolean
     get() = firstVisibleItemIndex > 0 || firstVisibleItemScrollOffset > 0
-/*
-@Preview(name = "Course Details")
-@Composable
-private fun CourseDetailsPreview() {
-    val courseId = courses.first().id
-    PlayerDetails(
-        courseId = courseId,
-        selectCourse = { },
-        upPress = { }
-    )
-}
-
-@Preview(name = "Lessons Sheet — Closed")
-@Composable
-private fun LessonsSheetClosedPreview() {
-    LessonsSheetPreview(0f)
-}
-
-@Preview(name = "Lessons Sheet — Open")
-@Composable
-private fun LessonsSheetOpenPreview() {
-    LessonsSheetPreview(1f)
-}
-
-@Preview(name = "Lessons Sheet — Open – Dark")
-@Composable
-private fun LessonsSheetOpenDarkPreview() {
-    LessonsSheetPreview(1f, true)
-}
-
-@Composable
-private fun LessonsSheetPreview(
-    openFraction: Float,
-    darkTheme: Boolean = false
-) {
-    PinkTheme(darkTheme) {
-        val color = MaterialTheme.colors.primarySurface
-        Surface(color = color) {
-            Lessons(
-                player = courses.first(),
-                openFraction = openFraction,
-                surfaceColor = color,
-                updateSheet = { }
-            )
-        }
-    }
-}
-
-@Preview(name = "Related")
-@Composable
-private fun RelatedCoursesPreview() {
-    val related = courses.random()
-    RelatedCourses(
-        courseId = related.id,
-        selectCourse = { }
-    )
-}
-
-*/

@@ -13,4 +13,6 @@ class HeroRepository @Inject constructor(private val heroDao: HeroDao) {
     val allHeroes: Flow<List<Hero>> = heroDao.getHeroes()
     val allVillains: Flow<List<Hero>> = heroDao.getVillains()
     val allAllies: Flow<List<Hero>> = heroDao.getAllies()
+
+    fun getHero(heroId:String) = heroDao.getHero(heroId)
 }

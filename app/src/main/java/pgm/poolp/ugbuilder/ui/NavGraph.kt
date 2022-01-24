@@ -1,22 +1,24 @@
 package pgm.poolp.ugbuilder.ui
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 //import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.lifecycle.HiltViewModel
 import pgm.poolp.ugbuilder.model.Player
 import pgm.poolp.ugbuilder.ui.MainRoutes.PLAYER_DETAIL_ID_KEY
 import pgm.poolp.ugbuilder.ui.onboarding.Onboarding
 import pgm.poolp.ugbuilder.ui.player.PlayerDetails
 import pgm.poolp.ugbuilder.ui.players.BuilderSectionsTabs
 import pgm.poolp.ugbuilder.ui.players.buildSections
+import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
+import pgm.poolp.ugbuilder.viewmodels.PlayersUiModel
 
 /**
  * Destinations used in the ([OwlApp]).
@@ -75,18 +77,23 @@ fun BuilderNavGraph(
         composable(
             "${MainRoutes.PLAYER_DETAIL_ROUTE}/{$PLAYER_DETAIL_ID_KEY}",
             arguments = listOf(
-                navArgument(PLAYER_DETAIL_ID_KEY) { type = NavType.LongType }
+                navArgument(PLAYER_DETAIL_ID_KEY) { type = NavType.StringType }
             )
         ) { backStackEntry: NavBackStackEntry ->
             val arguments = requireNotNull(backStackEntry.arguments)
-            val currentCourseId = arguments.getLong(PLAYER_DETAIL_ID_KEY)
-            PlayerDetails(
-                playerId = currentCourseId,
-                selectCourse = { newCourseId ->
-                    actions.relatedCourse(newCourseId, backStackEntry)
-                },
-                upPress = { actions.upPress(backStackEntry) }
-            )
+            val currentCourseId = arguments.getString(PLAYER_DETAIL_ID_KEY)
+            if (currentCourseId != null) {
+
+                val playerViewModel: HeroViewModel = hiltViewModel()
+                PlayerDetails(
+                    playerId = currentCourseId,
+                    playerViewModel = playerViewModel,
+                    selectCourse = { newCourseId ->
+                        actions.relatedCourse(newCourseId, backStackEntry)
+                    },
+                    upPress = { actions.upPress(backStackEntry) }
+                )
+            }
         }
     }
 }
