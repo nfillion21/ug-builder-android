@@ -1,5 +1,6 @@
 package pgm.poolp.ugbuilder.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -11,6 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -36,6 +39,7 @@ private val gradientWidth
 @Composable
 fun PlayerCollection(
     playerCollection: PlayerCollectionData,
+    selectPlayer: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
@@ -58,14 +62,15 @@ fun PlayerCollection(
                     .wrapContentWidth(Alignment.Start)
             )
         }
-        HighlightedPlayers(playerCollection.players)
+        HighlightedPlayers(playerCollection.players, selectPlayer)
     }
 }
 
 @Composable
 private fun HighlightedPlayers(
-        players: List<Hero>,
-        modifier: Modifier = Modifier
+    players: List<Hero>,
+    selectPlayer: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     LazyRow(
         modifier = modifier,
@@ -75,6 +80,7 @@ private fun HighlightedPlayers(
         itemsIndexed(players) { _, player ->
             PlayerItem(
                 player = player,
+                selectPlayer
             )
         }
     }
@@ -83,6 +89,7 @@ private fun HighlightedPlayers(
 @Composable
 fun PlayerItem(
     player: Hero,
+    selectPlayer: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -103,15 +110,13 @@ fun PlayerItem(
         val featuredString = stringResource(id = R.string.featured)
         ConstraintLayout(
             modifier = Modifier
-                    /*
                 .clickable(
                     //onClick = { onPlayerClick(player.id)}
-                    onClick = { addPlayer(player)}
+                    onClick = { selectPlayer(player.heroId)}
                 )
                 .semantics {
                     contentDescription = featuredString
                 }
-        */
         ) {
             val (image, avatar, subject, name, steps, icon) = createRefs()
 

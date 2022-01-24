@@ -28,7 +28,7 @@ import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
 import pgm.poolp.ugbuilder.viewmodels.PlayersUiModel
 
 fun NavGraphBuilder.buildSections(
-    onPlayerSelected: (Long, NavBackStackEntry) -> Unit,
+    onPlayerSelected: (String, NavBackStackEntry) -> Unit,
     onboardingComplete: State<Boolean>, // https://issuetracker.google.com/174783110
     navController: NavHostController,
     modifier: Modifier = Modifier
@@ -44,7 +44,7 @@ fun NavGraphBuilder.buildSections(
             enableSortBySide = heroViewModel::enableSortByPrice,
         )
     }
-    composable(BuilderSectionsTabs.OREO.route) {
+    composable(BuilderSectionsTabs.OREO.route) { from ->
 
         LaunchedEffect(onboardingComplete) {
             if (!onboardingComplete.value) {
@@ -55,6 +55,7 @@ fun NavGraphBuilder.buildSections(
         { // Avoid glitch when showing onboarding
             Oreo(
                 heroViewModel = hiltViewModel(),
+                selectPlayer = {id -> onPlayerSelected(id, from)},
                 modifier = modifier
             )
         }

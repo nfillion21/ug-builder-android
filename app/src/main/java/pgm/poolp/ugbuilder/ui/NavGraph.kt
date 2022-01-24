@@ -100,7 +100,7 @@ class MainActions(navController: NavHostController) {
     }
 
     // Used from COURSES_ROUTE
-    val openPlayerDetail = { newPlayerId: Long, from: NavBackStackEntry ->
+    val openPlayerDetail = { newPlayerId: String, from: NavBackStackEntry ->
         // In order to discard duplicated navigation events, we check the Lifecycle
         if (from.lifecycleIsResumed()) {
             navController.navigate("${MainRoutes.PLAYER_DETAIL_ROUTE}/$newPlayerId")

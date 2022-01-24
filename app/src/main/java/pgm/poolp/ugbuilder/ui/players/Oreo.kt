@@ -17,12 +17,13 @@ import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
 @Composable
 fun Oreo(
     heroViewModel:HeroViewModel,
+    selectPlayer: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     JetsnackSurface(
         modifier = modifier.fillMaxSize()) {
         Box {
-            playerCollectionList(heroViewModel)
+            playerCollectionList(heroViewModel, selectPlayer)
         }
     }
 }
@@ -30,6 +31,7 @@ fun Oreo(
 @Composable
 private fun playerCollectionList(
     heroViewModel: HeroViewModel,
+    selectPlayer: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val heroes_ by heroViewModel.allHeroes.observeAsState(listOf())
@@ -63,6 +65,7 @@ private fun playerCollectionList(
         itemsIndexed(listOf(turtles,allies,villains)) { _, playerCollection ->
             PlayerCollection(
                 playerCollection = playerCollection,
+                selectPlayer = selectPlayer
             )
         }
     }
