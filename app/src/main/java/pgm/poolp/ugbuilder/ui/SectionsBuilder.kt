@@ -63,10 +63,8 @@ fun NavGraphBuilder.buildSections(
             )
         }
     }
-    composable(BuilderSectionsTabs.CART.route) {
-
-        //val cartWithPlayers = cartViewModel.getPlayerCart("tmnt").observeAsState()
-        //val statePlayers: PlayersUiModel? by cartViewModel.playersUiModel.collectAsState()
+    composable(BuilderSectionsTabs.CART.route)
+    {
         val cartViewModel:CartViewModel = hiltViewModel()
         val cartWithPlayers:CartWithPlayers? by cartViewModel.getPlayerCart("tmnt").collectAsState()
         Cart(

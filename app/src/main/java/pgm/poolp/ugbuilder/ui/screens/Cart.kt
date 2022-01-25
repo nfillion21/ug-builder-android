@@ -44,9 +44,6 @@ fun Cart(
     cartWithPlayers: CartWithPlayers?,
     modifier: Modifier = Modifier
 ) {
-    //val players by cartViewModel.getPlayerCart("tmnt").observeAsState(listOf())
-    //val cartWithPlayers = cartViewModel.getPlayerCart("tmnt").observeAsState()
-
     LazyColumn(modifier = modifier
         .statusBarsPadding(),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -55,13 +52,11 @@ fun Cart(
         item {
             CoursesAppBar()
         }
-        if (cartWithPlayers != null)
-        {
-            items(cartWithPlayers.players) { player ->
-                CartItem(
-                    player = player
-                )
-            }
+        val players = cartWithPlayers?.players ?: listOf()
+        items(players) { player ->
+            CartItem(
+                player = player
+            )
         }
     }
 }
@@ -84,8 +79,7 @@ fun CartItem(
         val (image, name, tag, priceSpacer, price, remove, icon) = createRefs()
         createVerticalChain(name, tag, priceSpacer, icon, chainStyle = ChainStyle.Packed)
         SnackImage(
-            //imageUrl = snack.imageUrl,
-            imageUrl = "https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/04/17/14/teenage-mutant-ninja-turtles-film.jpg?width=982&height=726&auto=webp&quality=75",
+            imageUrl = player.imageUrl,
             contentDescription = null,
             modifier = Modifier
                 .size(100.dp)
@@ -149,8 +143,7 @@ fun CartItem(
         )
 
         Text(
-            //text = formatPrice(snack.price),
-            text = player.side,
+            text = player.price.toString(),
             style = MaterialTheme.typography.subtitle2,
             color = UGBuilderTheme.colors.primary,
             modifier = Modifier

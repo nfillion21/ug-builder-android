@@ -39,8 +39,7 @@ fun SearchPlayers(
                 CoursesAppBar()
             }
 
-            if (statePlayers != null)
-            {
+
                 item {
 
                     Row(modifier = Modifier.padding(all = 16.dp)) {
@@ -52,10 +51,12 @@ fun SearchPlayers(
 
                         Spacer(modifier = Modifier.width(16.dp))
 
+                        val sortOrder = statePlayers?.sortOrder ?: SortOrder.NONE
+
                         SortChip(
                             text = "Name",
-                            selected = statePlayers.sortOrder == SortOrder.BY_NAME
-                                    || statePlayers.sortOrder == SortOrder.BY_NAME_AND_PRICE,
+                            selected = sortOrder == SortOrder.BY_NAME
+                                    || sortOrder == SortOrder.BY_NAME_AND_PRICE,
                             setSelected = enableSortByName,
                             shape = RoundedCornerShape(14.dp)
                         )
@@ -64,8 +65,8 @@ fun SearchPlayers(
 
                         SortChip(
                             text = "Price",
-                            selected = statePlayers.sortOrder == SortOrder.BY_PRICE
-                                    || statePlayers.sortOrder == SortOrder.BY_NAME_AND_PRICE,
+                            selected = sortOrder == SortOrder.BY_PRICE
+                                    || sortOrder == SortOrder.BY_NAME_AND_PRICE,
                             setSelected = enableSortBySide,
                             shape = RoundedCornerShape(14.dp)
                         )
@@ -91,14 +92,17 @@ fun SearchPlayers(
 
                         Spacer(modifier = Modifier.width(16.dp))
 
+                        val showVillains = statePlayers?.showVillains ?: false
                         Checkbox(
-                            checked = statePlayers.showVillains,
+                            checked = showVillains,
                             onCheckedChange = switchShowVillains
                         )
                     }
                 }
 
-                items(statePlayers.players) { hero ->
+            val players = statePlayers?.players ?: listOf()
+
+                items(players) { hero ->
                     Text(
                         text = hero.name,
                         style = MaterialTheme.typography.h5,
@@ -114,7 +118,7 @@ fun SearchPlayers(
                             .wrapContentWidth(Alignment.Start)
                     )
                 }
-            }
+
         }
     }
 }
