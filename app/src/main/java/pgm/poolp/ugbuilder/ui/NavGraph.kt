@@ -10,15 +10,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 //import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
-import dagger.hilt.android.lifecycle.HiltViewModel
-import pgm.poolp.ugbuilder.model.Player
+import pgm.poolp.ugbuilder.data.PlayerCartCrossRef
 import pgm.poolp.ugbuilder.ui.MainRoutes.PLAYER_DETAIL_ID_KEY
 import pgm.poolp.ugbuilder.ui.onboarding.Onboarding
 import pgm.poolp.ugbuilder.ui.player.PlayerDetails
 import pgm.poolp.ugbuilder.ui.players.BuilderSectionsTabs
 import pgm.poolp.ugbuilder.ui.players.buildSections
+import pgm.poolp.ugbuilder.viewmodels.CartViewModel
 import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
-import pgm.poolp.ugbuilder.viewmodels.PlayersUiModel
 
 /**
  * Destinations used in the ([OwlApp]).
@@ -85,11 +84,14 @@ fun BuilderNavGraph(
             if (currentCourseId != null) {
 
                 val playerViewModel: HeroViewModel = hiltViewModel()
+                val cartViewModel: CartViewModel = hiltViewModel()
                 PlayerDetails(
                     playerId = currentCourseId,
                     playerViewModel = playerViewModel,
-                    selectCourse = { newCourseId ->
-                        actions.relatedCourse(newCourseId, backStackEntry)
+                    cartViewModel = cartViewModel,
+                    addToCart = { playerId ->
+                        //actions.relatedCourse(newCourseId, backStackEntry)
+                        cartViewModel.insert(PlayerCartCrossRef(playerId,"tmnt"))
                     },
                     upPress = { actions.upPress(backStackEntry) }
                 )

@@ -30,6 +30,7 @@ import pgm.poolp.ugbuilder.ui.common.OutlinedAvatar
 import pgm.poolp.ugbuilder.ui.theme.PinkTheme
 import pgm.poolp.ugbuilder.ui.utils.NetworkImage
 import pgm.poolp.ugbuilder.ui.utils.scrim
+import pgm.poolp.ugbuilder.viewmodels.CartViewModel
 import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
 
 private val FabSize = 56.dp
@@ -39,18 +40,19 @@ private const val ExpandedSheetAlpha = 0.96f
 fun PlayerDetails(
     playerId: String,
     playerViewModel: HeroViewModel,
-    selectCourse: (Long) -> Unit,
+    cartViewModel: CartViewModel,
+    addToCart: (String) -> Unit,
     upPress: () -> Unit
 ) {
     val playerBis by playerViewModel.player(playerId).observeAsState()
-    PlayerDetails(playerBis, selectCourse, upPress)
+    PlayerDetails(playerBis, addToCart, upPress)
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun PlayerDetails(
     player: Hero?,
-    selectCourse: (Long) -> Unit,
+    addToCart: (String) -> Unit,
     upPress: () -> Unit
 ) {
     PinkTheme {
@@ -89,7 +91,7 @@ fun PlayerDetails(
                 }.coerceIn(0f, 1f)
                 if (player != null)
                 {
-                    CourseDescription(player, selectCourse, upPress)
+                    CourseDescription(player, addToCart, upPress)
                 }
             }
         }
@@ -99,7 +101,7 @@ fun PlayerDetails(
 @Composable
 private fun CourseDescription(
     player: Hero,
-    selectCourse: (Long) -> Unit,
+    addToCart: (String) -> Unit,
     upPress: () -> Unit
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
@@ -124,7 +126,7 @@ private fun CourseDescription(
                 ) {
                     Button(
                         modifier = Modifier,
-                        onClick = { /* ... */ },
+                        onClick = { addToCart(player.heroId) },
                         // Uses ButtonDefaults.ContentPadding by default
                         contentPadding = PaddingValues(
                             start = 20.dp,
