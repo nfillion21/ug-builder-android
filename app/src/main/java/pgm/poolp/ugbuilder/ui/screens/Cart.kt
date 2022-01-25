@@ -1,4 +1,4 @@
-package pgm.poolp.ugbuilder.ui.players
+package pgm.poolp.ugbuilder.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,8 +14,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.rounded.Money
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,36 +26,27 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.statusBarsPadding
 import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.model.Player
-import pgm.poolp.ugbuilder.ui.cart.CartViewModel
 import pgm.poolp.ugbuilder.ui.components.JetsnackSurface
 import pgm.poolp.ugbuilder.ui.theme.UGBuilderTheme
+import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import pgm.poolp.ugbuilder.data.Hero
+
 
 @Composable
 fun Cart(
-    modifier: Modifier = Modifier,
-    viewModel: CartViewModel = viewModel(factory = CartViewModel.provideFactory())
+    heroViewModel: HeroViewModel,
+    modifier: Modifier = Modifier
+    //players: List<Player>,
+    //removePlayer: (Long) -> Unit,
+    //addPlayer: (Player) -> Unit
 ) {
-    val players by viewModel.players.collectAsState()
-    Cart(
-        modifier = modifier,
-        players = players,
-        removePlayer = viewModel::removePlayer,
-        addPlayer = viewModel::addPlayer
-    )
-}
-
-@Composable
-fun Cart(
-    modifier: Modifier = Modifier,
-    players: List<Player>,
-    removePlayer: (Long) -> Unit,
-    addPlayer: (Player) -> Unit
-) {
+    val players by heroViewModel.allHeroes.observeAsState(listOf())
     LazyColumn(modifier = modifier
         .statusBarsPadding(),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -67,8 +58,8 @@ fun Cart(
         items(players) { player ->
             CartItem(
                 player = player,
-                removePlayer = removePlayer,
-                addPlayer = addPlayer
+                //removePlayer = removePlayer,
+                //addPlayer = addPlayer
             )
         }
     }
@@ -77,9 +68,9 @@ fun Cart(
 @Composable
 fun CartItem(
     modifier: Modifier = Modifier,
-    player: Player,
-    removePlayer: (Long) -> Unit,
-    addPlayer: (Player) -> Unit
+    player: Hero
+    //removePlayer: (Long) -> Unit,
+    //addPlayer: (Player) -> Unit
 ) {
     //val snack = orderLine.snack
     ConstraintLayout(
@@ -112,7 +103,7 @@ fun CartItem(
             }
         )
         IconButton(
-            onClick = { removePlayer(player.id) },
+            onClick = { /*removePlayer(player.id)*/ },
             modifier = Modifier
                 .constrainAs(remove) {
                     top.linkTo(parent.top)

@@ -14,8 +14,8 @@ import pgm.poolp.ugbuilder.data.PlayerCartCrossRef
 import pgm.poolp.ugbuilder.ui.MainRoutes.PLAYER_DETAIL_ID_KEY
 import pgm.poolp.ugbuilder.ui.onboarding.Onboarding
 import pgm.poolp.ugbuilder.ui.player.PlayerDetails
-import pgm.poolp.ugbuilder.ui.players.BuilderSectionsTabs
-import pgm.poolp.ugbuilder.ui.players.buildSections
+import pgm.poolp.ugbuilder.ui.screens.BuilderSectionsTabs
+import pgm.poolp.ugbuilder.ui.screens.buildSections
 import pgm.poolp.ugbuilder.viewmodels.CartViewModel
 import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
 

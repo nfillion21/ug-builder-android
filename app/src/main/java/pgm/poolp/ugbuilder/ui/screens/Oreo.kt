@@ -1,4 +1,4 @@
-package pgm.poolp.ugbuilder.ui.players
+package pgm.poolp.ugbuilder.ui.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

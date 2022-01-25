@@ -1,4 +1,4 @@
-package pgm.poolp.ugbuilder.ui.players
+package pgm.poolp.ugbuilder.ui.screens
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
@@ -61,7 +61,9 @@ fun NavGraphBuilder.buildSections(
         }
     }
     composable(BuilderSectionsTabs.CART.route) {
-        Cart(modifier)
+        Cart(
+            heroViewModel = hiltViewModel(),
+            modifier = modifier)
     }
 
     /*
