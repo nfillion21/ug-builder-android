@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.rounded.Money
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -26,27 +27,26 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.statusBarsPadding
 import pgm.poolp.ugbuilder.R
-import pgm.poolp.ugbuilder.model.Player
+import pgm.poolp.ugbuilder.data.CartWithPlayers
+import pgm.poolp.ugbuilder.data.Hero
 import pgm.poolp.ugbuilder.ui.components.JetsnackSurface
 import pgm.poolp.ugbuilder.ui.theme.UGBuilderTheme
+import pgm.poolp.ugbuilder.viewmodels.CartViewModel
 import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import pgm.poolp.ugbuilder.data.Hero
 
 
 @Composable
 fun Cart(
-    heroViewModel: HeroViewModel,
+    cartWithPlayers: CartWithPlayers?,
     modifier: Modifier = Modifier
-    //players: List<Player>,
-    //removePlayer: (Long) -> Unit,
-    //addPlayer: (Player) -> Unit
 ) {
-    val players by heroViewModel.allHeroes.observeAsState(listOf())
+    //val players by cartViewModel.getPlayerCart("tmnt").observeAsState(listOf())
+    //val cartWithPlayers = cartViewModel.getPlayerCart("tmnt").observeAsState()
+
     LazyColumn(modifier = modifier
         .statusBarsPadding(),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -55,12 +55,13 @@ fun Cart(
         item {
             CoursesAppBar()
         }
-        items(players) { player ->
-            CartItem(
-                player = player,
-                //removePlayer = removePlayer,
-                //addPlayer = addPlayer
-            )
+        if (cartWithPlayers != null)
+        {
+            items(cartWithPlayers.players) { player ->
+                CartItem(
+                    player = player
+                )
+            }
         }
     }
 }

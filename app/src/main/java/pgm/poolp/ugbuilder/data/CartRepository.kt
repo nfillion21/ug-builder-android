@@ -8,4 +8,6 @@ class CartRepository @Inject constructor(private val cartDAO: CartDAO) {
     suspend fun insertPlayerCart(playerCartCrossRef:PlayerCartCrossRef) {
         cartDAO.insertPlayerCart(playerCartCrossRef)
     }
+
+    fun getCartWithPlayers(cartId: String) = cartDAO.getCartWithPlayers(cartId)
 }

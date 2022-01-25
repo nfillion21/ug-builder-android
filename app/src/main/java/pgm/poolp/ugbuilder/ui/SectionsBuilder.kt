@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -24,6 +25,8 @@ import androidx.navigation.compose.composable
 import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.ui.MainRoutes
 import androidx.hilt.navigation.compose.hiltViewModel
+import pgm.poolp.ugbuilder.data.CartWithPlayers
+import pgm.poolp.ugbuilder.viewmodels.CartViewModel
 import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
 import pgm.poolp.ugbuilder.viewmodels.PlayersUiModel
 
@@ -61,8 +64,13 @@ fun NavGraphBuilder.buildSections(
         }
     }
     composable(BuilderSectionsTabs.CART.route) {
+
+        //val cartWithPlayers = cartViewModel.getPlayerCart("tmnt").observeAsState()
+        //val statePlayers: PlayersUiModel? by cartViewModel.playersUiModel.collectAsState()
+        val cartViewModel:CartViewModel = hiltViewModel()
+        val cartWithPlayers:CartWithPlayers? by cartViewModel.getPlayerCart("tmnt").collectAsState()
         Cart(
-            heroViewModel = hiltViewModel(),
+            cartWithPlayers = cartWithPlayers,
             modifier = modifier)
     }
 
