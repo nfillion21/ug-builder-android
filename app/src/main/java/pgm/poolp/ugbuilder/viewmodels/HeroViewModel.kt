@@ -7,9 +7,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import pgm.poolp.ugbuilder.database.Hero
-import pgm.poolp.ugbuilder.database.HeroRepository
-import pgm.poolp.ugbuilder.model.Player
+import pgm.poolp.ugbuilder.data.Hero
+import pgm.poolp.ugbuilder.data.HeroRepository
 import pgm.poolp.ugbuilder.preferences.SortOrder
 import pgm.poolp.ugbuilder.preferences.UserPreferences
 import pgm.poolp.ugbuilder.preferences.UserPreferencesRepositoryImpl

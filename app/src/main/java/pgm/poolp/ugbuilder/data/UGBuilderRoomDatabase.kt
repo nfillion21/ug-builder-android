@@ -1,4 +1,4 @@
-package pgm.poolp.ugbuilder.database
+package pgm.poolp.ugbuilder.data
 
 import android.content.Context
 import androidx.room.Database
@@ -8,16 +8,20 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
-import pgm.poolp.ugbuilder.database.HeroDatabaseWorker.Companion.HERO_KEY_FILENAME
+import pgm.poolp.ugbuilder.workers.CartDatabaseWorker
+import pgm.poolp.ugbuilder.workers.CartDatabaseWorker.Companion.CART_KEY_FILENAME
+import pgm.poolp.ugbuilder.workers.HeroDatabaseWorker
+import pgm.poolp.ugbuilder.workers.HeroDatabaseWorker.Companion.HERO_KEY_FILENAME
 
 /**
  * This is the backend. The database. This used to be done by the OpenHelper.
  * The fact that this has very few comments emphasizes its coolness.
  */
-@Database(entities = [Hero::class], version = 1, exportSchema = false)
+@Database(entities = [Hero::class, Cart::class, PlayerCartCrossRef::class], version = 1, exportSchema = false)
 abstract class UGBuilderRoomDatabase : RoomDatabase() {
 
     abstract fun heroDao(): HeroDao
+    abstract fun cartDAO(): CartDAO
 
     companion object {
         @Volatile
@@ -54,10 +58,15 @@ abstract class UGBuilderRoomDatabase : RoomDatabase() {
 
                 val workManager = WorkManager.getInstance(context)
 
-                val requestChampions = OneTimeWorkRequestBuilder<HeroDatabaseWorker>()
+                val requestPlayers = OneTimeWorkRequestBuilder<HeroDatabaseWorker>()
                     .setInputData(workDataOf(HERO_KEY_FILENAME to HEROES_DATA_FILENAME))
                     .build()
-                workManager.enqueue(requestChampions)
+                workManager.enqueue(requestPlayers)
+
+                val requestCarts = OneTimeWorkRequestBuilder<CartDatabaseWorker>()
+                    .setInputData(workDataOf(CART_KEY_FILENAME to CART_DATA_FILENAME))
+                    .build()
+                workManager.enqueue(requestCarts)
             }
         }
     }

@@ -1,4 +1,4 @@
-package pgm.poolp.ugbuilder.database
+package pgm.poolp.ugbuilder.data
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

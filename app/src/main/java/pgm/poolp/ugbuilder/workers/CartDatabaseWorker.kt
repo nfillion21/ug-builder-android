@@ -1,4 +1,4 @@
-package pgm.poolp.ugbuilder.database
+package pgm.poolp.ugbuilder.workers
 
 import android.content.Context
 import android.util.Log
@@ -9,22 +9,25 @@ import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import pgm.poolp.ugbuilder.data.Cart
+import pgm.poolp.ugbuilder.data.Hero
+import pgm.poolp.ugbuilder.data.UGBuilderRoomDatabase
 
-class HeroDatabaseWorker(
+class CartDatabaseWorker(
     context: Context,
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
-            val filename = inputData.getString(HERO_KEY_FILENAME)
+            val filename = inputData.getString(CART_KEY_FILENAME)
             if (filename != null) {
                 applicationContext.assets.open(filename).use { inputStream ->
                     JsonReader(inputStream.reader()).use { jsonReader ->
-                        val championType = object : TypeToken<List<Hero>>() {}.type
-                        val championList: List<Hero> = Gson().fromJson(jsonReader, championType)
+                        val cartType = object : TypeToken<List<Cart>>() {}.type
+                        val cartList: List<Cart> = Gson().fromJson(jsonReader, cartType)
 
                         val database = UGBuilderRoomDatabase.getInstance(applicationContext)
-                        database.heroDao().insertAll(championList)
+                        database.cartDAO().insertAll(cartList)
 
                         Result.success()
                     }
@@ -40,7 +43,7 @@ class HeroDatabaseWorker(
     }
 
     companion object {
-        private const val TAG = "HeroDatabaseWorker"
-        const val HERO_KEY_FILENAME = "HERO_DATA_FILENAME"
+        private const val TAG = "CartDatabaseWorker"
+        const val CART_KEY_FILENAME = "CART_DATA_FILENAME"
     }
 }

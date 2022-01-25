@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import pgm.poolp.ugbuilder.database.Hero
+import pgm.poolp.ugbuilder.data.Hero
 import javax.inject.Inject
 
 enum class SortOrder {

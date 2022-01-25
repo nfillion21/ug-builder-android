@@ -1,53 +1,36 @@
 package pgm.poolp.ugbuilder.ui.player
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation.Vertical
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.ExpandMore
-import androidx.compose.material.icons.rounded.PlayCircleOutline
-import androidx.compose.material.icons.rounded.PlaylistPlay
+import androidx.compose.material.icons.filled.AddShoppingCart
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import pgm.poolp.ugbuilder.R
-import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.google.accompanist.insets.statusBarsPadding
 import java.util.Locale
 import kotlinx.coroutines.launch
-import pgm.poolp.ugbuilder.database.Hero
-import pgm.poolp.ugbuilder.model.*
+import pgm.poolp.ugbuilder.data.Hero
 import pgm.poolp.ugbuilder.ui.common.OutlinedAvatar
 import pgm.poolp.ugbuilder.ui.theme.PinkTheme
-import pgm.poolp.ugbuilder.ui.theme.pink500
 import pgm.poolp.ugbuilder.ui.utils.NetworkImage
-import pgm.poolp.ugbuilder.ui.utils.lerp
 import pgm.poolp.ugbuilder.ui.utils.scrim
 import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
-import pgm.poolp.ugbuilder.viewmodels.PlayersUiModel
 
 private val FabSize = 56.dp
 private const val ExpandedSheetAlpha = 0.96f
@@ -152,7 +135,7 @@ private fun CourseDescription(
                     ) {
                         // Inner content including an icon and a text label
                         Icon(
-                            Icons.Filled.Favorite,
+                            Icons.Filled.AddShoppingCart,
                             contentDescription = "Favorite",
                             modifier = Modifier.size(ButtonDefaults.IconSize)
                         )

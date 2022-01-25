@@ -19,8 +19,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import pgm.poolp.ugbuilder.R
-import pgm.poolp.ugbuilder.database.Hero
-import pgm.poolp.ugbuilder.model.Player
+import pgm.poolp.ugbuilder.data.Hero
 import pgm.poolp.ugbuilder.model.PlayerCollectionData
 import pgm.poolp.ugbuilder.ui.common.OutlinedAvatar
 import pgm.poolp.ugbuilder.ui.theme.*

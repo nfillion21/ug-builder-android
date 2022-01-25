@@ -1,4 +1,4 @@
-package pgm.poolp.ugbuilder.database
+package pgm.poolp.ugbuilder.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

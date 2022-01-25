@@ -1,7 +1,7 @@
 package pgm.poolp.ugbuilder.model
 
 import androidx.compose.runtime.Immutable
-import pgm.poolp.ugbuilder.database.Hero
+import pgm.poolp.ugbuilder.data.Hero
 
 @Immutable
 data class PlayerCollectionData(

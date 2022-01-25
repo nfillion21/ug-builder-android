@@ -1,4 +1,4 @@
-package pgm.poolp.ugbuilder.database
+package pgm.poolp.ugbuilder.data
 
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
