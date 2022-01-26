@@ -2,14 +2,12 @@ package pgm.poolp.ugbuilder.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.rounded.Money
@@ -22,6 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.LastBaseline
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -33,8 +35,10 @@ import com.google.accompanist.insets.statusBarsPadding
 import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.data.CartWithPlayers
 import pgm.poolp.ugbuilder.data.Hero
+import pgm.poolp.ugbuilder.ui.common.OutlinedAvatar
 import pgm.poolp.ugbuilder.ui.components.JetsnackSurface
 import pgm.poolp.ugbuilder.ui.theme.UGBuilderTheme
+import pgm.poolp.ugbuilder.ui.utils.NetworkImage
 import pgm.poolp.ugbuilder.viewmodels.CartViewModel
 import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
 
@@ -63,6 +67,123 @@ fun Cart(
     }
 }
 
+
+
+
+@Composable
+fun PlayerItem(
+    player: Hero,
+    selectPlayer: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier
+            .padding(4.dp)
+            //.fillMaxHeight()
+            .width(170.dp),
+        /*
+    .size(
+        width = 170.dp,
+        height = 250.dp
+    ),
+*/
+        color = MaterialTheme.colors.surface,
+        elevation = UGBuilderTheme.elevations.card,
+        shape = MaterialTheme.shapes.medium,
+    ) {
+        val featuredString = stringResource(id = R.string.featured)
+        ConstraintLayout(
+            modifier = Modifier
+                .clickable(
+                    //onClick = { onPlayerClick(player.id)}
+                    onClick = { selectPlayer(player.heroId)}
+                )
+                .semantics {
+                    contentDescription = featuredString
+                }
+        ) {
+            val (image, avatar, subject, name, steps, icon) = createRefs()
+
+            NetworkImage(
+                url = player.imageUrl,
+                contentDescription = null,
+                modifier = Modifier
+                    .aspectRatio(4f / 3f)
+                    .constrainAs(image) {
+                        centerHorizontallyTo(parent)
+                        top.linkTo(parent.top)
+                    }
+            )
+
+            val outlineColor = LocalElevationOverlay.current?.apply(
+                color = MaterialTheme.colors.surface,
+                elevation = UGBuilderTheme.elevations.card
+            ) ?: MaterialTheme.colors.surface
+            OutlinedAvatar(
+                url = player.imageUrl,
+                outlineColor = outlineColor,
+                modifier = Modifier
+                    .size(38.dp)
+                    .constrainAs(avatar) {
+                        centerHorizontallyTo(parent)
+                        centerAround(image.bottom)
+                    }
+            )
+            Text(
+                text = player.side,
+                color = MaterialTheme.colors.primary,
+                style = MaterialTheme.typography.overline,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .constrainAs(subject) {
+                        centerHorizontallyTo(parent)
+                        top.linkTo(avatar.bottom)
+                    }
+            )
+            Text(
+                text = player.name,
+                style = MaterialTheme.typography.subtitle1,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .constrainAs(name) {
+                        centerHorizontallyTo(parent)
+                        top.linkTo(subject.bottom)
+                    }
+            )
+            val center = createGuidelineFromStart(0.5f)
+            Icon(
+                imageVector = Icons.Rounded.Money,
+                tint = MaterialTheme.colors.primary,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(16.dp)
+                    .constrainAs(icon) {
+                        end.linkTo(center)
+                        centerVerticallyTo(steps)
+                    }
+            )
+            Text(
+                //text = course.steps.toString(), price
+                text = "100",
+                color = MaterialTheme.colors.primary,
+                style = MaterialTheme.typography.subtitle2,
+                modifier = Modifier
+                    .padding(
+                        start = 4.dp,
+                        top = 16.dp,
+                        bottom = 16.dp
+                    )
+                    .constrainAs(steps) {
+                        start.linkTo(center)
+                        top.linkTo(name.bottom)
+                    }
+            )
+        }
+    }
+}
+
+
 @Composable
 fun CartItem(
     modifier: Modifier = Modifier,
@@ -73,20 +194,22 @@ fun CartItem(
     ConstraintLayout(
         modifier = modifier
             .fillMaxWidth()
+            //.fillMaxHeight()
+            .height(128.dp)
             .background(Color.White)
             //.clickable { onSnackClick(snack.id) }
-            .padding(horizontal = 24.dp)
+            //.padding(horizontal = 24.dp)
     ) {
         val (image, name, tag, priceSpacer, price, remove, icon) = createRefs()
         createVerticalChain(name, tag, priceSpacer, icon, chainStyle = ChainStyle.Packed)
-        SnackImage(
-            imageUrl = player.imageUrl,
+        NetworkImage(
+            url = player.imageUrl,
             contentDescription = null,
             modifier = Modifier
-                .size(100.dp)
+                .aspectRatio(4f / 3f)
                 .constrainAs(image) {
-                    top.linkTo(parent.top, margin = 16.dp)
-                    bottom.linkTo(parent.bottom, margin = 16.dp)
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
                 }
         )
@@ -170,7 +293,7 @@ fun SnackImage(
     JetsnackSurface(
         color = Color.LightGray,
         elevation = elevation,
-        shape = CircleShape,
+        //shape = CircleShape,
         modifier = modifier
     ) {
         Image(
