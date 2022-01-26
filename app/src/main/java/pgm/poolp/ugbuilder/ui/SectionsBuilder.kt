@@ -47,6 +47,7 @@ fun NavGraphBuilder.buildSections(
             switchShowVillains = heroViewModel::showCompletedTasks,
             enableSortByName = heroViewModel::enableSortByName,
             enableSortBySide = heroViewModel::enableSortByPrice,
+            modifier = modifier
         )
     }
     composable(BuilderSectionsTabs.OREO.route) {

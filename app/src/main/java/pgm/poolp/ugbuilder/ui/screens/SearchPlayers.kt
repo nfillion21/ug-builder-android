@@ -30,94 +30,86 @@ fun SearchPlayers(
     selectPlayer: (String) -> Unit,
     switchShowVillains: (Boolean) -> Unit,
     enableSortByName: (Boolean) -> Unit,
-    enableSortBySide: (Boolean) -> Unit
+    enableSortBySide: (Boolean) -> Unit,
+    modifier: Modifier
 ) {
+    Column(modifier = modifier.statusBarsPadding()) {
 
-    LazyColumn(modifier = Modifier
-    ) {
-        item {
-            CoursesAppBar()
-        }
-
-        /*
-        item {
-            Row(
-                modifier = Modifier
-
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Reorder,
-                    contentDescription = null,
-                    tint = LocalContentColor.current.copy(alpha = 0.5f),
-                )
-
-                Spacer(modifier = Modifier.width(16.dp))
-
-                val sortOrder = statePlayers?.sortOrder ?: SortOrder.NONE
-
-                SortChip(
-                    text = "Name",
-                    selected = sortOrder == SortOrder.BY_NAME
-                            || sortOrder == SortOrder.BY_NAME_AND_PRICE,
-                    setSelected = enableSortByName,
-                    shape = RoundedCornerShape(14.dp)
-                )
-
-                Spacer(modifier = Modifier.width(16.dp))
-
-                SortChip(
-                    text = "Price",
-                    selected = sortOrder == SortOrder.BY_PRICE
-                            || sortOrder == SortOrder.BY_NAME_AND_PRICE,
-                    setSelected = enableSortBySide,
-                    shape = RoundedCornerShape(14.dp)
-                )
+        LazyColumn(modifier = Modifier.weight(1f)) {
+            item {
+                CoursesAppBar()
             }
-        }
 
-        item {
-            Row(modifier = Modifier) {
-                Icon(
-                    imageVector = Icons.Default.Sort,
-                    contentDescription = null,
-                    tint = LocalContentColor.current.copy(alpha = 0.5f),
-                )
-
-                Spacer(modifier = Modifier.width(16.dp))
-
+            val players = statePlayers?.players ?: listOf()
+            items(players) { hero ->
                 Text(
-                    modifier = Modifier.wrapContentWidth(),
-                    text = "Show villains only",
-                    style = MaterialTheme.typography.subtitle1
-                )
-
-                Spacer(modifier = Modifier.width(16.dp))
-
-                val showVillains = statePlayers?.showVillains ?: false
-                Checkbox(
-                    checked = showVillains,
-                    onCheckedChange = switchShowVillains
+                    text = hero.name,
+                    style = MaterialTheme.typography.h5,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable(onClick = { selectPlayer(hero.heroId) })
+                        .padding(
+                            start = 16.dp,
+                            top = 8.dp,
+                            end = 16.dp,
+                            bottom = 8.dp
+                        )
+                        .wrapContentWidth(Alignment.Start)
                 )
             }
         }
 
-        */
+        Row(modifier = Modifier.padding(all = 16.dp)) {
+            Icon(
+                imageVector = Icons.Default.Reorder,
+                contentDescription = null,
+                tint = LocalContentColor.current.copy(alpha = 0.5f),
+            )
 
-        val players = statePlayers?.players ?: listOf()
-        items(players) { hero ->
+            Spacer(modifier = Modifier.width(16.dp))
+
+            val sortOrder = statePlayers?.sortOrder ?: SortOrder.NONE
+
+            SortChip(
+                text = "Name",
+                selected = sortOrder == SortOrder.BY_NAME
+                        || sortOrder == SortOrder.BY_NAME_AND_PRICE,
+                setSelected = enableSortByName,
+                shape = RoundedCornerShape(14.dp)
+            )
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            SortChip(
+                text = "Price",
+                selected = sortOrder == SortOrder.BY_PRICE
+                        || sortOrder == SortOrder.BY_NAME_AND_PRICE,
+                setSelected = enableSortBySide,
+                shape = RoundedCornerShape(14.dp)
+            )
+        }
+
+        Row(modifier = Modifier.padding(all = 16.dp)) {
+            Icon(
+                imageVector = Icons.Default.Sort,
+                contentDescription = null,
+                tint = LocalContentColor.current.copy(alpha = 0.5f),
+            )
+
+            Spacer(modifier = Modifier.width(16.dp))
+
             Text(
-                text = hero.name,
-                style = MaterialTheme.typography.h5,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable(onClick = { selectPlayer(hero.heroId) })
-                    .padding(
-                        start = 16.dp,
-                        top = 8.dp,
-                        end = 16.dp,
-                        bottom = 8.dp
-                    )
-                    .wrapContentWidth(Alignment.Start)
+                modifier = Modifier.wrapContentWidth(),
+                text = "Show villains only",
+                style = MaterialTheme.typography.subtitle1
+            )
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            val showVillains = statePlayers?.showVillains ?: false
+            Checkbox(
+                checked = showVillains,
+                onCheckedChange = switchShowVillains
             )
         }
     }
