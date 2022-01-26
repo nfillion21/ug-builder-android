@@ -43,12 +43,13 @@ fun NavGraphBuilder.buildSections(
         val statePlayers: PlayersUiModel? by heroViewModel.playersUiModel.collectAsState()
         SearchPlayers(
             statePlayers = statePlayers,
+            selectPlayer = {id -> onPlayerSelected(id, it)},
             switchShowVillains = heroViewModel::showCompletedTasks,
             enableSortByName = heroViewModel::enableSortByName,
             enableSortBySide = heroViewModel::enableSortByPrice,
         )
     }
-    composable(BuilderSectionsTabs.OREO.route) { from ->
+    composable(BuilderSectionsTabs.OREO.route) {
 
         LaunchedEffect(onboardingComplete) {
             if (!onboardingComplete.value) {
@@ -59,7 +60,7 @@ fun NavGraphBuilder.buildSections(
         { // Avoid glitch when showing onboarding
             Oreo(
                 heroViewModel = hiltViewModel(),
-                selectPlayer = {id -> onPlayerSelected(id, from)},
+                selectPlayer = {id -> onPlayerSelected(id, it)},
                 modifier = modifier
             )
         }

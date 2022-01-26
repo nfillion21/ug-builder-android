@@ -25,6 +25,7 @@ import pgm.poolp.ugbuilder.viewmodels.PlayersUiModel
 @Composable
 fun SearchPlayers(
     statePlayers: PlayersUiModel?,
+    selectPlayer: (String) -> Unit,
     switchShowVillains: (Boolean) -> Unit,
     enableSortByName: (Boolean) -> Unit,
     enableSortBySide: (Boolean) -> Unit
@@ -38,8 +39,6 @@ fun SearchPlayers(
             item {
                 CoursesAppBar()
             }
-
-
                 item {
 
                     Row(modifier = Modifier.padding(all = 16.dp)) {
@@ -108,7 +107,7 @@ fun SearchPlayers(
                         style = MaterialTheme.typography.h5,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable(onClick = { /* todo */ })
+                            .clickable(onClick = { selectPlayer(hero.heroId) })
                             .padding(
                                 start = 16.dp,
                                 top = 8.dp,
