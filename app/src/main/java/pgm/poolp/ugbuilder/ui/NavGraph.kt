@@ -48,6 +48,7 @@ fun BuilderNavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
+        /*
         composable(MainRoutes.ONBOARDING_ROUTE) {
             // Intercept back in Onboarding: make it finish the activity
             BackHandler {
@@ -62,6 +63,7 @@ fun BuilderNavGraph(
                 }
             )
         }
+        */
         navigation(
             route = MainRoutes.OREO_ROUTE,
             startDestination = BuilderSectionsTabs.OREO.route

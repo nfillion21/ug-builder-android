@@ -51,6 +51,7 @@ fun NavGraphBuilder.buildSections(
     }
     composable(BuilderSectionsTabs.OREO.route) {
 
+        /*
         LaunchedEffect(onboardingComplete) {
             if (!onboardingComplete.value) {
                 navController.navigate(MainRoutes.ONBOARDING_ROUTE)
@@ -64,6 +65,13 @@ fun NavGraphBuilder.buildSections(
                 modifier = modifier
             )
         }
+        */
+
+        Oreo(
+            heroViewModel = hiltViewModel(),
+            selectPlayer = {id -> onPlayerSelected(id, it)},
+            modifier = modifier
+        )
     }
     composable(BuilderSectionsTabs.CART.route)
     {

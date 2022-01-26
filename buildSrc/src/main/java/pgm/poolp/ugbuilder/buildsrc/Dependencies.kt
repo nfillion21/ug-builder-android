@@ -82,7 +82,7 @@ object Libs {
         }
 
         object Coroutine {
-            private const val version = "2.4.0"
+            private const val version = "2.7.0"
             const val workRuntime = "androidx.work:work-runtime-ktx:$version"
         }
 
