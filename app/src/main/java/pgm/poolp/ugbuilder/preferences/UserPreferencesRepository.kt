@@ -39,7 +39,7 @@ data class UserPreferences(
 /**
  * Class that handles saving and retrieving user preferences
  */
-class UserPreferencesRepositoryImpl @Inject constructor(private val dataStore: DataStore<Preferences>) {
+class UserPreferencesRepository @Inject constructor(private val dataStore: DataStore<Preferences>) {
 
     private val TAG: String = "UserPreferencesRepo"
 

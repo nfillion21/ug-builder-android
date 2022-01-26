@@ -11,7 +11,7 @@ import pgm.poolp.ugbuilder.data.Hero
 import pgm.poolp.ugbuilder.data.HeroRepository
 import pgm.poolp.ugbuilder.preferences.SortOrder
 import pgm.poolp.ugbuilder.preferences.UserPreferences
-import pgm.poolp.ugbuilder.preferences.UserPreferencesRepositoryImpl
+import pgm.poolp.ugbuilder.preferences.UserPreferencesRepository
 import javax.inject.Inject
 
 data class PlayersUiModel(
@@ -23,7 +23,7 @@ data class PlayersUiModel(
 @HiltViewModel
 class HeroViewModel @Inject internal constructor(
     private val heroRepository: HeroRepository,
-    private val userPreferencesRepositoryImpl: UserPreferencesRepositoryImpl
+    private val userPreferencesRepository: UserPreferencesRepository
 ) : ViewModel()
 {
     val allHeroes: LiveData<List<Hero>> = heroRepository.allHeroes.asLiveData()
@@ -34,7 +34,7 @@ class HeroViewModel @Inject internal constructor(
     // we should recreate the list of tasks
     private val playersUiModelFlow = combine(
         heroRepository.allPlayers,
-        userPreferencesRepositoryImpl.userPreferencesFlow
+        userPreferencesRepository.userPreferencesFlow
     ) { players: List<Hero>, userPreferences: UserPreferences ->
         return@combine PlayersUiModel(
             players = filteredPlayers(
@@ -63,19 +63,19 @@ class HeroViewModel @Inject internal constructor(
 
     fun showCompletedTasks(show: Boolean) {
         viewModelScope.launch {
-            userPreferencesRepositoryImpl.updateShowVillains(show)
+            userPreferencesRepository.updateShowVillains(show)
         }
     }
 
     fun enableSortByName(enable: Boolean) {
         viewModelScope.launch {
-            userPreferencesRepositoryImpl.enableSortByName(enable)
+            userPreferencesRepository.enableSortByName(enable)
         }
     }
 
     fun enableSortByPrice(enable: Boolean) {
         viewModelScope.launch {
-            userPreferencesRepositoryImpl.enableSortByPrice(enable)
+            userPreferencesRepository.enableSortByPrice(enable)
         }
     }
 }

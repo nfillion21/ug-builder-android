@@ -26,6 +26,12 @@ class CartViewModel @Inject internal constructor(
         }
     }
 
+    fun delete(playerCartCrossRef: PlayerCartCrossRef) {
+        viewModelScope.launch {
+            cartRepository.deletePlayerCart(playerCartCrossRef)
+        }
+    }
+
     fun getPlayerCart(cardId:String): StateFlow<CartWithPlayers?> {
         return cartRepository.getCartWithPlayers(cardId).stateIn(viewModelScope, SharingStarted.Eagerly, null)
     }

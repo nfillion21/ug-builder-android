@@ -26,6 +26,7 @@ import pgm.poolp.ugbuilder.R
 import pgm.poolp.ugbuilder.ui.MainRoutes
 import androidx.hilt.navigation.compose.hiltViewModel
 import pgm.poolp.ugbuilder.data.CartWithPlayers
+import pgm.poolp.ugbuilder.data.PlayerCartCrossRef
 import pgm.poolp.ugbuilder.viewmodels.CartViewModel
 import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
 import pgm.poolp.ugbuilder.viewmodels.PlayersUiModel
@@ -69,18 +70,11 @@ fun NavGraphBuilder.buildSections(
         val cartWithPlayers:CartWithPlayers? by cartViewModel.getPlayerCart("tmnt").collectAsState()
         Cart(
             cartWithPlayers = cartWithPlayers,
+            removeFromCart = { playerId ->
+                cartViewModel.delete(PlayerCartCrossRef(playerId,"tmnt"))
+            },
             modifier = modifier)
     }
-
-    /*
-    composable(BuilderSectionsTabs.FEATURED.route) { from ->
-        OreoGrid(
-            courses = courses,
-            selectCourse = { id -> onPlayerSelected(id, from) },
-            modifier = modifier
-        )
-    }
-     */
 }
 
 @Composable

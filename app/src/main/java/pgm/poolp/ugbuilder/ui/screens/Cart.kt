@@ -42,6 +42,7 @@ import pgm.poolp.ugbuilder.viewmodels.HeroViewModel
 @Composable
 fun Cart(
     cartWithPlayers: CartWithPlayers?,
+    removeFromCart: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier
@@ -55,7 +56,8 @@ fun Cart(
         val players = cartWithPlayers?.players ?: listOf()
         items(players) { player ->
             CartItem(
-                player = player
+                player = player,
+                removePlayer = removeFromCart
             )
         }
     }
@@ -64,9 +66,8 @@ fun Cart(
 @Composable
 fun CartItem(
     modifier: Modifier = Modifier,
-    player: Hero
-    //removePlayer: (Long) -> Unit,
-    //addPlayer: (Player) -> Unit
+    player: Hero,
+    removePlayer: (String) -> Unit
 ) {
     //val snack = orderLine.snack
     ConstraintLayout(
@@ -98,7 +99,7 @@ fun CartItem(
             }
         )
         IconButton(
-            onClick = { /*removePlayer(player.id)*/ },
+            onClick = { removePlayer(player.heroId) },
             modifier = Modifier
                 .constrainAs(remove) {
                     top.linkTo(parent.top)

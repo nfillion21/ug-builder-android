@@ -90,7 +90,6 @@ fun BuilderNavGraph(
                     playerViewModel = playerViewModel,
                     cartViewModel = cartViewModel,
                     addToCart = { playerId ->
-                        //actions.relatedCourse(newCourseId, backStackEntry)
                         cartViewModel.insert(PlayerCartCrossRef(playerId,"tmnt"))
                     },
                     upPress = { actions.upPress(backStackEntry) }

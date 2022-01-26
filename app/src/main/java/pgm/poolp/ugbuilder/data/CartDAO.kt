@@ -14,4 +14,7 @@ interface CartDAO {
     @Transaction
     @Query("select * from cart where cartId = :cartId")
     fun getCartWithPlayers(cartId: String): Flow<CartWithPlayers>
+
+    @Delete
+    suspend fun deletePlayerCart(playerCartCrossRef: PlayerCartCrossRef)
 }
