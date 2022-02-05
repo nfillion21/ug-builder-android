@@ -1,79 +1,65 @@
 [
   {
-    "heroId": "leonardo",
-    "name": "Leonardo",
+    "heroId": "mightyzug",
+    "name": "Mighty Zug",
     "side": "Hero",
-    "imageUrl": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/04/17/14/teenage-mutant-ninja-turtles-film.jpg?width=982&height=726&auto=webp&quality=75",
+    "imageUrl": "https://www.ug-data.xyz/heroes/images/mightyzug.jpeg",
     "price" : 499
   },
   {
-    "heroId": "michelangelo",
-    "name": "Michelangelo",
+    "heroId": "griff",
+    "name": "Griff Oberwald",
     "side": "Hero",
-    "imageUrl": "https://d1nslcd7m2225b.cloudfront.net/Pictures/1024x536/6/7/1/1201671_Teenage-Mutant-Ninja-Turtles-1.jpg",
+    "imageUrl": "https://www.ug-data.xyz/heroes/images/griff.jpeg",
     "price" : 499
   },
   {
-    "heroId": "donatello",
-    "name": "Donatello",
+    "heroId": "eldril",
+    "name": "Eldril",
     "side": "Hero",
-    "imageUrl": "https://wallpaperaccess.com/full/124301.jpg",
+    "imageUrl": "https://www.ug-data.xyz/heroes/images/eldril.jpeg",
     "price" : 499
   },
   {
-    "heroId": "raphael",
-    "name": "Raphael",
+    "heroId": "grombrindal",
+    "name": "Grombrindal",
     "side": "Hero",
-    "imageUrl": "https://i.ytimg.com/vi/G0NjKoVPd74/maxresdefault.jpg",
+    "imageUrl": "https://www.ug-data.xyz/heroes/images/grombrindal.jpeg",
     "price" : 499
   },
   {
-    "heroId": "splinter",
-    "name": "Splinter",
+    "heroId": "roxanna",
+    "name": "Rozanna Darknail",
     "side": "Ally",
-    "imageUrl": "https://a1cf74336522e87f135f-2f21ace9a6cf0052456644b80fa06d4f.ssl.cf2.rackcdn.com/images/characters/large/800/Splinter.Teenage-Mutant-Ninja-Turtles.webp",
+    "imageUrl": "https://www.ug-data.xyz/heroes/images/roxanna.jpeg",
     "price" : 899
   },
   {
-    "heroId": "april",
-    "name": "April O'Neil",
+    "heroId": "varag",
+    "name": "Varag",
     "side": "Ally",
-    "imageUrl": "https://static0.cbrimages.com/wordpress/wp-content/uploads/2018/04/April-ONeil.jpg",
+    "imageUrl": "https://www.ug-data.xyz/heroes/images/varag.png",
     "price" : 599
   },
   {
-    "heroId": "casey",
-    "name": "Casey Jones",
-    "side": "Ally",
-    "imageUrl": "https://i.pinimg.com/originals/c3/f2/8b/c3f28bce41bb0790ccf9ebb80d8370bd.jpg",
-    "price" : 399
-  },
-  {
-    "heroId": "shredder",
-    "name": "Shredder",
+    "heroId": "morg",
+    "name": "Morn 'n' Thorg",
     "side": "Villain",
-    "imageUrl": "https://www.blacksbricks.de/images/product_images/original_images/shredderpcs11.jpg",
+    "imageUrl": "https://www.ug-data.xyz/heroes/images/morg.png",
     "price" : 999
   },
   {
-    "heroId": "krang",
-    "name": "Krang",
+    "heroId": "karla",
+    "name": "Karla Von Kill",
     "side": "Villain",
-    "imageUrl": "https://sm.ign.com/t/ign_za/news/w/will-krang/will-krang-be-in-ninja-turtles-2_qah3.1280.jpg",
+    "imageUrl": "https://www.ug-data.xyz/heroes/images/karla.jpeg",
     "price" : 599
   },
   {
-    "heroId": "bebop",
-    "name": "Bebop",
+    "heroId": "lordborak",
+    "name": "Lord Borak",
     "side": "Villain",
-    "imageUrl": "https://images.goodsmile.info/cgm/images/product/20161207/6119/42749/large/ada4ef72d300fddf0759c27cdcb2d18b.jpg",
-    "price" : 299
-  },
-  {
-    "heroId": "rocksteady",
-    "name": "Rocksteady",
-    "side": "Villain",
-    "imageUrl": "https://cdn.shopify.com/s/files/1/0059/2602/7298/products/TMNT_Rocksteady_Hero_2048x2048_2048x2048_d377fbec-325e-4d9c-9040-a5c55f571fac.png?v=1593142006",
+    "imageUrl": "https://www.ug-data.xyz/heroes/images/lordborak.jpg",
     "price" : 299
   }
 ]
