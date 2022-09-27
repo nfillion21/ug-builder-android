@@ -45,6 +45,7 @@ fun UGBuilderApp(finishActivity: () -> Unit) {
     }
 }
 
+
 @Composable
 fun OwlBottomBar(navController: NavController, tabs: Array<BuilderSectionsTabs>) {
 

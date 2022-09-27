@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "pgm.poolp.ugbuilder",
+  "applicationId": "pgm.poolp.adventures",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 3,
-      "versionName": "0.3",
+      "versionCode": 4,
+      "versionName": "0.4",
       "outputFile": "app-release.apk"
     }
   ],

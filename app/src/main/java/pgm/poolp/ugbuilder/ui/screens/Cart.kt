@@ -165,7 +165,7 @@ fun PlayerItem(
             )
             Text(
                 //text = course.steps.toString(), price
-                text = "100",
+                text = player.price.toString(),
                 color = MaterialTheme.colors.primary,
                 style = MaterialTheme.typography.subtitle2,
                 modifier = Modifier

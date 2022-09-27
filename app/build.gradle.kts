@@ -9,7 +9,7 @@ android {
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
-        applicationId = "pgm.poolp.adventures"
+        applicationId = "pgm.poolp.ugbuilder"
         minSdk = ConfigData.minSdkVersion
         targetSdk = ConfigData.targetSdkVersion
         versionCode = ConfigData.versionCode
