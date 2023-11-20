@@ -49,7 +49,7 @@ android {
         jvmTarget = "1.8"
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.1"
+        kotlinCompilerExtensionVersion = "1.4.6"
     }
     packagingOptions {
         resources {
@@ -69,6 +69,7 @@ dependencies {
     implementation(Dependencies.iconsExtended)
     androidTestImplementation (Dependencies.uiTestJUnit4Compose)
     debugImplementation (Dependencies.uiToolingCompose)
+    implementation(Dependencies.navigationCompose)
 
     implementation (Dependencies.lifecycleRuntime)
     implementation (Dependencies.lifecycleLivedata)

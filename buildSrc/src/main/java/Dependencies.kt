@@ -13,6 +13,7 @@ object Dependencies {
     val uiTestJUnit4Compose by lazy { "androidx.compose.ui:ui-test-junit4:${Versions.composeVersion}" }
     val uiToolingCompose by lazy { "androidx.compose.ui:ui-tooling:${Versions.composeVersion}" }
     val runtimeLiveData by lazy { "androidx.compose.runtime:runtime-livedata:${Versions.composeVersion}"}
+    val navigationCompose by lazy { "androidx.navigation:navigation-compose:${Versions.navigationCompose}"}
 
     val iconsExtended by lazy {"androidx.compose.material:material-icons-extended:${Versions.composeVersion}"}
 

@@ -3,63 +3,63 @@
     "heroId": "mightyzug",
     "name": "Mighty Zug",
     "side": "Hero",
-    "imageUrl": "https://www.ug-data.xyz/heroes/images/mightyzug.jpeg",
+    "imageUrl": "https://www.poolp.xyz/heroes/images/mightyzug.jpeg",
     "price" : 499
   },
   {
     "heroId": "griff",
     "name": "Griff Oberwald",
     "side": "Hero",
-    "imageUrl": "https://www.ug-data.xyz/heroes/images/griff.jpeg",
+    "imageUrl": "https://www.poolp.xyz/heroes/images/griff.jpeg",
     "price" : 499
   },
   {
     "heroId": "eldril",
     "name": "Eldril",
     "side": "Hero",
-    "imageUrl": "https://www.ug-data.xyz/heroes/images/eldril.jpeg",
+    "imageUrl": "https://www.poolp.xyz/heroes/images/eldril.jpeg",
     "price" : 499
   },
   {
     "heroId": "grombrindal",
     "name": "Grombrindal",
     "side": "Hero",
-    "imageUrl": "https://www.ug-data.xyz/heroes/images/grombrindal.jpeg",
+    "imageUrl": "https://www.poolp.xyz/heroes/images/grombrindal.jpeg",
     "price" : 499
   },
   {
     "heroId": "roxanna",
     "name": "Rozanna Darknail",
     "side": "Ally",
-    "imageUrl": "https://www.ug-data.xyz/heroes/images/roxanna.jpeg",
+    "imageUrl": "https://www.poolp.xyz/heroes/images/roxanna.jpeg",
     "price" : 899
   },
   {
     "heroId": "varag",
     "name": "Varag",
     "side": "Ally",
-    "imageUrl": "https://www.ug-data.xyz/heroes/images/varag.png",
+    "imageUrl": "https://www.poolp.xyz/heroes/images/varag.png",
     "price" : 599
   },
   {
     "heroId": "morg",
     "name": "Morn 'n' Thorg",
     "side": "Villain",
-    "imageUrl": "https://www.ug-data.xyz/heroes/images/morg.png",
+    "imageUrl": "https://www.poolp.xyz/heroes/images/morg.png",
     "price" : 999
   },
   {
     "heroId": "karla",
     "name": "Karla Von Kill",
     "side": "Villain",
-    "imageUrl": "https://www.ug-data.xyz/heroes/images/karla.jpeg",
+    "imageUrl": "https://www.poolp.xyz/heroes/images/karla.jpeg",
     "price" : 599
   },
   {
     "heroId": "lordborak",
     "name": "Lord Borak",
     "side": "Villain",
-    "imageUrl": "https://www.ug-data.xyz/heroes/images/lordborak.jpg",
+    "imageUrl": "https://www.poolp.xyz/heroes/images/lordborak.jpg",
     "price" : 299
   }
 ]
